@@ -1,0 +1,11 @@
+<input #nickname id="nickname-input" type="text" placeholder="Nickname" (input)="nicknameInsert(nickname.value)">
+
+<input #password id="password-input" type="text" placeholder="Password" (input)="passwordInsert(password.value)">
+
+<h1 id="error-login">{{error}}</h1>
+
+<button (click)="entrar()">
+    Entrar
+</button>
+
+<h2>Não tens uma conta? <a href="/registar">Regista-te</a></h2>
