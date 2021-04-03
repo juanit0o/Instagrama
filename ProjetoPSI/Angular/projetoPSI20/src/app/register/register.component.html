@@ -1,1 +1,35 @@
-<p>register works!</p>
+<div class="all-app">
+    <div class="main">
+      <div class="logo-div">
+        <img src="assets/logo_azul.png">
+        <h1>InstPhotos</h1>
+      </div>
+    <div class="register-box">
+        <button [class.selected]="tipo == fotografo" (click)="souFotografo()">
+            Fotógrafo
+        </button>
+        <button [class.selected]="tipo == utilizador" (click)="souUtilizador()">
+            Utilizador
+        </button>
+
+            <div class="input-box">
+                <input #nickname id="nickname-input" type="text" placeholder="Nickname" (input)="nicknameRegister(nickname.value)">
+                <input #password id="password-input" type="text" placeholder="Password" (input)="passwordRegister(password.value)">
+        
+                <h1 id="error-register" *ngIf="error">erro</h1>
+
+                <button (click)="registar()">
+                    Registar
+                </button>
+            </div>
+
+        
+        <h2>Já tens uma conta? <a href="/">Inicia a Sessão!</a></h2>
+
+    </div>
+</div>
+<div class="footer">
+  <p>Faculdade de Ciências da Universidade de Lisboa - Projeto de Sistemas de Informação (2020/2021)</p>
+  <p>André Costa 52788 | Diogo Pinto 52763 | Francisco Freire 52177 | Francisco Ramalho 53472 | João Funenga 53504 | Martim Silva 51304</p>
+</div> 
+</div>

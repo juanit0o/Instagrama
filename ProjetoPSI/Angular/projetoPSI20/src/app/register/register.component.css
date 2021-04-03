@@ -1,0 +1,129 @@
+.register-box button{
+    background-color: #6897d360;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 0px solid white;
+    width: 50%;
+    height: 50px;
+    color: white;
+    font-weight: bold;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    z-index: 1;
+}
+
+.register-box button.selected{
+    background-color: #004196;
+    z-index: 99;
+}
+
+.register-box button:focus {
+    outline: 1;
+}
+
+
+
+.input-box {
+    background-color: #004196;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    flex:1;
+    padding: 20px;
+    text-align: center;
+}
+
+.input-box button {
+    background-color: #f2cb05;
+    border: 0px solid white;
+    width: 6rem;
+    height: 2.5rem;
+    margin: auto;
+    margin-top: 15px;
+
+    
+    border-radius: 5px;
+    color: white;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+h3 {
+    padding-top: 10px;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-size: 0.7rem;
+    color: white;
+    margin: 0px;
+}
+
+h2{
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    font-weight: lighter;
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+a {
+    font-weight: bold;
+}
+
+#nickname-input {
+    margin-bottom: 10px;
+}
+
+input {
+    padding: 0.5rem;
+    margin: auto;
+    min-width: 90%;
+    
+    border-radius: 5px;
+    border: 0px solid white;
+
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+}
+
+.all-app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    padding: 5px;
+    max-width: 320px;
+}   
+
+.logo-div {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding-bottom: 1.5rem;
+}
+
+.logo-div img{
+    height: 3rem;
+    width: 3rem;
+}
+
+.footer {
+    margin-bottom: 3rem;
+}
+
+h1 {
+    color: #004196;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    margin: auto;
+    padding-left: 15px;
+}
+
+p {
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    text-align: center;
+    font-size: 0.6rem;
+    margin: 1px;
+}
