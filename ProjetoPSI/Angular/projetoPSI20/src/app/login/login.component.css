@@ -1,3 +1,4 @@
+
 .input-box {
     background-color: #004196;
     border-radius: 10px;
@@ -101,4 +102,15 @@ p {
     text-align: center;
     font-size: 0.6rem;
     margin: 1px;
+}
+
+
+@media only screen and (max-width: 300px) {
+    .logo-div h1 {
+        display: none;
+    }
+    .input-box{
+        padding-left: 1px;
+        padding-right: 1px;
+    }
 }

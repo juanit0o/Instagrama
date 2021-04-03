@@ -1,0 +1,110 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    max-width: 800px;
+
+    justify-content: space-between;
+    padding: 20px 20px 20px 20px;
+
+}
+
+#utilizador {
+    display: flex;
+}
+
+.logo-div{
+    display: flex;
+    justify-content: left;
+    height: 50px;
+    width: 50px;
+}
+
+#botaoPerfil{
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 35px;
+    width: 35px;
+}
+
+
+#utilizador img {
+    height: 35px;
+    width: 35px;
+}
+
+h1{
+    justify-content: right;
+    font-size: 1.5rem;
+
+    padding-left: 15px;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #004196;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+}
+
+h2 {
+    font-size: 0.9rem;
+    color: #555555;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    justify-content: right;
+    text-align: center;
+    padding-right: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    font-size: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px
+        0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+
+
+@media only screen and (max-width: 400px) {
+
+    h1, h2 {
+        display: none;
+    }
+
+}

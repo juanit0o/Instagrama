@@ -1,0 +1,24 @@
+<app-header></app-header>
+
+<div class="ordenaDiv">
+    <label for="ordenar">Ordenar por: </label>
+    <select name="ordenarPor" id="ordenar">
+        <option value="ascendente"> Mais Recentes</option>
+        <option value="descendente"> Mais Antigas</option>
+        <option value="maisLikes"> Mais Likes</option>
+    </select>
+</div>
+
+<div class="photosFeed">
+    <ul class="photosList">
+        <li *ngFor="let photo of photos">
+            <img src={{photo.photoPath}}>
+            <h2>{{photo.dono}}</h2>
+            <h3>{{photo.likes}}</h3>
+            </li>
+    </ul>
+
+
+</div>
+
+    

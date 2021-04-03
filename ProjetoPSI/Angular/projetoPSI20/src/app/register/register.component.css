@@ -1,4 +1,11 @@
-.register-box button{
+@media only screen and (max-width: 300px) {
+    .logo-div h1 {
+        display: none;
+    }
+}
+
+
+.type-selected button{
     background-color: #6897d360;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -11,16 +18,20 @@
     z-index: 1;
 }
 
-.register-box button.selected{
+.type-selected button.selected{
     background-color: #004196;
     z-index: 99;
 }
 
-.register-box button:focus {
-    outline: 1;
+.type-selected button.selected:focus {
+    outline: 0;
+    background-image: linear-gradient(#001a3b, #004196);
 }
 
-
+.type-selected   button:focus {
+    outline: 0;
+    background-image: linear-gradient(rgb(104, 104, 104), #6897d360);
+}
 
 .input-box {
     background-color: #004196;
@@ -52,6 +63,7 @@ h3 {
     font-size: 0.7rem;
     color: white;
     margin: 0px;
+    white-space: pre-line;
 }
 
 h2{
@@ -135,4 +147,15 @@ p {
     color: black;
     margin: 0px;
     text-align: center;
+}
+
+
+@media only screen and (max-width: 300px) {
+    .logo-div h1 {
+        display: none;
+    }
+    .input-box{
+        padding-left: 1px;
+        padding-right: 1px;
+    }
 }

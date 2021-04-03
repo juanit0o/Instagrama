@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -9,152 +9,184 @@ export class RegisterComponent implements OnInit {
 
   private nick;
   private pw;
+
   public error;
+  private listError : string[];
 
   public fotografo;
   public utilizador;
   public tipo;
   
-
   constructor() { 
     this.nick = "";
     this.pw = ""
-    //this.error = "Nickname must have at least 3 chars." +  '\n' + "Your nickname cannot have special characters." + '\n' + 
-    //"Password must be at least 8 chars." + '\n' + "Password must have at least one digit." + '\n' + 
-    //"Password must have at least one lowercase letter." + '\n' + "Password must have at least one uppercase letter.";
+    
     this.error = "";
+    this.listError = [];
 
     this.fotografo = "fotografo";
     this.utilizador = "utilizador";
     this.tipo = "fotografo";
-    
   }
 
   ngOnInit(): void {
+    this.nicknameRegister("");
+    this.passwordRegister("");
   }
  
   //ATUALIZA O NICK QUANDO O INPUT É ALTERADO
- nicknameRegister(nick: string): void {
+  nicknameRegister(nick: string): void {
     this.nick = nick;
+
+    //PELO MENOS 3 CHARS
+    const msg = "Nickname deve ter pelo menos 3 caracteres\n";
+    if(!this.nick || this.nick.length < 3){
+      if(!this.listError.includes(msg)){
+        this.listError.push(msg);
+      }
+    } else {
+      if(this.listError.includes(msg)){
+        const index = this.listError.indexOf(msg, 0);
+        if (index > -1) {
+          this.listError.splice(index, 1);
+        }
+      }
+    }
+
+    //NAO PODE TER CHARS ESPECIAIS
+    const msg2 = "Nickname não pode ter caracteres especiais\n";
+    if(this.nick.match("^(?=.*[@$!%*?&#^-])")){
+      if(!this.listError.includes(msg2)){
+        this.listError.push(msg2);
+      }
+    } else {
+      if(this.listError.includes(msg2)){
+        const index = this.listError.indexOf(msg2, 0);
+        if (index > -1) {
+          this.listError.splice(index, 1);
+        }
+      }
+    }
+
+    this.updateErrorMensage();
   }
 
    //ATUALIZA O NICK QUANDO O INPUT É ALTERADO
- passwordRegister(pw: string): void {
+  passwordRegister(pw: string): void {
     this.pw = pw;
+    
+    //PASS TEM DE TER PELO MENOS 8 CHARS
+    const msg3 = "Password deve ter no mínimo 8 caracteres\n";
+    if(!this.pw || this.pw.length < 8){
+      if(!this.listError.includes(msg3)){
+        this.listError.push(msg3);
+      }
+    } else {
+      if(this.listError.includes(msg3)){
+        const index = this.listError.indexOf(msg3, 0);
+        if (index > -1) {
+          this.listError.splice(index, 1);
+        }
+      }
+    }
+
+    //PASS TEM DE TER PELO MENOS UM DIGITO
+    const msg4 = "Password deve ter no mínimo 1 dígito\n";
+    if(!this.pw.match("^(?=.*[0-9])")){
+      if(!this.listError.includes(msg4)){
+        this.listError.push(msg4);
+      }
+    } else {
+      if(this.listError.includes(msg4)){
+        const index = this.listError.indexOf(msg4, 0);
+        if (index > -1) {
+          this.listError.splice(index, 1);
+        }
+      }
+    }
+
+    //PASS TEM DE TER PELO MENOS UM LOWERCASE LETTER
+    const msg5 = "Password deve ter pelo menos uma letra minúscula\n";
+    if(!this.pw.match("^(?=.*[a-z])")){
+      if(!this.listError.includes(msg5)){
+        this.listError.push(msg5);
+      }
+    } else {
+      if(this.listError.includes(msg5)){
+        const index = this.listError.indexOf(msg5, 0);
+        if (index > -1) {
+          this.listError.splice(index, 1);
+        }
+      }
+    }
+
+    //PASS TEM DE TER PELO MENOS UM UPPERCASE LETTER
+    const msg6 = "Password deve ter pelo menos uma letra maiúscula\n";
+    if(!this.pw.match("^(?=.*[A-Z])")){
+      if(!this.listError.includes(msg6)){
+        this.listError.push(msg6);
+      }
+    } else {
+      if(this.listError.includes(msg6)){
+        const index = this.listError.indexOf(msg6, 0);
+        if (index > -1) {
+          this.listError.splice(index, 1);
+        }
+      }
+    }
+   
+    this.updateErrorMensage();
+  }
+
+  updateErrorMensage(){
+    this.error = "";
+    this.listError.forEach(e => this.error += e);
   }
 
   registar(): void {
-    //TODO tou ma passar com esta merda, tentar fazer aparecer os requisitos todos (como ele quer) e ir apagando à medida que vai ficando bem construida
-    //this.error = "Nickname must have at least 3 chars." +  '\n' + "Your nickname cannot have special characters." + '\n' + 
-    //"Password must be at least 8 chars." + '\n' + "Password must have at least one digit." + '\n' + 
-    //"Password must have at least one lowercase letter." + '\n' + "Password must have at least one uppercase letter.";
-
-    console.log("ENTREI registar " + this.nick + " " + this.pw);
-
+    
     //NICK TEM DE TER PELO MENOS 3 CARACTERS
     if(!this.nick || this.nick.length < 3){
-
-      console.log("NICK PEQUENO");
-      //if(!this.error.includes("Nickname must have at least 3 chars")){
-      //  this.error += "Nickname must have at least 3 chars";
-     // }else{return;}
-
-     this.error = "Nickname must have at least 3 chars";
       return;
     }
-
-    /*
-    console.log(this.error);
-    var temp = this.error.replace("Nickname must have at least 3 chars." + '\n', "");
-    this.error = temp;
-    console.log(this.error);
-    console.log(temp);*/
-  
-
+    //NICK NAO PODE TER CHARS ESPECIAIS
     if(this.nick.match("^(?=.*[@$!%*?&#^-])")){
-      //this.error = "Your nickname cannot have special characters";
-      console.log("carateres especiais no nome");
-     // if(!this.error.includes("Your nickname cannot have special characters")){
-     //   this.error += "Your nickname cannot have special characters";
-     // }else{}
-     this.error = "Your nickname cannot have special characters";
       return;
     }
 
-    /*
-    console.log(temp);
-    var temp = this.error.replace("Your nickname cannot have special characters." + '\n', "");
-    this.error = temp;
-    console.log(temp);*/
-
-    //FAZER LOGIN E ENTRAR NO SITE
-    //TODO *******************************************************************************************
+    //PASS TEM DE TER PELO MENOS 8 CHARS
     if(!this.pw || this.pw.length < 8){
-      console.log("PQ PEQUENA");
-      //this.error = "Password must be at least 8 chars";
-      //if(!this.error.includes("Password must be at least 8 chars")){
-      //  this.error += "Password must be at least 8 chars";
-     // }else{}
-     this.error = "Password must be at least 8 chars";
       return;
     }
-    
-    	/*
-    var temp = this.error.replace("Password must be at least 8 chars." + '\n', "");
-    this.error = temp;
-     */
-
- 
-    //TODO - SEPARAR ISTO 
-    //if(!this.pw.match("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$")){
+    //PASS TEM DE TER PELO MENOS UM DIGITO
     if(!this.pw.match("^(?=.*[0-9])")){
-      console.log("FALTA NRS");
-     // this.error = "Password must have at least one digit";
-     //if(!this.error.includes("Password must have at least one digit")){
-    //  this.error += "Password must have at least one digit";
-    //  }else{}
-    this.error = "Password must have at least one digit";
       return;
     }
-    
-    /*
-    var temp = this.error.replace("Password must have at least one digit." + '\n', "");
-    this.error = temp;
-    */
-    
-
+    //PASS TEM DE TER PELO MENOS UM LOWERCASE LETTER
     if(!this.pw.match("^(?=.*[a-z])")){
-      console.log("FALTA MINSUCULAS");
-      //this.error = "Password must have at least one lowercase letter";
-     // if(!this.error.includes("Password must have at least one lowercase letter")){
-      //  this.error += "Password must have at least one lowercase letter";
-      //  }else{}
-      this.error = "Password must have at least one lowercase letter";
       return;
     }
-    
-
-    /*
-    var temp = this.error.replace("Password must have at least one lowercase letter." + '\n', "");
-    this.error = temp;
-    */
-
+    //PASS TEM DE TER PELO MENOS UM UPPERCASE LETTER
     if(!this.pw.match("^(?=.*[A-Z])")){
-      console.log("FALTA MAIUSCULAS");
-      this.error = "Password must have at least one uppercase letter";
-      //if(!this.error.includes("Password must have at least one uppercase letter")){
-      //  this.error += "Password must have at least one uppercase letter";
-       // }else{}
       return;
     }
 
-    /*
-    var temp = this.error.replace("Password must have at least one uppercase letter.", "");
-    this.error = temp;
-    console.log(this.error);
-    */
-    this.error = "";
-   // return;
+
+    const msg7 = "Nickname is already in use";
+    if(this.jaExisto()){
+      if(!this.listError.includes(msg7)){
+        this.listError.push(msg7);
+      }
+    } else {
+      //REMOVER ERROR
+      if(this.listError.includes(msg7)){
+        const index = this.listError.indexOf(msg7, 0);
+        if (index > -1) {
+          this.listError.splice(index, 1);
+        }
+      }
+      this.criarUtilizador();
+    }
 
   }
 
@@ -167,8 +199,19 @@ export class RegisterComponent implements OnInit {
   }
 
   jaExisto(): boolean {
+
+
+    //TODO
+
+
     //fazer verificacoes na bd para ver se este nickname ja existe
     return false;
+  }
+
+  criarUtilizador(): void {
+
+    //TODO METER NA BD
+
   }
 
 

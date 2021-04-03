@@ -1,0 +1,29 @@
+<app-header></app-header>
+<div class="settings">
+   <h2 id="tituloPagina"> Definições </h2>
+    <div class="bodyDefinicoes">
+        <h2 id="alterar-pass">Alterar palavra-passe</h2>
+        <div class="input-box">
+            <input #pwatual id="pwAtual-input" type="text" placeholder="Nickname" (input)="pwAtualInsert(pwatual.value)">
+            <input #pwnova id="pwNova-input" type="password" placeholder="Password Nova" (input)="pwNovaInsert(pwnova.value)">
+            <input #pwnovaconfirmacao id="pwNovaConf-input" type="password" placeholder="Confirmar Password" (input)="pwNovaConfirmarInsert(pwnovaconfirmacao.value)">
+        </div>
+        <div class="guardarAlteracoes">
+            <button (click)="guardarAlteracoes()">
+                Guardar Alterações
+            </button>
+        </div>
+        <div class="eliminarConta">
+            <h2 id="eliminar-conta">Eliminar Conta</h2>
+            <button (click)="eliminarConta()">
+                Eliminar
+            </button>
+        </div>
+        
+
+        <h2 id=""></h2>
+    </div>
+
+
+
+</div>

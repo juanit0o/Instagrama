@@ -1,46 +1,47 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var mongoose = require("mongoose");
-var passport = require("passport");
-var bodyParser = require("body-parser");
-var LocalStrategy = require("passport-local");
-var passportLocalMongoose = require("passport-local-mongoose");
-var User = require("./models/user");
+var mongoose = require('mongoose');
+//var passport = require("passport");
+//var bodyParser = require("body-parser");
+//var LocalStrategy = require("passport-local");
+//var passportLocalMongoose = require("passport-local-mongoose");
+//var User = require("./models/user");
 
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
+var cors = require('cors');
+app.use(cors())
+
+var mongoDB = "mongodb+srv://admin:admin@cluster0.7k2d1.mongodb.net/PSIProjeto?retryWrites=true&w=majority";
+mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
-mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb://localhost/auth_demo_app"); //TODO verificar que link e este
 
-
-app.use(bodyParser.urlencoded({ extended: true }));
-
+/** 
+ * app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require("express-session")({
   secret: "Rusty is a dog",
   resave: false,
   saveUninitialized: false
 }));
 
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.deserializeUser(User.deserializeUser());*/
 
 
 app.use(logger('dev'));
@@ -50,7 +51,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -76,6 +76,7 @@ app.get("/", function (req, res) {
   res.render("home");
 });
 
+/*
 // Showing secret page
 app.get("/secret", isLoggedIn, function (req, res) {
   res.render("secret");
@@ -125,10 +126,10 @@ app.get("/logout", function (req, res) {
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next();
   res.redirect("/login");
-}
+}*/
 
   
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 app.listen(port, function () {
     console.log("Server Has Started!");
 });

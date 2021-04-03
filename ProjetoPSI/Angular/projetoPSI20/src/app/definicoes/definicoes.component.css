@@ -1,0 +1,119 @@
+
+.bodyDefinicoes{
+    align-items: center;
+    justify-content: center;
+    max-width: 800px;
+}
+
+.input-box {
+    border-radius: 10px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+    max-width: 300px;
+}
+
+.bodyDefinicoes button {
+    background-color: #003F9A;
+    border: 0px solid white;
+    width: 6rem;
+    height: 2.5rem;
+    margin: auto;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.input-box input{
+    margin: 5px;
+}
+
+.guardarAlteracoes{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.guardarAlteracoes button{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+h2{
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    font-weight: lighter;
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+#tituloPagina{
+    color: #003F9A;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+#alterar-pass{
+    color: #7B7B7B;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 0px;
+}
+
+#eliminar-conta{
+    color: #7B7B7B;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 20px;
+
+}
+
+
+.eliminarConta{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+input {
+    padding: 0.5rem;
+    margin: auto;
+    min-width: 90%;
+    
+    border-radius: 5px;
+    border: 0px solid white;
+
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+}
+
+.settings {
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: auto;
+    padding: 5px;
+    max-width: 800px;
+}   
+
+@media only screen and (max-width: 400px) {
+
+    .input-box {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .input-box input{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}
