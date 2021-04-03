@@ -127,3 +127,12 @@ p {
     font-size: 0.6rem;
     margin: 1px;
 }
+
+.password-requirements {
+    padding-top: 10px;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-size: 0.7rem;
+    color: black;
+    margin: 0px;
+    text-align: center;
+}

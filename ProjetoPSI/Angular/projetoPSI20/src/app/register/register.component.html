@@ -1,7 +1,7 @@
 <div class="all-app">
     <div class="main">
       <div class="logo-div">
-        <img src="assets/logo_azul.png">
+        <img src="assets/logo.png">
         <h1>InstPhotos</h1>
       </div>
     <div class="register-box">
@@ -16,13 +16,22 @@
                 <input #nickname id="nickname-input" type="text" placeholder="Nickname" (input)="nicknameRegister(nickname.value)">
                 <input #password id="password-input" type="text" placeholder="Password" (input)="passwordRegister(password.value)">
         
-                <h1 id="error-register" *ngIf="error">erro</h1>
+                <h3 id="error-register" style="white-space: pre-line" >{{error}}</h3>
+
 
                 <button (click)="registar()">
                     Registar
                 </button>
             </div>
 
+         
+                <div class="password-requirements">
+                    <h4>Password Requirements TEMOS DE MOSTRAR (tentei fazer com que eles fossem desaparecendo ams n csg</h4>
+                    Password must be at least 8 chars.<br>
+                    Password must have at least one digit.<br>
+                    Password must have at least one lowercase letter.<br>
+                    Password must have at least one uppercase letter.<br>
+                </div>      
         
         <h2>Já tens uma conta? <a href="/">Inicia a Sessão!</a></h2>
 

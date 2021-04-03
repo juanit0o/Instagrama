@@ -22,6 +22,9 @@ export class LoginComponent implements OnInit {
 
   entrar(): void {
 
+    /* VERIFICACOES DA PW É NO REGISTO 
+
+
     this.error = "";
 
     console.log("ENTREI " + this.nick + " " + this.pw)
@@ -70,6 +73,12 @@ export class LoginComponent implements OnInit {
       this.error = "Password must have at least one uppercase letter";
       return;
     }
+
+    if(!this.pw.match("^(?=.*[@$!%*?&#^-_])")){
+      this.error = "Password cannot have special characters";
+      return;
+    }
+    */
 
   }
 
