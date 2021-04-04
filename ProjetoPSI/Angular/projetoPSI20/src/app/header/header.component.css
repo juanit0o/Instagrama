@@ -6,14 +6,18 @@
 
     justify-content: space-between;
     padding: 20px 20px 20px 20px;
-
 }
 
 #utilizador {
     display: flex;
 }
 
-.logo-div{
+.logo-div {
+    display: flex;
+    flex-direction: row;
+}
+
+.logo-div #logo{
     display: flex;
     justify-content: left;
     height: 50px;
@@ -33,7 +37,7 @@
     width: 35px;
 }
 
-h1{
+.logo-div h1{
     justify-content: right;
     font-size: 1.5rem;
 

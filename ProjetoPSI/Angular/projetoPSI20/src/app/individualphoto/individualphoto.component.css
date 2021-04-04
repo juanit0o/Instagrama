@@ -1,0 +1,51 @@
+.detalhesFotografia {
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    float: right;
+    padding-top: 50px;
+    padding-right: 120px;
+}
+
+.detalhesFotografia img{
+    height: 30px;
+    width: 30px;
+    
+}
+
+.opcoes{
+    margin: 5px;
+    justify-content:center;
+    
+}
+
+.likes{
+    justify-content:bottom;
+}
+
+.botoes{
+    display: flex;
+}
+
+.outrasopcoes div {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.type-selected div{
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+h4{
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size:1rem;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+}

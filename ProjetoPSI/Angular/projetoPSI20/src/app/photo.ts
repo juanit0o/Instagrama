@@ -1,7 +1,10 @@
 export interface Photo {
+    id: string,
     dono: string;
-    titulo: string;
+    nome: string;
     descricao: string;
     photoPath: string;
-    likes: number;
+    likes: [string];
+    favoritos: [string];
+    data: Date;
 }

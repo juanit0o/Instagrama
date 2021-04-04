@@ -1,24 +1,43 @@
 <app-header></app-header>
+<div class="feedBody">
 
-<div class="ordenaDiv">
-    <label for="ordenar">Ordenar por: </label>
-    <select name="ordenarPor" id="ordenar">
-        <option value="ascendente"> Mais Recentes</option>
-        <option value="descendente"> Mais Antigas</option>
-        <option value="maisLikes"> Mais Likes</option>
-    </select>
-</div>
+    <div class="ordenaDiv">
+        <h1>Ordenar por:</h1>
+        <div class="menuOrdena">
+            <button class="hoverButton">{{ordena}}</button>
+            <div class="ordenarPor" id="ordenarPor">
+                <a (click)="ordenaMuda('Mais Recentes')">Mais Recentes</a>
+                <a (click)="ordenaMuda('Mais Antigas')">Mais Antigas</a>
+                <a (click)="ordenaMuda('Mais Likes')">Mais Likes</a>
+            </div>
+        </div>
+    </div>
 
-<div class="photosFeed">
-    <ul class="photosList">
-        <li *ngFor="let photo of photos">
-            <img src={{photo.photoPath}}>
-            <h2>{{photo.dono}}</h2>
-            <h3>{{photo.likes}}</h3>
+    <div class="photosFeed">
+        <ul class="photosList">
+            <li *ngFor="let photo of photos" >
+                <a class="photoDiv" href="/foto/{{photo.id}}">
+                    <img class="mainImg" src={{photo.photoPath}}>
+                    <div class="info">
+                        <div class="infoDono">
+                            <img src="assets/user-profile.png"/>
+                            <h2>{{photo.dono}}</h2>
+                            
+                        </div>
+                        <div class="infoLike">
+                            <h3>{{photo.likes.length}}</h3>
+                            <img src="assets/heart.png"/>
+                            <img class="favorite" src="assets/favourite.png"/>
+                        </div>
+                    </div>
+                </a>
             </li>
-    </ul>
-
+        </ul>
+    </div>
 
 </div>
+
+
+
 
     

@@ -1,0 +1,37 @@
+<app-header></app-header>
+<div class="detalhesFotografia">
+    
+    <div class="opcoes">
+        <div class="type-selected">
+            <div *ngIf="tipo == nolike" class = "botoes">
+                <img src="assets/heart.png" id="botaoLike" (click)="fazerLike()"/>
+                <h4 class="likes" (click)="fazerLike()"> {{Photo?.likes}} Likes</h4>
+            </div>
+            <div *ngIf="tipo == like" class= "botoes">
+                <img src="assets/likebutton.png" id="botaoLike" (click)="tirarLike()"/>
+                <h4 class="likes" (click)="tirarLike()"> {{Photo?.likes}} Likes</h4>
+            </div>
+            
+        </div>
+        
+        <div class="outrasopcoes">
+            <div>
+                <img src="assets/favourite.png" /> <h4 class="favoritos">Botao Favorito</h4>
+            </div>
+            <div>
+                <img src="assets/share.png" /> <h4 class="partilhar"> Partilhar </h4>
+            </div>
+            
+            <!--verificar se quem abriu a foto é dono dela e caso seja ter a hipotese de apagar-->
+            <div>
+                <img src="assets/trash.png" /> <h4 class="eliminar"> Eliminar </h4>
+            </div>
+            <div>
+                <h4 class="dono">{{Photo?.dono}}</h4>
+            </div>
+
+        </div>
+        
+    </div>
+    
+</div>

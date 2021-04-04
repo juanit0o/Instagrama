@@ -1,0 +1,188 @@
+.feedBody {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px 20px 0px 20px;
+}
+
+.ordenaDiv {
+    display:flex;
+    justify-content: flex-end;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+}
+
+.photosList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    grid-gap: auto; 
+    justify-content: space-between; 
+    padding: 0;
+}
+
+.photosList li {
+    display:flex;
+    flex-direction: column;
+    width:250px;
+    margin: 0;
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.photoDiv {
+    display:flex;
+    flex-direction: column;
+    width:250px;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+    color: black;
+}
+
+.mainImg {
+    width:250px;
+    height:250px;
+    object-fit: cover;
+    margin: 0;
+}
+
+.info {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    background-color: rgb(192, 192, 192);
+    margin: 0;
+    padding:8px;
+}
+
+.infoDono  {
+    display:flex;
+    flex-direction: row;
+}
+
+.infoLike  {
+    display:flex;
+    flex-direction: row;
+}
+
+.info img {
+    width:20px;
+    height:20px;
+}
+
+h1 { 
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    margin: auto 5px auto 0;
+    font-weight: lighter;
+}
+
+.info h2, h3 {
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    margin: auto 0px auto 6px;
+}
+
+.info h3 {
+    padding-right: 5px;
+}
+
+.favorite {
+    margin-left: 3px;
+}
+
+.hoverButton {
+    border: none;
+    cursor: pointer;
+    background-color: #ffffff00;
+    padding: 5px;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;  
+    font-weight: bolder;
+}
+
+.menuOrdena {
+    position: relative;
+    display: inline-block;
+}
+
+.ordenarPor {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    right:0;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.ordenarPor a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+  
+.ordenarPor a:hover {
+    background-color: #f1f1f1
+}
+  
+.menuOrdena:hover .ordenarPor {
+    display: block;
+}
+  
+.menuOrdena:hover .hoverButton {
+    background-color: #a1a1a1;
+}
+
+
+@media only screen and (max-width: 800px) {
+
+    .photosList {  
+        justify-content: space-around;
+    }
+
+}
+
+@media only screen and (max-width: 250px) {
+
+    .feedBody {
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    .photosList li {  
+        width: 100vw;
+        margin-left:auto;
+        margin-right: auto;
+    }
+
+    .photoDiv {
+        width: 100vw;
+        margin-left:auto;
+        margin-right: auto;
+    }
+
+    .mainImg{
+        width: 100vw;
+    }
+
+    .info h2, h3 {
+        display: none;
+    }
+
+    .ordenaDiv {
+        flex-direction: column;
+    }
+    .ordenaDiv h1 {
+        margin: auto;
+    }
+
+    .hoverButton {
+       width: 100vw;
+    }
+
+
+}

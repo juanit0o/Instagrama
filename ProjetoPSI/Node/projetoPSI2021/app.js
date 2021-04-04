@@ -17,7 +17,7 @@ var app = express();
 var cors = require('cors');
 app.use(cors())
 
-var mongoDB = "mongodb+srv://admin:admin@cluster0.7k2d1.mongodb.net/PSIProjeto?retryWrites=true&w=majority";
+var mongoDB = "mongodb+srv://admin:test123@cluster0.7k2d1.mongodb.net/PSIProjeto?retryWrites=true&w=majority";
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));

@@ -8,6 +8,6 @@ var photo_controller = require('../controllers/photoController');
 //  res.render('index', { title: 'Express' });
 //});
 
-router.get('/photo/:id', photo_controller.photo_list);
+router.get('/photos', photo_controller.photo_list);
 
 module.exports = router;

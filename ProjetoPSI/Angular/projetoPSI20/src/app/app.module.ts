@@ -9,6 +9,8 @@ import { DefinicoesComponent } from './definicoes/definicoes.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { HeaderComponent } from './header/header.component';
 import { FeedComponent } from './feed/feed.component';
+import { HttpClientModule } from '@angular/common/http';
+import { IndividualphotoComponent } from './individualphoto/individualphoto.component';
 
 @NgModule({
   declarations: [
@@ -18,11 +20,13 @@ import { FeedComponent } from './feed/feed.component';
     DefinicoesComponent,
     PerfilComponent,
     HeaderComponent,
-    FeedComponent
+    FeedComponent,
+    IndividualphotoComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
