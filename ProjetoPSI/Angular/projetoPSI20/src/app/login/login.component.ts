@@ -17,9 +17,11 @@ export class LoginComponent implements OnInit {
     this.error = "";
   }
 
+  //INIT
   ngOnInit(): void {
   }
 
+  //AO CLICAR NO BOTAO DE LOGIN
   entrar(): void {
 
     /* VERIFICACOES DA PW É NO REGISTO 

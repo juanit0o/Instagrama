@@ -13,9 +13,7 @@ export class RegisterComponent implements OnInit {
   public error;
   private listError : string[];
 
-  public fotografo;
   public utilizador;
-  public tipo;
   
   constructor() { 
     this.nick = "";
@@ -24,11 +22,10 @@ export class RegisterComponent implements OnInit {
     this.error = "";
     this.listError = [];
 
-    this.fotografo = "fotografo";
-    this.utilizador = "utilizador";
-    this.tipo = "fotografo";
+    this.utilizador = "";
   }
 
+  //INIT
   ngOnInit(): void {
     this.nicknameRegister("");
     this.passwordRegister("");
@@ -55,7 +52,7 @@ export class RegisterComponent implements OnInit {
 
     //NAO PODE TER CHARS ESPECIAIS
     const msg2 = "Nickname não pode ter caracteres especiais\n";
-    if(this.nick.match("^(?=.*[@$!%*?&#^-])")){
+    if(this.nick.match("^(?=.*[@._$!%*?&#^-])")){
       if(!this.listError.includes(msg2)){
         this.listError.push(msg2);
       }
@@ -138,11 +135,13 @@ export class RegisterComponent implements OnInit {
     this.updateErrorMensage();
   }
 
+  //ATUALIZA OS ERROS DO REGISTAR (O QUE FALTA NO NICK OU NA PASS)
   updateErrorMensage(){
     this.error = "";
     this.listError.forEach(e => this.error += e);
   }
 
+  //REGISTAR O UTILIZADOR
   registar(): void {
     
     //NICK TEM DE TER PELO MENOS 3 CARACTERS
@@ -190,14 +189,7 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  souFotografo(): void {
-    this.tipo = "fotografo";
-  }
-
-  souUtilizador(): void {
-    this.tipo = "utilizador";
-  }
-
+  //VERIFICA SE O UTILIZADOR JA EXISTE (CASO EXISTA, DEVE DAR ERRO)
   jaExisto(): boolean {
 
 
@@ -208,6 +200,7 @@ export class RegisterComponent implements OnInit {
     return false;
   }
 
+  //CRIAR O UTILIZADOR E ATUALIZAR A BD
   criarUtilizador(): void {
 
     //TODO METER NA BD

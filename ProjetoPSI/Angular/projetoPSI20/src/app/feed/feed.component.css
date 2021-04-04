@@ -44,6 +44,7 @@
     height:250px;
     object-fit: cover;
     margin: 0;
+    background-color: grey;
 }
 
 .info {
@@ -123,18 +124,17 @@ h1 {
     display: block;
 }
   
-.ordenarPor a:hover {
+.ordenarPor a:hover, .ordenarPor a:focus{
     background-color: #f1f1f1
 }
-  
-.menuOrdena:hover .ordenarPor {
+ 
+.open .ordenarPor   {
     display: block;
 }
   
-.menuOrdena:hover .hoverButton {
+.open .hoverButton  {
     background-color: #a1a1a1;
 }
-
 
 @media only screen and (max-width: 800px) {
 

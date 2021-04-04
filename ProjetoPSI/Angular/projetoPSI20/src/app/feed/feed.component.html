@@ -1,36 +1,44 @@
 <app-header></app-header>
 <div class="feedBody">
 
+    <!-- ORDENAR POR DROPDOWN -->
     <div class="ordenaDiv">
         <h1>Ordenar por:</h1>
-        <div class="menuOrdena">
-            <button class="hoverButton">{{ordena}}</button>
-            <div class="ordenarPor" id="ordenarPor">
-                <a (click)="ordenaMuda('Mais Recentes')">Mais Recentes</a>
-                <a (click)="ordenaMuda('Mais Antigas')">Mais Antigas</a>
-                <a (click)="ordenaMuda('Mais Likes')">Mais Likes</a>
+        <div [class.open]="tab" class="menuOrdena">
+            <button class="hoverButton" id="hoverButton" tabindex="0" (click)="ordenaFocus()">{{ordena}}</button>
+            <!-- ITENS DO DROPDOWN -->
+            <div class="ordenarPor" id="ordenarPor" >
+                <a (click)="ordenaMuda('Mais Recentes')" (keyup.enter)="ordenaMuda('Mais Recentes')" tabindex="0">Mais Recentes</a>
+                <a (click)="ordenaMuda('Mais Antigas')" (keyup.enter)="ordenaMuda('Mais Antigas')" tabindex="0">Mais Antigas</a>
+                <a (click)="ordenaMuda('Mais Likes')" (keyup.enter)="ordenaMuda('Mais Likes')" tabindex="0">Mais Likes</a>
             </div>
         </div>
     </div>
 
+    <!-- FOTO FEED -->
     <div class="photosFeed">
         <ul class="photosList">
             <li *ngFor="let photo of photos" >
+
+                <!-- TODO ALTERAR OS CLIQUES -->
+
                 <a class="photoDiv" href="/foto/{{photo.id}}">
                     <img class="mainImg" src={{photo.photoPath}}>
-                    <div class="info">
-                        <div class="infoDono">
-                            <img src="assets/user-profile.png"/>
-                            <h2>{{photo.dono}}</h2>
+                </a>    
+                <div class="info">
+                    <div class="infoDono">
+                        <img src="assets/user-profile.png"/>
+                        <h2>{{photo.dono}}</h2>
                             
-                        </div>
-                        <div class="infoLike">
-                            <h3>{{photo.likes.length}}</h3>
-                            <img src="assets/heart.png"/>
-                            <img class="favorite" src="assets/favourite.png"/>
-                        </div>
                     </div>
-                </a>
+
+                    <div class="infoLike">
+                        <h3>{{photo.likes.length}}</h3>
+                        <img id="like{{photo.id}}" src="assets/heart.png" tabindex="0" (click)="likeInvoke(photo.id)" (keyup.enter)="likeInvoke(photo.id)"/>
+                        <img id="favorite{{photo.id}}" class="favorite" tabindex="0" src="assets/favourite.png" (click)="favoriteInvoke(photo.id)" (keyup.enter)="favoriteInvoke(photo.id)"/>
+                    </div>
+                </div>
+                
             </li>
         </ul>
     </div>

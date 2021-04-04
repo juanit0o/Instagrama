@@ -1,11 +1,13 @@
 <div class="all-app">
     <div class="main">
+      <!-- LOGO + TITULO -->
       <div class="logo-div">
         <img src="assets/logo_azul.png">
         <h1>InstaGrama</h1>
       </div>
       <div class="login-box">
 
+        <!-- BOX COM INPUTS + ERRORS + BUTTON -->
         <div class="input-box">
             <input #nickname id="nickname-input" type="text" placeholder="Nickname" (input)="nicknameInsert(nickname.value)">
             <input #password id="password-input" type="password" placeholder="Password" (input)="passwordInsert(password.value)">
@@ -16,11 +18,15 @@
                 Entrar
             </button>
         </div>
+
+        <!-- CASO NAO TENHA CONTA -->
         <h2>Não tens uma conta? <a href="/registar">Regista-te</a></h2>
     
     </div>
     
     </div>
+
+    <!-- ABOUT -->
     <div class="footer">
       <p>Faculdade de Ciências da Universidade de Lisboa - Projeto de Sistemas de Informação (2020/2021)</p>
       <p>André Costa 52788 | Diogo Pinto 52763 | Francisco Freire 52177 | Francisco Ramalho 53472 | João Funenga 53504 | Martim Silva 51304</p>

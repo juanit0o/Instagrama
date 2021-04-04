@@ -30,3 +30,83 @@
     text-align: right;
 
 }
+
+.photosList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    grid-gap: auto; 
+    justify-content: space-between; 
+    padding: 0;
+}
+
+.photosList li {
+    display:flex;
+    flex-direction: column;
+    width:250px;
+    margin: 0;
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.photoDiv {
+    display:flex;
+    flex-direction: column;
+    width:250px;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+    color: black;
+}
+
+.mainImg {
+    width:250px;
+    height:250px;
+    object-fit: cover;
+    margin: 0;
+    background-color: grey;
+}
+
+.info {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    background-color: rgb(192, 192, 192);
+    margin: 0;
+    padding:8px;
+}
+
+.infoDono  {
+    display:flex;
+    flex-direction: row;
+}
+
+.infoLike  {
+    display:flex;
+    flex-direction: row;
+}
+
+.info img {
+    width:20px;
+    height:20px;
+}
+
+h1 { 
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    margin: auto 5px auto 0;
+    font-weight: lighter;
+}
+
+.info h2, h3 {
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    margin: auto 0px auto 6px;
+}
+
+.info h3 {
+    padding-right: 5px;
+}
+
+.favorite {
+    margin-left: 3px;
+}
