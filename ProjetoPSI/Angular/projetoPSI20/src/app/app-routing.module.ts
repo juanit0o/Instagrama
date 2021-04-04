@@ -12,9 +12,9 @@ const routes: Routes = [
   { path: '', component : LoginComponent },
   { path: 'registar', component : RegisterComponent },
   { path: 'definicoes', component : DefinicoesComponent },
-  { path: 'perfil', component : PerfilComponent },
+  { path: 'perfil', component : PerfilComponent }, //vai ter tbm /:id
   { path: 'feed', component : FeedComponent },
-  { path: 'foto/:id', component : IndividualphotoComponent }, //TODO e preciso adicionar /:id ao link
+  { path: 'foto/:id', component : IndividualphotoComponent },
 ];
 
 @NgModule({
