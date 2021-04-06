@@ -1,4 +1,8 @@
-  import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { User } from '../user';
+import { AutenticacaoService } from '../autenticacao.service';
+//const bcrypt = require('bcryptjs')
+//const jwt = require('jsonwebtoken')
 
 @Component({
   selector: 'app-register',
@@ -13,16 +17,13 @@ export class RegisterComponent implements OnInit {
   public error;
   private listError : string[];
 
-  public utilizador;
-  
-  constructor() { 
+  constructor(private autService: AutenticacaoService) { 
     this.nick = "";
     this.pw = ""
     
     this.error = "";
     this.listError = [];
-
-    this.utilizador = "";
+    
   }
 
   //INIT
@@ -184,6 +185,7 @@ export class RegisterComponent implements OnInit {
           this.listError.splice(index, 1);
         }
       }
+      console.log(this);
       this.criarUtilizador();
     }
 
@@ -191,11 +193,7 @@ export class RegisterComponent implements OnInit {
 
   //VERIFICA SE O UTILIZADOR JA EXISTE (CASO EXISTA, DEVE DAR ERRO)
   jaExisto(): boolean {
-
-
-    //TODO
-
-
+    //TODO                 apagar metodo?????????
     //fazer verificacoes na bd para ver se este nickname ja existe
     return false;
   }
@@ -203,9 +201,17 @@ export class RegisterComponent implements OnInit {
   //CRIAR O UTILIZADOR E ATUALIZAR A BD
   criarUtilizador(): void {
 
-    //TODO METER NA BD
+    this.autService.addUser(this.nick, this.pw).subscribe(out => {
+      console.log(out.msg)
+      if (out.msg == "SUCESSO REGISTO"){
+        window.location.href = "http://localhost:4200/feed";
+      } else {
+        this.listError = [];
+        this.listError.push("Registo invalido! Tente outro nickname ou password!");
+        this.updateErrorMensage();
+      }
+    });
 
   }
-
 
 }

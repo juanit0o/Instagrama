@@ -13,7 +13,7 @@ export class PerfilComponent implements OnInit {
   photos : Photo[];
   liked: string[];
   favorited: string[];
-
+  
   public nome;
   constructor(
     private photoService: PhotoService,
@@ -33,7 +33,7 @@ export class PerfilComponent implements OnInit {
   getPhotosOfUser(): void {
     
     //TODO ALTERAR PARA GET IDS DE APENAS DO USER
-    this.photoService.getPhotosIds().subscribe(response => 
+    this.photoService.getPhotosIdsRecentes().subscribe(response => 
       {
         for(var i = 0; i < response.length; ++i){
           this.photoService.getPhotoById(response[i].id).subscribe(output => 

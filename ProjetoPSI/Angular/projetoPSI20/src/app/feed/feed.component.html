@@ -2,16 +2,15 @@
 <div class="feedBody">
 
     <!-- ORDENAR POR DROPDOWN -->
-    <div class="ordenaDiv">
-        <h1>Ordenar por:</h1>
-        <div [class.open]="tab" class="menuOrdena">
-            <button class="hoverButton" id="hoverButton" tabindex="0" (click)="ordenaFocus()">{{ordena}}</button>
-            <!-- ITENS DO DROPDOWN -->
-            <div class="ordenarPor" id="ordenarPor" >
-                <a (click)="ordenaMuda('Mais Recentes')" (keyup.enter)="ordenaMuda('Mais Recentes')" tabindex="0">Mais Recentes</a>
-                <a (click)="ordenaMuda('Mais Antigas')" (keyup.enter)="ordenaMuda('Mais Antigas')" tabindex="0">Mais Antigas</a>
-                <a (click)="ordenaMuda('Mais Likes')" (keyup.enter)="ordenaMuda('Mais Likes')" tabindex="0">Mais Likes</a>
-            </div>
+    <div class="ordena">
+        <p>Ordenar por:</p>
+        <div class="custom-select">
+            <select #sel (change)="onChange(sel.value)">
+                <option>Mais Recentes</option>
+                <option>Mais Antigas</option>
+                <option>Mais Likes</option>
+            </select>
+            <span class="custom-arrow"></span>
         </div>
     </div>
 
@@ -42,9 +41,9 @@
             </li>
         </ul>
     </div>
-
 </div>
-
+<app-loading *ngIf="temFotosPorLoad"></app-loading>
+<p class="msgFinal" *ngIf="!temFotosPorLoad">Não há mais fotos! <a class="clicarTopo" tabindex="0" (click)="voltarTopo()" (keyup.enter)="voltarTopo()">Clique para voltar ao topo!</a></p>
 
 
 

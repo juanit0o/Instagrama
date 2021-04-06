@@ -1,48 +1,66 @@
 <app-header></app-header>
 <div class="detalhesFotografia">
     
-    <div class="opcoes">
-        <div class="type-selected">
-            <!-- BOTAO DE LIKE -->
-            <div *ngIf="tipo == nolike" class = "botoes">
-                <img src="assets/heart.png" id="botaoLike" (click)="fazerLike()"/>
-                <h4 class="likes" (click)="fazerLike()"> {{Photo?.likes}} Likes</h4>
-            </div>
-            <div *ngIf="tipo == like" class= "botoes">
-                <img src="assets/likebutton.png" id="botaoLike" (click)="tirarLike()"/>
-                <h4 class="likes" (click)="tirarLike()"> {{Photo?.likes}} Likes</h4>
-            </div>
-            
+    <!-- FOTO INDIVIDUAL -->
+    <div class="photoIndv">
+        <div *ngIf="photo" class="photoExists">
+            <img class="mainImg" src={{photo?.photoPath}}>
         </div>
-        
-        <div class="outrasopcoes">
-            <div>
-                <!-- BOTAO DE LIKE -->
-            <div *ngIf="tipoFav == nofav" class = "botoes">
-                <img src="assets/favourite.png" id="botaoFav" (click)="fazerFav()"/>
-                <h4 class="favs" (click)="fazerFav()"> Favorita </h4>
-            </div>
-            <div *ngIf="tipoFav == fav" class= "botoes">
-                <img src="assets/favouriteChecked.png" id="botaoFav" (click)="tirarFav()"/>
-                <h4 class="favs" (click)="tirarFav()"> Favorita </h4>
-            </div>
-
-                <!-- <img src="assets/favourite.png" /> <h4 class="favoritos">Botao Favorito</h4> -->
-            </div>
-            <div>
-                <img src="assets/share.png" /> <h4 class="partilhar"> Partilhar </h4>
-            </div>
-            
-            <!--verificar se quem abriu a foto é dono dela e caso seja ter a hipotese de apagar-->
-            <div>
-                <img src="assets/trash.png" /> <h4 class="eliminar"> Eliminar </h4>
-            </div>
-            <div>
-                <h4 class="dono">{{Photo?.dono}}</h4>
-            </div>
-
-        </div>
-        
     </div>
     
+
+    <div class="infoFoto">
+
+        <div class="info">
+            <h1>{{photo?.nome}}</h1>
+            <h2>{{photo?.descricao}}</h2>
+        </div>
+
+
+
+        <div class="opcoes">
+            <div>
+                <a class="dono" href="/perfil/{{nick}}" tabindex="-1" >
+                    <h4 class="dono" tabindex="0">{{photo?.dono}}</h4>
+                    <button class="dropbtn" id="dropbtno" tabindex="-1"><img src="assets/user-profile.png" tabindex="-1"></button>
+                </a>
+            </div>
+            
+            
+            <!-- BOTAO DE LIKE -->
+            <div *ngIf="tipo == nolike" class = "botoes">
+                <h4 class="likes" (click)="fazerLike()" tabindex="0" (keyup.enter)="fazerLike()" > {{photo?.likes}} Likes</h4>
+                <img src="assets/heart.png" id="botaoLike" (click)="fazerLike()"/>
+            </div>
+            <div *ngIf="tipo == like" class= "botoes">
+                <h4 class="likes" (click)="tirarLike()" tabindex="0" (keyup.enter)="tirarLike()"> {{photo?.likes}} Likes</h4>
+                <img src="assets/likebutton.png" id="botaoLike" (click)="tirarLike()"/>
+            </div>
+
+            <!-- BOTAO DE FAVORITO -->
+            <div *ngIf="tipoFav == nofav" class = "botoes">
+                <h4 class="favs" (click)="fazerFav()" tabindex="0" (keyup.enter)="fazerFav()"> Favorita </h4>
+                <img src="assets/favourite.png" id="botaoFav" (click)="fazerFav()" />
+            </div>
+            <div *ngIf="tipoFav == fav" class= "botoes">
+                <h4 class="favs" (click)="tirarFav()" tabindex="0" (keyup.enter)="tirarFav()"> Favorita </h4>
+                <img src="assets/favouriteChecked.png" id="botaoFav" (click)="tirarFav()"/>
+            </div>
+
+                    <!-- <img src="assets/favourite.png" /> <h4 class="favoritos">Botao Favorito</h4> -->
+            <!-- BOTAO DE SHARE -->
+            <div class = "botoes" >
+                <h4 class="partilhar" id="partilhar" (click)="copyMessage()" tabindex="0" (keyup.enter)="copyMessage()"> Partilhar </h4>
+                <img src="assets/share.png" (click)="copyMessage()"/>
+            </div>
+                
+                <!--verificar se quem abriu a foto é dono dela e caso seja ter a hipotese de apagar-->
+            <!-- BOTAO DE TRASH -->
+            <div class = "botoes">
+                <h4 class="eliminar" tabindex="0"> Eliminar </h4>
+                <img src="assets/trash.png" /> 
+            </div>
+            
+    </div>
+
 </div>

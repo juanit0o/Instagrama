@@ -10,8 +10,9 @@
             <!-- CAIXA DE REGISTAR -->
             <div class="input-box">
                 <h1>Registar</h1>
+
                 <input #nickname id="nickname-input" type="text" placeholder="Nickname" (input)="nicknameRegister(nickname.value)">
-                <input #password id="password-input" type="text" placeholder="Password" (input)="passwordRegister(password.value)">
+                <input #password id="password-input" type="password" placeholder="Password" (input)="passwordRegister(password.value)">
             
                 <h3 id="error-register">{{error}}</h3>
 

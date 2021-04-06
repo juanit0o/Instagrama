@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { Photo } from '../photo';
-import { PhotoService } from '../photo.service'
+import { PhotoService } from '../photo.service';
+
+
 
 @Component({
   selector: 'app-feed',
@@ -11,25 +14,28 @@ import { PhotoService } from '../photo.service'
 export class FeedComponent implements OnInit {
 
   //LISTA DE FOTOS
+  subscription?: Subscription;
   photos : Photo[];
+  photosId : string[];
   liked: string[];
   favorited: string[];
+  //
 
   //ELEMENTO SELECIONADO ATUALMENTE NO "ORDENA POR"
   ordena : string;
 
-  tab : boolean;
+  temFotosPorLoad : boolean;
 
   constructor(
     private photoService: PhotoService,
   ) { 
-
     this.photos = [];
+    this.photosId = [];
 
     this.liked = [];
     this.favorited = [];
 
-    this.tab = false;
+    this.temFotosPorLoad = true;
     this.ordena = "Mais Recentes V"
 
   }
@@ -45,35 +51,29 @@ export class FeedComponent implements OnInit {
 
   //OBTEM AS FOTOS QUE EXISTEM (POR ORDEM "MAIS RECENTES")
   getPhotos(): void {
-    //TODO MUDAR ESTE LOAD PARA DAR LOAD DE UMA PHOTO DE CADA VEZ (MAIS RAPIDO DO QUE DAR LOAD DE TUDO DE UMA VEZ)
-    /**this.photoService.getPhotos().subscribe(response => 
-      {
-        this.photos = response.map( item => 
-        {
-          return item;
-        });
-      });*/
-
-      this.photoService.getPhotosIds().subscribe(response => 
+      this.subscription = this.photoService.getPhotosIdsRecentes().subscribe(response => 
         {
           for(var i = 0; i < response.length; ++i){
-            this.photoService.getPhotoById(response[i].id).subscribe(output => 
-              {
-                this.photos.push(output);
-              });
+            this.photosId.push(response[i].id)
           }
+          this.getPhoto(this.photosId);
         });
-
   }
-
   
+  getPhoto(lista: string[]): void {
+    if(lista.length > 0){
 
-  //QUANDO E CLICADO NUMA FOTO, ABRIR FOTO INDIVIDUAL
-  openPhoto(id: string) {
-    console.log(id);
-    //let a = (document.getElementById(id) as HTMLInputElement);
-    //a.href = "/foto/" + id;
+        this.subscription = this.photoService.getPhotoById(lista[0]).subscribe(output => 
+        {
+          this.photos.push(output);
+            this.getPhoto(lista.slice(1, lista.length));
+      });
+    } else {
+      this.temFotosPorLoad = false;
+      return;
+    }
   }
+
 
   likeInvoke(id: string) {
     if(this.liked.includes(id)){
@@ -106,28 +106,51 @@ export class FeedComponent implements OnInit {
     //TODO ATUALIZAR BD
   }
 
-  //CASO SE ALTERE O CAMPO "ORDENAR POR"
-  ordenaMuda(text: string) {
-    this.ordena = text + " V";
-    this.tab = false;
-  }
+  onChange(deviceValue : string) : void  {
+    this.photos = [];
+    this.photosId = [];
+    if(this.subscription)
+      this.subscription.unsubscribe();
+    switch (deviceValue){
+      case "Mais Antigas":
+          this.subscription = this.photoService.getPhotosIdsAntigas().subscribe(response => 
+            {
+              for(var i = 0; i < response.length; ++i){
+                this.photosId.push(response[i].id)
+              }
+              this.getPhoto(this.photosId);
+        });
+        break;
+      case "Mais Likes":
+          this.subscription = this.photoService.getPhotosIdsAntigas().subscribe(response => 
+            {
+              for(var i = 0; i < response.length; ++i){
+                this.photosId.push(response[i].id)
+              }
+              this.getPhoto(this.photosId);
+        });
+        break;
 
-  disableFocus() {
-    console.log("DISABLE");
-    if(this.tab){
-      this.tab = false;
-    }
+      default:
+          this.subscription = this.photoService.getPhotosIdsRecentes().subscribe(response => 
+            {
+              for(var i = 0; i < response.length; ++i){
+                this.photosId.push(response[i].id)
+              }
+              this.getPhoto(this.photosId);
+        });
+        break;
   }
-  //QUANDO CLICADO NO ORDENA
-  ordenaFocus() {
-    console.log("FOCUS")
-    if(this.tab){
-      this.tab = false;
-    } else {
-      this.tab = true;
     }
-  }
-  
+      
+    voltarTopo(): void {
+      window.document.body.scrollTop = 0;
+      window.document.documentElement.scrollTop = 0;
+      //window.document.querySelector("app-header")?.focus();
+    }
+
+
+        
 
 }
  

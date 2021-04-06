@@ -1,0 +1,20 @@
+.main{
+    font-family: 'Segoe UI';
+    font-size: 12pt;
+}
+
+
+article
+{
+    width: 80%;
+    margin:auto;
+    margin-top:10px;
+}
+
+
+.thumbnail {
+    max-width: 200px;
+    max-height: 200px;
+    margin: 10px;    
+}
+

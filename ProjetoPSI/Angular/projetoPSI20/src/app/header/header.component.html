@@ -25,13 +25,13 @@
 
     <!-- TODO tentar fazer dropdown com imagens -->
          <div id ="utilizador">
-        <h2 id="nomeUser">{{name}}</h2>
+        <h2 id="nomeUser">{{nick}}</h2>
         <div class="dropdown">                      <!-- (keyup.enter)="mudaStyle() -->
             <button class="dropbtn" id="dropbtno" ><img src="assets/user-profile.png"></button>
             <div class="dropdown-content" id = "dropbt">
              <!--  <a href="/perfil"><img src="assets/profile." Meu perfil</a>-->
-                <a href="/perfil"><img src="assets/user-profile.png" class="iconProf">  Meu perfil</a>
-                <a href="#"><img src="assets/addButton.png"> Adicionar Foto</a>
+                <a href="/perfil/{{nick}}"><img src="assets/user-profile.png" class="iconProf">  Meu perfil</a>
+                <a href="/perfil/{{nick}}/publicar"><img src="assets/addButton.png"> Adicionar Foto</a>
                 <a href="#"><img src="assets/favouriteChecked.png"> Meus Favoritos</a>
                 <a href="/definicoes"><img src="assets/settings.png"> Definições</a>
                 <a href="#"><img src="assets/logout.png"> Terminar Sessão</a>

@@ -5,15 +5,13 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Photo } from './photo';
+import { Msg } from './msg';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PhotoService {
 
-  private photosUrl = 'http://localhost:3001/photos';
-  private photoUrl = 'http://localhost:3001/photo';
-  private photosIdsUrl = 'http://localhost:3001/photosid';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -25,16 +23,30 @@ export class PhotoService {
 
   //DEVOLVE TODAS AS FOTOS (COM TODA A INFO)
   getPhotos() : Observable<Photo[]> {
-    return this.http.get<Photo[]>(this.photosUrl);
+    return this.http.get<Photo[]>('http://localhost:3001/photos');
   }
 
-  getPhotosIds() : Observable<Photo[]> {
-    return this.http.get<Photo[]>(this.photosIdsUrl);
+  //50 FOTOS MAIS RECENTES
+  getPhotosIdsRecentes() : Observable<Photo[]> {
+    return this.http.get<Photo[]>('http://localhost:3001/photosidRecentes');
+  }
+
+  getPhotosIdsAntigas() : Observable<Photo[]> {
+    return this.http.get<Photo[]>('http://localhost:3001/photosidAntigas');
+  }
+
+  getPhotosIdsLikes() : Observable<Photo[]> {
+    return this.http.get<Photo[]>('http://localhost:3001/photosidLikes');
   }
 
   getPhotoById(id: string) : Observable<Photo> {
-    return this.http.get<Photo>(this.photoUrl + "/" + id);
+    return this.http.get<Photo>('http://localhost:3001/photo/' + id);
   }
+
+  postPhoto(photo: Photo) : Observable<Msg>{
+    return this.http.post<Msg>('http://localhost:3001/photos', photo, this.httpOptions); ///esta mal, provavelmente para o perfil do user ou feed
+  }
+
 
 
 }

@@ -1,0 +1,73 @@
+.espacoLoad {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 50px;
+}
+
+p {
+    color: rgb(136, 136, 136);
+    font-size: 0.7em;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    margin: auto;
+}
+
+
+.ldg {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 30px;
+    margin: auto;
+  }
+.ldg div {
+    position: absolute;
+    top: 0px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #577194;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.ldg div:nth-child(1) {
+    left: 8px;
+    animation: ldg1 0.6s infinite;
+}
+.ldg div:nth-child(2) {
+    left: 8px;
+    animation: ldg2 0.6s infinite;
+}
+.ldg div:nth-child(3) {
+    left: 32px;
+    animation: ldg2 0.6s infinite;
+}
+.ldg div:nth-child(4) {
+    left: 56px;
+    animation: ldg3 0.6s infinite;
+}
+@keyframes ldg1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+@keyframes ldg3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+}
+@keyframes ldg2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(24px, 0);
+    }
+}
+  

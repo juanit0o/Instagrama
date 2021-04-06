@@ -3,56 +3,79 @@
     margin: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    float: right;
-    padding-top: 50px;
-    padding-right: 120px;
+
+    padding: 0px 20px 20px 20px;
+
 }
 
-.detalhesFotografia img{
+
+.photoIndv, .photoExists {
+    display: flex;
+    justify-content:center;
+    max-width: 800px;
+    max-height: 75vh;
+    background-color: rgb(216, 216, 216);
+}
+
+.mainImg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.infoFoto {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.info {
+    width: 80%;
+}
+
+.info h1 {
+    color:#004196;
+    font-size:2rem;
+    font-weight: bold;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    padding-right: 20px;
+}
+
+.info h2 {
+    color:#575757;
+    font-size:1rem;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+}
+
+
+.opcoes img{
     height: 30px;
     width: 30px;
     
 }
 
-.opcoes{
-    margin: 5px;
-    justify-content:center;
-    
-}
-
-.likes{
-    justify-content:bottom;
-}
-
-.botoes{
+.opcoes {
+    width:20%;
+    margin: 10px;
     display: flex;
+    flex-direction: column;
 }
 
-.outrasopcoes div {
+.botoes {
     display: flex;
     flex-direction: row;
-    cursor: default;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-
+    justify-content: flex-end;
 }
 
-.type-selected div{
+.dono{
     display: flex;
-    flex-direction: row;
-    cursor: default;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    justify-content: flex-end;
+    padding-top: 6px;
+    padding-bottom: 10px;
+    text-decoration: none;
+    color: black;
+    font-size:1.5rem;
+    flex-wrap: nowrap;
+
 }
 
 
@@ -61,5 +84,19 @@ h4{
     margin-top: auto;
     margin-bottom: auto;
     font-size:1rem;
-    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
 }
+
+.dropbtn{
+    background-color: #F7F7F7;
+    color: white;
+    padding: 0px;
+    margin: auto;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 100%;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    width: 35px;
+    height: 35px;
+}
+

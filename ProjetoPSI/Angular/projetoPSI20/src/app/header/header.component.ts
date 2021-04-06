@@ -7,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  public name;
+  public nick;
+  //vai ter um user
 
   constructor() { 
-    this.name = "PedroFerreira";
+    this.nick = "PedroFerreira";
   }
 
   //INIT

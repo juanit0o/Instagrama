@@ -1,0 +1,24 @@
+<app-header></app-header>
+<div class="main">
+    <!--
+    <article>
+        <label for="files">Select multiple files: </label>
+        <input id="files" type="file" multiple/>
+        <output id="result" ></output>
+        <br>
+        <button (click)="submit()">Submit</button>
+    </article>-->
+
+
+    <input style="display: none;" type="file"  (change)="onFileChanged($event)" #fileInput multiple/>
+    <button class="photoUploadButton" (click)="fileInput.click()">Upload profile photo</button>
+    <h4>(Max file size 70kb)</h4>
+    <input type="text" id="fname" name="fname" placeholder="Nome da Fotografia"><br>
+    <input type="text" id="lname" name="lname" placeholder="Descricao da Fotografia"><br><br>
+
+    <div *ngFor="let photo of photosToUpload" class="photos">
+        <img src="{{photo.photoPath}}" class="thumbnail">
+    </div>
+    <button (click)="submit()">Submit</button>
+
+</div>

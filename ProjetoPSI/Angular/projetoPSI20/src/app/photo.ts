@@ -6,5 +6,4 @@ export interface Photo {
     photoPath: string;
     likes: [string];
     favoritos: [string];
-    data: Date;
 }

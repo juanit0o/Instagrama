@@ -11,6 +11,9 @@ import { HeaderComponent } from './header/header.component';
 import { FeedComponent } from './feed/feed.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IndividualphotoComponent } from './individualphoto/individualphoto.component';
+import { LoadingComponent } from './loading/loading.component';
+import { AddphotoComponent } from './addphoto/addphoto.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,12 +24,15 @@ import { IndividualphotoComponent } from './individualphoto/individualphoto.comp
     PerfilComponent,
     HeaderComponent,
     FeedComponent,
-    IndividualphotoComponent
+    IndividualphotoComponent,
+    LoadingComponent,
+    AddphotoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
