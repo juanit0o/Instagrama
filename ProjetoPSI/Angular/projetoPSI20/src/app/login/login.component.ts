@@ -1,23 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from '../user';
-import { AutenticacaoService } from '../autenticacao.service';
+import { AuthenticationService, TokenPayload } from '../authentication.service';
+import { Router } from '@angular/router';
+
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   
-  private nick;
-  private pw;
+  //private nick;
+  //private pw;
+  credentials: TokenPayload = {
+    nickname: '',
+    password: ''
+  };
 
   public error;
   private listError : string[];
 
-  constructor(private autService: AutenticacaoService) { 
-    this.nick = "";
-    this.pw = ""
+  constructor(private auth: AuthenticationService,
+    private router: Router,
+    ReactiveFormsModule: ReactiveFormsModule) { 
+    //this.nick = "";
+    //this.pw = ""
     
     this.error = "";
     this.listError = [];
@@ -25,8 +34,8 @@ export class LoginComponent implements OnInit {
 
   //INIT
   ngOnInit(): void {
-    this.nicknameInsert("");
-    this.passwordInsert("");
+    //this.nicknameInsert("");
+    //this.passwordInsert("");
   }
 
   //AO CLICAR NO BOTAO DE LOGIN
@@ -39,20 +48,29 @@ export class LoginComponent implements OnInit {
   }
 
   //ATUALIZA O NICK QUANDO O INPUT É ALTERADO
-  nicknameInsert(nick: string): void {
-    this.nick = nick;
-  }
+  //nicknameInsert(nick: string): void {
+  //  this.credentials.nickname = nick;
+  //}
 
   //ATUALIZA O PASSWORD QUANDO O INPUT É ALTERADO
-  passwordInsert(pw: string): void {
-    this.pw = pw;
-  }
+  //passwordInsert(pw: string): void {
+  //  this.pw = pw;
+  //}
 
   updateErrorMensage(){
     this.error = "";
     this.listError.forEach(e => this.error += e);
   }
 
+  login() {
+    this.auth.login(this.credentials).subscribe(() => {
+      this.router.navigateByUrl('/feed');
+    }, (err) => {
+      console.error(err);
+    }); 
+  }
+
+  /*
   login(): void {
     this.autService.login(this.nick, this.pw).subscribe(out => {
         if(out.msg == "SUCESSO LOGIN"){
@@ -71,6 +89,22 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+
+  logout(): void {
+    this.autService.logout(this.nick).subscribe(out => {
+      if(out.msg == "SUCESSO LOGOUT"){
+        console.log(out.msg);
+        
+      window.location.href = "http://localhost:4200/";
+
+
+    } else {
+      //this.listError = []
+      //this.listError.push("Falha na autenticação!");
+      //this.updateErrorMensage();
+    }
+  });
+  }*/
 
 
 }

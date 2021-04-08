@@ -28,6 +28,10 @@
     font-weight: bold;
 }
 
+.input-box button:hover, .input-box button:focus {
+    background-color: #9e8404;
+}
+
 .input-box h1 {
     padding: 0;
     color: white;

@@ -3,7 +3,7 @@ export interface Photo {
     dono: string;
     nome: string;
     descricao: string;
-    photoPath: string;
+    photo: string;
     likes: [string];
     favoritos: [string];
 }

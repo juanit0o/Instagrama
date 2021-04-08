@@ -13,7 +13,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { IndividualphotoComponent } from './individualphoto/individualphoto.component';
 import { LoadingComponent } from './loading/loading.component';
 import { AddphotoComponent } from './addphoto/addphoto.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { FavoritosComponent } from './favoritos/favoritos.component';
+import { LoadingphotoComponent } from './loadingphoto/loadingphoto.component';
+
 
 @NgModule({
   declarations: [
@@ -26,13 +30,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     FeedComponent,
     IndividualphotoComponent,
     LoadingComponent,
-    AddphotoComponent
+    AddphotoComponent,
+    NotfoundComponent,
+    FavoritosComponent,
+    LoadingphotoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

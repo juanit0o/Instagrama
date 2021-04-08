@@ -6,10 +6,19 @@ var passport = require("passport");
 var bodyParser = require("body-parser");
 var LocalStrategy = require("passport-local");
 var passportLocalMongoose = require("passport-local-mongoose");
-var User = require("./models/user");
+var User= require("./api/models/users");
+
 
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var multer = require('multer');
+var favicon = require('serve-favicon');
+
+// [SH] Bring in the data model
+require('./api/models/db');
+// [SH] Bring in the Passport config after model is defined
+require('./api/config/passport');
+var routesApi = require('./api/routes/index');
 
 //
 //require('./api/models/db');
@@ -24,10 +33,19 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 
-
-
 var cors = require('cors');
-app.use(cors())
+app.use(cors());
+
+app.use(express.json({limit: '10mb', extended: true}));
+app.use(express.urlencoded({limit: "10mb", extended: true, parameterLimit:10000}));
+//app.use(morgan('dev'));
+
+
+app.use(passport.initialize());
+app.use('/api', routesApi);
+
+app.use('/', indexRouter);
+
 
 var mongoDB = "mongodb+srv://admin:test123@cluster0.7k2d1.mongodb.net/PSIProjeto?retryWrites=true&w=majority";
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
@@ -37,6 +55,71 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+/*
+const storage = multer.diskStorage({
+  destination: function(req, file, callback) {
+    callback(null, '/photos/photografs');
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname);
+  }
+});*/
+/*
+app.use('/uploads', express.static(__dirname +'/uploads'));
+ var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, new Date().toISOString()+file.originalname)
+    }
+  });
+
+  var upload = multer({ storage: storage });
+  app.post('/upload', upload.single('myFile'), async(req, res, next) => {
+    const file = req.file;
+    if (!file) {
+      const error = new Error('Please upload a file');
+      error.httpStatusCode = 400;
+      return next("hey error");
+    }
+
+    const imagepost= new model({
+      image: file.path
+    })
+    const savedimage= await imagepost.save()
+    res.json(savedimage);
+    app.get('/image',async(req, res)=>{
+      const image = await model.find()
+      res.json(image)
+      
+     })
+     app.get('/image',async(req, res)=>{
+      const image = await model.find()
+      res.json(image)
+      
+     })
+ } )
+*/
+/*
+app.post('/', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    console.log("No file received");
+    return res.send({
+      success: false
+    });
+
+  } else {
+    console.log('file received');
+    return res.send({
+      success: true
+    })
+  }
+});*/
+
+
+
 
 /* 
 
@@ -126,16 +209,11 @@ function isLoggedIn(req, res, next) {
 }
 
   
-*/
-var port = process.env.PORT || 3001;
-app.listen(port, function () {
-    console.log("Server Has Started!");
-});
+
+
 
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -160,9 +238,14 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+*/
 // error handlers
 // Catch unauthorised errors
+var port = process.env.PORT || 3001;
+app.listen(port, function () {
+    console.log("Server Has Started!");
+});
+
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401);

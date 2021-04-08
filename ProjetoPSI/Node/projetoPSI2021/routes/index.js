@@ -20,11 +20,14 @@ var user_controller = require('../controllers/userController');
 //const authRoute = require('./auth');
 //app.use('/', authRoute);
 
-router.get('/photos', photo_controller.allPhotos);
+//router.get('/photos', photo_controller.allPhotos);
 router.get('/photosidRecentes', photo_controller.allIndexPhotos);
 router.get('/photosidAntigas', photo_controller.allIndexPhotosOld);
 router.get('/photosidLikes', photo_controller.allIndexPhotosMostLiked);
 router.get('/photo/:id', photo_controller.getPhoto);
+router.post('/photo', photo_controller.uploadPhoto); //sem morgan
+
+router.post('/uploadPhoto', photo_controller.postPhoto); //tentativa com morgan
 
 router.get('/users', user_controller.user_list);
 router.get('/users/:id', user_controller.get_user);

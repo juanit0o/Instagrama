@@ -3,6 +3,7 @@
 
     <!-- ORDENAR POR DROPDOWN -->
     <div class="ordena">
+        <p>{{details.nickname}}</p>
         <p>Ordenar por:</p>
         <div class="custom-select">
             <select #sel (change)="onChange(sel.value)">
@@ -22,7 +23,7 @@
                 <!-- TODO ALTERAR OS CLIQUES -->
 
                 <a class="photoDiv" href="/foto/{{photo.id}}">
-                    <img class="mainImg" src={{photo.photoPath}}>
+                    <img class="mainImg" src={{photo.photo}}>
                 </a>    
                 <div class="info">
                     <div class="infoDono">
@@ -42,7 +43,7 @@
         </ul>
     </div>
 </div>
-<app-loading *ngIf="temFotosPorLoad"></app-loading>
+<app-loading *ngIf="temFotosPorLoad"><p>Carregando as suas fotos ...</p></app-loading>
 <p class="msgFinal" *ngIf="!temFotosPorLoad">Não há mais fotos! <a class="clicarTopo" tabindex="0" (click)="voltarTopo()" (keyup.enter)="voltarTopo()">Clique para voltar ao topo!</a></p>
 
 

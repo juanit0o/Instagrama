@@ -43,8 +43,8 @@ export class PhotoService {
     return this.http.get<Photo>('http://localhost:3001/photo/' + id);
   }
 
-  postPhoto(photo: Photo) : Observable<Msg>{
-    return this.http.post<Msg>('http://localhost:3001/photos', photo, this.httpOptions); ///esta mal, provavelmente para o perfil do user ou feed
+  postPhoto(content: Photo) : Observable<Msg>{
+    return this.http.post<Msg>('http://localhost:3001/upload', content, this.httpOptions);
   }
 
 

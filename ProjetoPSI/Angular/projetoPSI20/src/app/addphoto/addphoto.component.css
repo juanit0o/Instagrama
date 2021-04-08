@@ -1,20 +1,211 @@
 .main{
-    font-family: 'Segoe UI';
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
     font-size: 12pt;
+    max-width: 800px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    
 }
 
-
-article
-{
-    width: 80%;
-    margin:auto;
-    margin-top:10px;
+.photoList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    grid-gap: auto; 
+    justify-content: space-between; 
+    padding: 0;
 }
 
+.photos {
+    display: flex;
+    flex-direction: column;
+    width:250px;
+    height:370px;
+    margin-bottom: 20px;
+
+    background-color: rgb(224, 224, 224);
+}
+
+.uploadSpace {
+    display: flex;
+    flex-direction: column;
+    width:250px;
+    height:370px;
+    margin-bottom: 20px;
+    padding: 0;
+    background-color: rgb(224, 224, 224);
+    justify-content: center;
+}
+
+.uploadSpace button {
+
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: 0;
+    
+}
+
+.uploadSpace button:hover, .uploadSpace button:focus{
+
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.151);
+    
+}
+
+.uploadImg {
+    width: 50px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #004196;
+    border-radius: 50%;
+    position: relative;
+
+}
+
+.uploadImg::after {
+    content: "";
+    position: absolute;
+    width: 65%;
+    height: 15%;
+    left: 17%;
+    top:43%;
+    border-radius: 50px;
+    background:white;
+}
+
+.uploadImg::before {
+    content: "";
+    position: absolute;
+    width: 65%;
+    height: 15%;
+    left: 17%;
+    top:43%;
+    border-radius: 50px;
+    background:white;
+    transform: rotateZ(90deg);
+}
+.uploadSpace h3 {
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+    margin-bottom:0;
+}
+
+.uploadSpace h4 {
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-size: 0.9em;
+    color: gray;
+    margin-top: 5px;
+}
 
 .thumbnail {
-    max-width: 200px;
-    max-height: 200px;
-    margin: 10px;    
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    margin: 0;  
+}
+
+.noFoto {
+    width: 100%;
+    height: 250px;
+    margin: 0;  
+    background-color:rgb(224, 224, 224);
+}
+
+.submitDiv {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 40px;
+}
+
+.submitButton {
+    background-color: #f2cb05;
+    border: 0px solid white;
+    width: 6rem;
+    height: 2.5rem;
+    margin: 0;
+
+    border-radius: 5px;
+    color: white;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.submitButton:hover, .submitButton:focus {
+    background-color: #9e8404;
+}
+
+.inputName {
+    padding: 5px 10px 5px 10px;
+    background-color: grey;
+    border: 0;
+    color: white;
+}
+
+.inputName::-webkit-input-placeholder {
+    color: rgb(226, 226, 226);
+}
+.inputName:-moz-placeholder {
+   color: rgb(226, 226, 226);
+   opacity: 1;
+}
+.inputName::-moz-placeholder { 
+   color: rgb(226, 226, 226);
+   opacity: 1;
+}
+.inputName:-ms-input-placeholder { 
+   color: rgb(226, 226, 226);
+}
+.inputName::-ms-input-placeholder {
+   color: rgb(226, 226, 226);
+}
+
+.inputName::placeholder {
+   color: rgb(226, 226, 226);
+}
+
+.inputDesc {
+    padding: 5px 10px 5px 10px;
+    background:transparent;
+    border: 0;
+
+}
+
+textarea {
+    resize: none;
+}
+
+.removePhoto {
+    width: 20px;
+    height: 20px;
+    margin: 10px 10px 10px auto;
+}
+
+@media only screen and (max-width: 800px) {
+
+    .photoList {  
+        justify-content: space-around;
+    }
+}
+
+@media only screen and (max-width: 250px) {
+
+    .main {
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+    }
+
+    .photos {
+        width:100vw;
+        margin-left:auto;
+        margin-right: auto;
+    }
+
 }
 

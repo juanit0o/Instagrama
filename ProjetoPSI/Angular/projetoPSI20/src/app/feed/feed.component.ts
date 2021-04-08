@@ -3,8 +3,11 @@ import { Subscription } from 'rxjs';
 
 import { Photo } from '../photo';
 import { PhotoService } from '../photo.service';
+import { AutenticacaoService } from '../autenticacao.service';
 
+import { AuthenticationService, UserDetails } from '../authentication.service';
 
+import * as global from '../autenticacao.service';
 
 @Component({
   selector: 'app-feed',
@@ -14,6 +17,11 @@ import { PhotoService } from '../photo.service';
 export class FeedComponent implements OnInit {
 
   //LISTA DE FOTOS
+
+  //nickname : string;
+
+  details: UserDetails;
+
   subscription?: Subscription;
   photos : Photo[];
   photosId : string[];
@@ -24,24 +32,41 @@ export class FeedComponent implements OnInit {
   //ELEMENTO SELECIONADO ATUALMENTE NO "ORDENA POR"
   ordena : string;
 
-  temFotosPorLoad : boolean;
+  temFotosPorLoad ?: boolean;
 
   constructor(
     private photoService: PhotoService,
+    private autenticacaoService: AutenticacaoService,
+    private auth: AuthenticationService
   ) { 
+
+    this.details = {_id: "",
+                    nickname: "",
+                    exp: 0,
+                    iat: 0 };
+    //this.nickname = this.autenticacaoService.getNick();
+    //console.log(this.nickname);
     this.photos = [];
     this.photosId = [];
 
     this.liked = [];
     this.favorited = [];
 
-    this.temFotosPorLoad = true;
-    this.ordena = "Mais Recentes V"
+    this.ordena = "Mais Recentes V";
 
+
+    
   }
 
   //INIT
   ngOnInit(): void {
+
+   this.auth.profile().subscribe(user => {
+          this.details = user;
+        }, (err) => {
+          console.error(err);
+        });
+
 
     this.getPhotos();
 

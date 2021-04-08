@@ -87,7 +87,7 @@ h2 {
 
 
 .dropdown-content {
-    display: none; /*none*/
+    
     position: absolute;
     background-color: #f9f9f9;
     min-width: 180px;
@@ -130,6 +130,10 @@ h2 {
 .dropdown:hover .dropbtn {
     background-color:#11c3f9;
 }
+/*
+.dropdown-content a:focus{
+    display: none;
+}*/
 
 
 

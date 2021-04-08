@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from './authentication.service';
+
+export var nick : string;
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'projetoPSI20';
+
+  constructor(public auth: AuthenticationService) {}
+
+  
 }

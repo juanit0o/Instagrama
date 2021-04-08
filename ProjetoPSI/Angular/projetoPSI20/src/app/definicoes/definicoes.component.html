@@ -7,10 +7,11 @@
         
         <!-- Mudar a password -->
         <div class="input-box">
-            <input #pwatual id="pwAtual-input" type="text" placeholder="Nickname" (input)="pwAtualInsert(pwatual.value)">
+            <input #pwatual id="pwAtual-input" type="text" placeholder="Password Atual" (input)="pwAtualInsert(pwatual.value)">
             <input #pwnova id="pwNova-input" type="password" placeholder="Password Nova" (input)="pwNovaInsert(pwnova.value)">
             <input #pwnovaconfirmacao id="pwNovaConf-input" type="password" placeholder="Confirmar Password" (input)="pwNovaConfirmarInsert(pwnovaconfirmacao.value)">
         </div>
+        <h3 id="error-register">{{error}}</h3>
         <div class="guardarAlteracoes">
             <button (click)="guardarAlteracoes()">
                 Guardar Alterações

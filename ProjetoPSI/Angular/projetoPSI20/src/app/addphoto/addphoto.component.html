@@ -10,15 +10,34 @@
     </article>-->
 
 
-    <input style="display: none;" type="file"  (change)="onFileChanged($event)" #fileInput multiple/>
-    <button class="photoUploadButton" (click)="fileInput.click()">Upload profile photo</button>
-    <h4>(Max file size 70kb)</h4>
-    <input type="text" id="fname" name="fname" placeholder="Nome da Fotografia"><br>
-    <input type="text" id="lname" name="lname" placeholder="Descricao da Fotografia"><br><br>
+    
+    <div class="photoList">
 
-    <div *ngFor="let photo of photosToUpload" class="photos">
-        <img src="{{photo.photoPath}}" class="thumbnail">
+        <div *ngFor="let photo of photosToUpload" class="photos">
+            <img *ngIf="photo.photo" src="{{photo.photo}}" class="thumbnail">
+            <app-loadingphoto class="noFoto" *ngIf="!photo.photo"></app-loadingphoto>
+            <input class="inputName" type="text" placeholder="Nome da Fotografia">
+            <textarea class="inputDesc" placeholder="Descricao da Fotografia" rows="3"></textarea>
+            <img class="removePhoto" src="assets/trash.png" (click)="removePhoto(photo.id)" (keyup.enter)="removePhoto(photo.id)" tabindex="0">
+        </div>
+
+        <div class="uploadSpace">
+            <input style="display: none;" type="file"  (change)="onFileChanged($event)" #fileInput multiple/>
+            <button class="photoUploadButton" (click)="fileInput.click()">
+                
+                <div class="uploadImg"></div>
+                <h3>Adicionar imagens</h3>
+                <h4>(Max 10mb)</h4>
+
+            </button>
+            
+        </div>
+
     </div>
-    <button (click)="submit()">Submit</button>
+    
+    <div class="submitDiv">
+        <button class="submitButton" (click)="submit()">Submeter</button>
+    </div>
+    
 
 </div>

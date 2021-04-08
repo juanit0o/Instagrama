@@ -82,16 +82,16 @@ export class AddphotoComponent implements OnInit {
   singleFile(file: any) : void {
     if(file != null && file.size < 10000000000){
         const reader = new FileReader();
-        var photo = {"id": "",
-                    "dono": "",
-                    "nome": "string",
-                    "descricao": "string",
-                    "photoPath": "",
+        var photo = {"id": this.photosToUpload?.length.toString(),
+                    "dono": "DONO",
+                    "nome": "NOME",
+                    "descricao": "DESC",
+                    "photo": "",
                     "likes": [""],
                     "favoritos": [""]} as Photo;
         reader.readAsDataURL(file);
         reader.onloadend = function() {
-          photo.photoPath = reader.result as string;  
+          photo.photo = reader.result as string;  
         }
         this.photosToUpload?.push(photo);
 
@@ -102,6 +102,8 @@ export class AddphotoComponent implements OnInit {
   }
 
   submit(): void{
+    console.log(this.photosToUpload);
+    /*
     for(var i = 0; i < this.photosToUpload!.length; i++){
       console.log(this.photosToUpload![i]);
       this.photoService.postPhoto(this.photosToUpload![i]).subscribe( res =>{ //mandar os bytes ja
@@ -111,19 +113,41 @@ export class AddphotoComponent implements OnInit {
 
           }
         )
-    }
-    /*
-    
-      let formdata = new FormData();
-      this.submitted = true;
-      if(this.photos![i]){
-        formdata.append("photo", this.photos![i], this.photosToUpload![i].name);
-        
-      }
     }*/
+    this.submitSingleFoto(this.photosToUpload);
     
   }
 
+  submitSingleFoto(photos ?: Photo[]) : void{
+    if(photos && photos.length > 0) {
+      this.photoService.postPhoto(photos[0]).subscribe( res =>{ //mandar os bytes ja
+        console.log(res);
+        if(res.msg == "SUCESSO POSTPHOTO") {
+          this.submitSingleFoto(photos.slice(1, photos.length));
+        } else {
+          //TOMAR CONTA DO ERRO
+        }
+      });
+    }
+    
+  }
+
+  removePhoto(id: string) : void {
+    if (parseInt(id) > -1) {
+      
+      let photosToUploadAux = [ ];
+      for(let i = 0; i < this.photosToUpload!.length; i++) {
+        if(this.photosToUpload![i].id != id){
+          photosToUploadAux.push(this.photosToUpload![i]);
+        }
+      }
+      this.photosToUpload = photosToUploadAux;
+      console.log(this.photosToUpload)
+      for(let i = 0; i < this.photosToUpload!.length; i++) {
+        this.photosToUpload![i].id = i.toString();
+      }
+    }
+  }
 
   
 }

@@ -7,21 +7,29 @@ import { DefinicoesComponent } from './definicoes/definicoes.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { FeedComponent } from './feed/feed.component';
 import { IndividualphotoComponent } from './individualphoto/individualphoto.component';
-import { LoadingComponent } from './loading/loading.component';
+import { LoadingphotoComponent } from './loadingphoto/loadingphoto.component';
 import { AddphotoComponent } from './addphoto/addphoto.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { FavoritosComponent } from './favoritos/favoritos.component';
+
+import { AuthGuardService } from './auth-guard.service';
 
 const routes: Routes = [
   { path: '', component : LoginComponent },
   { path: 'registar', component : RegisterComponent },
   { path: 'definicoes', component : DefinicoesComponent },
   { path: 'perfil/:nickname', component : PerfilComponent }, //vai ter tbm /:id
-  { path: 'feed', component : FeedComponent },
+  //{ path: 'feed', component : FeedComponent },
   { path: 'foto/:id', component : IndividualphotoComponent },
   { path: 'perfil/:id/publicar', component : AddphotoComponent },
+  { path: 'favoritos', component : FavoritosComponent },
 
+  { path: 'loading', component : LoadingphotoComponent },
 
-  //TEMPORARIO SO PARA TESTE
-  { path: 'loading', component : LoadingComponent },
+  { path: 'feed', component: FeedComponent, canActivate: [AuthGuardService] },
+
+  {path: '404', component: NotfoundComponent},
+  {path: '**', redirectTo: '/404'}
 ];
 
 @NgModule({

@@ -12,13 +12,13 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var photos = [];
 
-function photoCreate(id, dono, nome, descricao, photoPath, likes, favoritos, cb){
+function photoCreate(id, dono, nome, descricao, photo, likes, favoritos, cb){
 
     photoDetails = {id:id, 
                     dono:dono,
                     nome:nome,
                     descricao:descricao,
-                    photoPath:photoPath,
+                    photo:photo,
                     likes:likes,
                     favoritos:favoritos} 
 

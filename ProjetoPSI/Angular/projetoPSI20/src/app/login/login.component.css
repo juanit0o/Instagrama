@@ -22,6 +22,10 @@
     font-weight: bold;
 }
 
+.input-box button:hover, .input-box button:focus {
+    background-color: #9e8404;
+}
+
 h3 {
     padding-top: 10px;
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
