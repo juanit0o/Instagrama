@@ -155,8 +155,8 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  
-  logout() {/*
+  /*
+  logout() {
     this.autService.logout(this.nick).subscribe(out => {
       console.log(out.msg);
       if(out.msg == "SUCESSO LOGOUT"){
@@ -165,7 +165,7 @@ export class HeaderComponent implements OnInit {
         console.log("Falhou LOGOUT");
       }
       
-    })*/
-  }
+    })
+  }*/
 
 }

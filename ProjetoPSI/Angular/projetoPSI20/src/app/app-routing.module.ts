@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'perfil/:nickname', component : PerfilComponent, canActivate: [AuthGuardService]  }, //vai ter tbm /:id
   //{ path: 'feed', component : FeedComponent },
   { path: 'foto/:id', component : IndividualphotoComponent},
-  { path: 'perfil/:id/publicar', component : AddphotoComponent, canActivate: [AuthGuardService]  },
+  { path: 'publicar', component : AddphotoComponent, canActivate: [AuthGuardService]  },
   { path: 'favoritos', component : FavoritosComponent, canActivate: [AuthGuardService]  },
 
   { path: 'feed', component: FeedComponent, canActivate: [AuthGuardService] },

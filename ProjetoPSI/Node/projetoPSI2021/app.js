@@ -8,15 +8,12 @@ var LocalStrategy = require("passport-local");
 var passportLocalMongoose = require("passport-local-mongoose");
 var User= require("./api/models/users");
 
-
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var multer = require('multer');
 var favicon = require('serve-favicon');
 
-// [SH] Bring in the data model
 require('./api/models/db');
-// [SH] Bring in the Passport config after model is defined
 require('./api/config/passport');
 var routesApi = require('./api/routes/index');
 

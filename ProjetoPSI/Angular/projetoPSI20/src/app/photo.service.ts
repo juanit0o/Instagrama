@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Photo } from './photo';
+import { PhotoToUpload } from './photoToUpload';
 import { Msg } from './msg';
 
 @Injectable({
@@ -43,8 +44,8 @@ export class PhotoService {
     return this.http.get<Photo>('http://localhost:3001/photo/' + id);
   }
 
-  postPhoto(content: Photo) : Observable<Msg>{
-    return this.http.post<Msg>('http://localhost:3001/upload', content, this.httpOptions);
+  postPhoto(content: PhotoToUpload) : Observable<Msg>{
+    return this.http.post<Msg>('http://localhost:3001/photo', content, this.httpOptions);
   }
 
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Photo } from '../photo';
 import { PhotoService } from '../photo.service'
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-perfil',
@@ -16,7 +17,7 @@ export class PerfilComponent implements OnInit {
   
   public nome;
   constructor(
-    private photoService: PhotoService,
+    private photoService: PhotoService,public auth: AuthenticationService
   ) {
     this.nome = "Pedro Ferreira";
 

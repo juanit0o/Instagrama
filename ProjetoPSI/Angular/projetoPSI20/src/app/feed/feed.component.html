@@ -3,7 +3,6 @@
 
     <!-- ORDENAR POR DROPDOWN -->
     <div class="ordena">
-        <p>{{details.nickname}}</p>
         <p>Ordenar por:</p>
         <div class="custom-select">
             <select #sel (change)="onChange(sel.value)">
@@ -32,8 +31,9 @@
                             
                     </div>
 
-                    <div class="infoLike">
-                        <h3>{{photo.likes.length}}</h3>
+                    <div class="infoLike"> 
+                        <!-- likes comecam por default com 1 -->
+                        <h3>{{photo.likes.length-1}}</h3> 
                         <img id="like{{photo.id}}" src="assets/heart.png" tabindex="0" (click)="likeInvoke(photo.id)" (keyup.enter)="likeInvoke(photo.id)"/>
                         <img id="favorite{{photo.id}}" class="favorite" tabindex="0" src="assets/favourite.png" (click)="favoriteInvoke(photo.id)" (keyup.enter)="favoriteInvoke(photo.id)"/>
                     </div>

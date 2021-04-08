@@ -3,11 +3,8 @@ import { Subscription } from 'rxjs';
 
 import { Photo } from '../photo';
 import { PhotoService } from '../photo.service';
-import { AutenticacaoService } from '../autenticacao.service';
 
 import { AuthenticationService, UserDetails } from '../authentication.service';
-
-import * as global from '../autenticacao.service';
 
 @Component({
   selector: 'app-feed',
@@ -36,7 +33,6 @@ export class FeedComponent implements OnInit {
 
   constructor(
     private photoService: PhotoService,
-    private autenticacaoService: AutenticacaoService,
     private auth: AuthenticationService
   ) { 
 
@@ -64,7 +60,7 @@ export class FeedComponent implements OnInit {
    this.auth.profile().subscribe(user => {
           this.details = user;
         }, (err) => {
-          console.error(err);
+          //console.error(err);
         });
 
 

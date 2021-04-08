@@ -140,6 +140,10 @@
     background-color: #9e8404;
 }
 
+.submitButton:disabled {
+    background-color: #d6d6d6;
+}
+
 .inputName {
     padding: 5px 10px 5px 10px;
     background-color: grey;
@@ -184,6 +188,21 @@ textarea {
     width: 20px;
     height: 20px;
     margin: 10px 10px 10px auto;
+}
+
+.errorsAndRemove{
+    margin:0;
+    margin-left: 10px;
+    display: flex;
+    justify-content: bottom;
+    align-items:center;
+    
+}
+
+.errorsAndRemove h3{
+    font-size: 0.6rem;
+    font-weight: bolder;
+    color: red;
 }
 
 @media only screen and (max-width: 800px) {

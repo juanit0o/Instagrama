@@ -1,0 +1,29 @@
+.perfil-body{
+    align-items: center;
+    justify-content: center;
+    max-width: 800px;
+    margin: auto;
+    justify-content: flex-end;
+}
+
+.favs{
+    color: #003F9A;
+    font-weight: bold;
+    font-size: 3rem;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    /*padding-top: 5px;*/
+    margin-block-start: 0em;
+    padding-top:10px;
+}
+
+.titulo{
+    color: #7B7B7B;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+}
+.topo{
+    text-align: right;
+
+}

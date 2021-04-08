@@ -9,21 +9,16 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
 
-  //private nick;
-  //private pw;
   credentials: TokenPayload = {
     nickname: '',
     password: ''
   };
- // private estouLoggedIn;
 
   public error;
   private listError : string[];
 
   constructor(private auth: AuthenticationService, private router: Router) { 
-    //this.nick = "";
-    //this.pw = ""
-    
+
     this.error = "";
     this.listError = [];
     
@@ -31,8 +26,7 @@ export class RegisterComponent {
 
   //INIT
   ngOnInit(): void {
-    //this.nicknameRegister("");
-    //this.passwordRegister("");
+
   }
  
   //ATUALIZA O NICK QUANDO O INPUT É ALTERADO

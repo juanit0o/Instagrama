@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Photo } from '../photo';
 import { PhotoService } from '../photo.service'
 import { ActivatedRoute, Params} from '@angular/router';
-import { User } from '../user';
 
 @Component({
   selector: 'app-individualphoto',

@@ -1,0 +1,7 @@
+<div class="row p-3" *ngIf="!submitted">
+    <span class="col-6 font-weight-bold"> Image: </span>
+    <span class="col"> <input type="file" (input)="fileChoosen($event)"></span>
+    <span class="col" *ngIf="choosen">
+        <button class="btn btn-warning" (click)="submitPhoto()">Submit</button>
+    </span>
+</div>

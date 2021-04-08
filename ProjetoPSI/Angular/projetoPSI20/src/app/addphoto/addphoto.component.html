@@ -16,14 +16,18 @@
         <div *ngFor="let photo of photosToUpload" class="photos">
             <img *ngIf="photo.photo" src="{{photo.photo}}" class="thumbnail">
             <app-loadingphoto class="noFoto" *ngIf="!photo.photo"></app-loadingphoto>
-            <input class="inputName" type="text" placeholder="Nome da Fotografia">
-            <textarea class="inputDesc" placeholder="Descricao da Fotografia" rows="3"></textarea>
-            <img class="removePhoto" src="assets/trash.png" (click)="removePhoto(photo.id)" (keyup.enter)="removePhoto(photo.id)" tabindex="0">
+            <input class="inputName" id="nomeFoto{{photo.id}}" type="text" placeholder="Nome da Fotografia" (input)="checkNomeDescricao(photo.id)">
+            <textarea class="inputDesc" id="descFoto{{photo.id}}" placeholder="Descricao da Fotografia" rows="3" (input)="checkNomeDescricao(photo.id)"></textarea>
+            <div class="errorsAndRemove">
+                <h3 class = "errorms" id="errorMsg{{photo.id}}"></h3>
+                <img class="removePhoto" src="assets/trash.png" (click)="removePhoto(photo.id)" (keyup.enter)="removePhoto(photo.id)" tabindex="0">
+            </div>
+               
         </div>
 
         <div class="uploadSpace">
             <input style="display: none;" type="file"  (change)="onFileChanged($event)" #fileInput multiple/>
-            <button class="photoUploadButton" (click)="fileInput.click()">
+            <button class="photoUploadButton" (click)="fileInput.click()" (keyup.enter)="fileInput.click()" >
                 
                 <div class="uploadImg"></div>
                 <h3>Adicionar imagens</h3>
@@ -36,7 +40,7 @@
     </div>
     
     <div class="submitDiv">
-        <button class="submitButton" (click)="submit()">Submeter</button>
+        <button disabled id="submitButton" class="submitButton" (click)="submit()">Submeter</button>
     </div>
     
 

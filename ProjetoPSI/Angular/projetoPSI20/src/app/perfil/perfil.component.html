@@ -5,7 +5,7 @@
 <div class="perfil-body">
     <div class="topo">
         <h4 class="titulo"> Perfil de </h4>
-        <h1 class="nomeUser"> {{nome}}</h1>
+        <h1 class="nomeUser">{{ auth.getUserDetails()?.nickname }}</h1>
     </div>
 
     <!-- FOTO FEED -->
@@ -21,7 +21,7 @@
                 <div class="info">
                     <div class="infoDono">
                         <img src="assets/user-profile.png"/>
-                        <h2>{{photo.dono}}</h2>
+                        <h2>{{auth.getUserDetails()?.nickname }}</h2>
                             
                     </div>
 

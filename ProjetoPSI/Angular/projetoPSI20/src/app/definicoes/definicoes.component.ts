@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
-import { User } from '../user';
-import { AutenticacaoService } from '../autenticacao.service';
 
 @Component({
   selector: 'app-definicoes',
@@ -18,7 +16,7 @@ export class DefinicoesComponent implements OnInit {
   public error;
   private listError: string[];
 
-  constructor(private autService: AutenticacaoService) { 
+  constructor() { 
     this.nick = "diogo"; //TODO: hardcoded por enquanto, ainda nao se sabe quem eh o client
     this.pwAtual = "";
     this.pwNova = "";

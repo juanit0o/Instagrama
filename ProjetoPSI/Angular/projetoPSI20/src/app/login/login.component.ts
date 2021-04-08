@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { User } from '../user';
 import { AuthenticationService, TokenPayload } from '../authentication.service';
 import { Router } from '@angular/router';
 
