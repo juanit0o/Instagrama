@@ -17,14 +17,12 @@ import { AuthGuardService } from './auth-guard.service';
 const routes: Routes = [
   { path: '', component : LoginComponent },
   { path: 'registar', component : RegisterComponent },
-  { path: 'definicoes', component : DefinicoesComponent },
-  { path: 'perfil/:nickname', component : PerfilComponent }, //vai ter tbm /:id
+  { path: 'definicoes', component : DefinicoesComponent, canActivate: [AuthGuardService]  },
+  { path: 'perfil/:nickname', component : PerfilComponent, canActivate: [AuthGuardService]  }, //vai ter tbm /:id
   //{ path: 'feed', component : FeedComponent },
-  { path: 'foto/:id', component : IndividualphotoComponent },
-  { path: 'perfil/:id/publicar', component : AddphotoComponent },
-  { path: 'favoritos', component : FavoritosComponent },
-
-  { path: 'loading', component : LoadingphotoComponent },
+  { path: 'foto/:id', component : IndividualphotoComponent},
+  { path: 'perfil/:id/publicar', component : AddphotoComponent, canActivate: [AuthGuardService]  },
+  { path: 'favoritos', component : FavoritosComponent, canActivate: [AuthGuardService]  },
 
   { path: 'feed', component: FeedComponent, canActivate: [AuthGuardService] },
 

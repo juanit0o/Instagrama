@@ -25,7 +25,7 @@
 
     <!-- TODO tentar fazer dropdown com imagens -->
          <div id ="utilizador">
-            <h2 id="nomeUser">{{nick}}</h2>
+            <h2 id="nomeUser">{{ auth.getUserDetails()?.nickname }}</h2>
             <div class="dropdown">                      <!-- (keyup.enter)="mudaStyle() -->
                 <button class="dropbtn" id="dropbtno" (click)="openMenu()"><img src="assets/user-profile.png"></button>
                 <div #botaoAbrir class="dropdown-content" id = "dropbt">

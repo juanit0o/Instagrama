@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AutenticacaoService } from '../autenticacao.service';
+import { AuthenticationService } from '../authentication.service';
+
+export var nick : string;
 
 @Component({
   selector: 'app-header',
@@ -12,7 +14,7 @@ export class HeaderComponent implements OnInit {
   //vai ter um user
   private menuAberto: boolean = false;
 
-  constructor(private autService: AutenticacaoService) { 
+  constructor(public auth: AuthenticationService) { 
     this.nick = "PedroFerreira";
     //this.menuAberto = false;
   }
@@ -153,7 +155,8 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  logout() {
+  
+  logout() {/*
     this.autService.logout(this.nick).subscribe(out => {
       console.log(out.msg);
       if(out.msg == "SUCESSO LOGOUT"){
@@ -162,7 +165,7 @@ export class HeaderComponent implements OnInit {
         console.log("Falhou LOGOUT");
       }
       
-    })
+    })*/
   }
 
 }
