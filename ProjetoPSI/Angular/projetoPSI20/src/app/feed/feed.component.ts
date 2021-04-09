@@ -24,13 +24,14 @@ export class FeedComponent implements OnInit {
   photosId : string[];
   liked: string[];
   favorited: string[];
+  
   //
 
   //ELEMENTO SELECIONADO ATUALMENTE NO "ORDENA POR"
   ordena : string;
-
+  
   temFotosPorLoad ?: boolean;
-
+  
   constructor(
     private photoService: PhotoService,
     private auth: AuthenticationService
@@ -49,6 +50,7 @@ export class FeedComponent implements OnInit {
     this.favorited = [];
 
     this.ordena = "Mais Recentes V";
+
 
 
     
@@ -87,7 +89,7 @@ export class FeedComponent implements OnInit {
         this.subscription = this.photoService.getPhotoById(lista[0]).subscribe(output => 
         {
           this.photos.push(output);
-            this.getPhoto(lista.slice(1, lista.length));
+          this.getPhoto(lista.slice(1, lista.length));
       });
     } else {
       this.temFotosPorLoad = false;
@@ -169,9 +171,8 @@ export class FeedComponent implements OnInit {
       window.document.documentElement.scrollTop = 0;
       //window.document.querySelector("app-header")?.focus();
     }
-
-
-        
+    
+  
 
 }
  

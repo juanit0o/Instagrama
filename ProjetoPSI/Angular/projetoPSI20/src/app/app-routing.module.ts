@@ -19,12 +19,13 @@ const routes: Routes = [
   { path: 'registar', component : RegisterComponent },
   { path: 'definicoes', component : DefinicoesComponent, canActivate: [AuthGuardService]  },
   { path: 'perfil/:nickname', component : PerfilComponent, canActivate: [AuthGuardService]  }, //vai ter tbm /:id
-  //{ path: 'feed', component : FeedComponent },
   { path: 'foto/:id', component : IndividualphotoComponent},
   { path: 'publicar', component : AddphotoComponent, canActivate: [AuthGuardService]  },
   { path: 'favoritos', component : FavoritosComponent, canActivate: [AuthGuardService]  },
 
   { path: 'feed', component: FeedComponent, canActivate: [AuthGuardService] },
+
+  { path: 'loading', component : LoadingphotoComponent},
 
   {path: '404', component: NotfoundComponent},
   {path: '**', redirectTo: '/404'}

@@ -61,9 +61,19 @@ exports.getPhoto = function(req, res, next){
 
 }
 
+exports.getLastId = function(req, res, next){
+
+    Photo.count({}, function(err,count) {
+        if(err) {
+            res.send(JSON.parse('{"msg":"FAILED"}'))
+        }
+        res.send(JSON.parse('{"msg":' + (count+1) + '}'))
+    });
+    
+}
+
 //POST SEM O MORGAN
 exports.uploadPhoto = function(req, res, next){
-
 
     Photo.count({}, function(err,count) {
         if(err) {
@@ -93,67 +103,15 @@ exports.uploadPhoto = function(req, res, next){
     });
 }
 
-/*
-exports.postPhoto = function (req, res){
-    if(!req.file){
-        console.log("nao recebi foto");
-        return res.send(JSON.parse('{"msg":"FAILED"}'));
-    }else{
+exports.getPhotoById = function (req, res, next) {
 
-        console.log("foto recebida");
-        console.log(req.body.photo);
-        var photo = new Photo({
-            id: 1,
-            dono: req.body.dono,
-            nome: req.body.nome,
-            descricao: req.body.descricao,
-            photo: req.body.photo,
-            likes: req.body.likes,
-            favoritos: req.body.favoritos
-        });
+    require("fs").readFile("./public/photos/"+req.params.id, (err, image) => {
+        res.end(image);
+    });
 
-        photo.save(function (err){
-            if(err) {
-                console.log(err);
-                res.send(JSON.parse('{"msg":"FAILED"}'));
-            } else {
-                res.send(JSON.parse('{"msg":"SUCESS"}'));
-            }
-        });
-    }
-};*/
+}
 
 exports.postPhoto = function(req, res,next){
     console.log("asdasdsa");
     res.send(JSON.parse('{"msg":"SUCESSO POSTPHOTO"}'));
-    /*
-    console.log(req.body);
-    res.send('as');
-    res.send(JSON.parse('{"msg":"SUCESSO POSTPHOTO"}'));
-    
-    var upload = multer({ storage: storage });
-    app.post('/upload', upload.single('myFile'), async(req, res, next) => {
-    const file = req.file;
-    if (!file) {
-      const error = new Error('Please upload a file');
-      error.httpStatusCode = 400;
-      return next("hey error");
-    } 
-
-    const imagepost= new model({
-      image: file.path
-    })
-    const savedimage= await imagepost.save()
-    res.json(savedimage);
-    app.get('/image',async(req, res)=>{
-      const image = await model.find()
-      res.json(image)
-      
-     })
-     app.get('/image',async(req, res)=>{
-      const image = await model.find()
-      res.json(image)
-      
-     })
-    } )*/
 }

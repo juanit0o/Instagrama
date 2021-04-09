@@ -44,8 +44,16 @@ export class PhotoService {
     return this.http.get<Photo>('http://localhost:3001/photo/' + id);
   }
 
-  postPhoto(content: PhotoToUpload) : Observable<Msg>{
-    return this.http.post<Msg>('http://localhost:3001/photo', content, this.httpOptions);
+  postPhotoInfo(content: Photo) : Observable<Msg>{
+    return this.http.post<Msg>('http://localhost:3001/photoinfo', content, this.httpOptions);
+  }
+
+  postOnlyPhoto(content: any) : Observable<Msg>{
+    return this.http.post<Msg>('http://localhost:3001/photopath', content);
+  }
+
+  getLastId() : Observable<Msg>{
+    return this.http.get<Msg>('http://localhost:3001/photolastid');
   }
 
 

@@ -14,8 +14,8 @@
     <div class="photoList">
 
         <div *ngFor="let photo of photosToUpload" class="photos">
-            <img *ngIf="photo.photo" src="{{photo.photo}}" class="thumbnail">
-            <app-loadingphoto class="noFoto" *ngIf="!photo.photo"></app-loadingphoto>
+            <img *ngIf="temPhoto(photo.id)" src="{{openPhoto(photo.id)}}" class="thumbnail">
+            <app-loadingphoto class="noFoto" *ngIf="!temPhoto(photo.id)"></app-loadingphoto>
             <input class="inputName" id="nomeFoto{{photo.id}}" type="text" placeholder="Nome da Fotografia" (input)="checkNomeDescricao(photo.id)">
             <textarea class="inputDesc" id="descFoto{{photo.id}}" placeholder="Descricao da Fotografia" rows="3" (input)="checkNomeDescricao(photo.id)"></textarea>
             <div class="errorsAndRemove">

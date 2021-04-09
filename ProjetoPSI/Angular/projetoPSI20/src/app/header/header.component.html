@@ -24,14 +24,27 @@
 
 
     <!-- TODO tentar fazer dropdown com imagens -->
-         <div id ="utilizador">
-            <h2 id="nomeUser">{{ auth.getUserDetails()?.nickname }}</h2>
-            <div class="dropdown">                      <!-- (keyup.enter)="mudaStyle() -->
-                <button class="dropbtn" id="dropbtno" (click)="openMenu()"><img src="assets/user-profile.png"></button>
-                <div #botaoAbrir class="dropdown-content" id = "dropbt">
-                        <!--  <a href="/perfil"><img src="assets/profile." Meu perfil</a>-->
+     
+    <!--
+     <h4>Basic mat-select</h4>
+     <mat-form-field appearance="fill">
+       <mat-label>Perfil</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let food of foods" [value]="food.value">
+              {{food.viewValue}}
+           </mat-option>
+         </mat-select>
+     </mat-form-field>
 
-                    <!-- *ngIf="auth.isLoggedIn()" CASO SEJA PRECISO USAR NA PAGINA INDIVIDUAL DA FOTO-->
+    -->
+  
+    
+        <div id ="utilizador">
+            <h2 id="nomeUser">{{ auth.getUserDetails()?.nickname }}</h2>
+            <div class="dropdown">          
+                <button class="dropbtn" id="dropbtno" (click)="openMenu()"><img src="assets/user-profile.png"></button>
+                <div #botaoAbrir class="dropdown-content" id = "dropbt"> 
+
 
                     <a href="/perfil/{{auth.getUserDetails()?.nickname}}"><img src="assets/user-profile.png" class="iconProf" id="prof">  Meu perfil</a>
                     <a href="/publicar"><img src="assets/addButton.png"> Adicionar Foto</a>

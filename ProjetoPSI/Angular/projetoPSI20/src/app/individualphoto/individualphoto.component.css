@@ -70,11 +70,13 @@
     display: flex;
     justify-content: flex-end;
     padding-top: 6px;
+    margin-right: 0;
     padding-bottom: 10px;
     text-decoration: none;
     color: black;
     font-size:1.5rem;
     flex-wrap: nowrap;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
 
 }
 
@@ -98,5 +100,7 @@ h4{
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
     width: 35px;
     height: 35px;
+    margin-right: 0;
+    margin-left: 5px;
 }
 

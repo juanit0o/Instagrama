@@ -8,7 +8,7 @@ var PhotoSchema = new Schema(
         dono: { type: String, required: true },
         nome: { type: String, required: true },
         descricao: { type: String, required: false },
-        photo: { type: String, required: false },
+        photo: { type: String, required: true },
         likes: [String],
         favoritos: [String]
     }

@@ -102,4 +102,9 @@ export class AuthenticationService {
     window.localStorage.removeItem('mean-token');
     this.router.navigateByUrl('/');
   }
+/*
+  public hasPhotos(): Observable<any> {
+
+  }
+  */
 }

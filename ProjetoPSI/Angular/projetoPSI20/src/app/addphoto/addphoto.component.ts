@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { Photo } from '../photo';
 import { PhotoToUpload } from '../photoToUpload';
 import { PhotoService } from '../photo.service'
 import { AuthenticationService } from '../authentication.service';
@@ -10,13 +11,12 @@ import { AuthenticationService } from '../authentication.service';
   styleUrls: ['./addphoto.component.css']
 })
 export class AddphotoComponent implements OnInit {
-  //imageURL!: string;
 
   photosToUpload : PhotoToUpload[];
+  photosBase : string[];
 
   uploadForm: FormGroup;
-  //photo !:Photo[];
-  submitted ?: boolean;
+
   photos ?: File[];
   filesInput ?: HTMLElement;
 
@@ -26,51 +26,11 @@ export class AddphotoComponent implements OnInit {
       name: ['']
     })
     this.photosToUpload = [ ];
+    this.photosBase = [ ];
   }
 
   ngOnInit(): void {
-    //(<HTMLInputElement> window.document.getElementById("photoUploadButton")).disabled = true;
-    
-    //this.imageURL = [];
-    /** 
-    this.filesInput = document.getElementById("files") as HTMLElement;
-        
-    this.filesInput.addEventListener("change", function(event){
-        
-        var files = (<HTMLInputElement>event.target).files; //FileList object
-        //var photos : Photo[] = (<HTMLInputElement>event.target).files;
-        var output = document.getElementById("result");
-        
-        for(var i = 0; i< files!.length; i++){
-            //this.photos.push( files![i]); //pq da erro, append para um array de files
-            var file = files![i];
-            
-            //Only pics
-            if(!file.type.match('image'))
-              continue;
-            
-            var picReader = new FileReader();
-            
-            picReader.addEventListener("load",function(event){
-                
-                var picFile = event.target;
-                
-                var div = document.createElement("div");
-                div.className = "fotoInd";
-                
-                div.innerHTML = "<img class='thumbnail' src='" + picFile!.result + "'" +
-                        "title='" + picFile+ "'/>";
-                
-                output!.insertBefore(div,null);            
-            
-            });
-            
-             //Read the image
-            picReader.readAsDataURL(file);
-            this.photos.push(file);
-        }                               
-       
-    });*/
+
   }
 
   onFileChanged(ev: any): void {
@@ -87,19 +47,22 @@ export class AddphotoComponent implements OnInit {
   singleFile(file: any, i: number) : void {
     if(file != null && file.size < 10000000){
         const reader = new FileReader();
-        let fd = new FormData();
-        fd.append('profileImage', <File>file, "TEST");
+        //let fd = new FormData();
+        //fd.append('profileImage', file);
         let photo = {"id": this.photosToUpload.length.toString(),
                     "dono": this.auth.getUserDetails()?.nickname.toString(),
                     "nome": file.name.split(".")[0],           //NOME DO FILE
                     "descricao": "",
-                    "photo": fd,
+                    "photo": file,
                     "likes": [""],
                     "favoritos": [""]} as PhotoToUpload;
+        let base = "";
         reader.readAsDataURL(file);
-        reader.onloadend = function() {
-          photo.photo = reader.result as string;  
+        reader.onloadend = () => {
+          base = reader.result as string;  
+          this.photosBase.push(base);
         }
+      
         this.photosToUpload.push(photo);
       } else {
         //TODO --------------------------------- MOSTRA NO UTILIZADOR
@@ -109,23 +72,11 @@ export class AddphotoComponent implements OnInit {
 
   submit(): void{
     console.log(this.photosToUpload);
-    /*
-    for(var i = 0; i < this.photosToUpload!.length; i++){
-      console.log(this.photosToUpload![i]);
-      this.photoService.postPhoto(this.photosToUpload![i]).subscribe( res =>{ //mandar os bytes ja
-            //payload too large
-            //TODO TRATAR O ERRO
-            console.log(res.msg);
-
-          }
-        )
-    }*/
-    
-    this.submitSingleFoto(this.photosToUpload);
+      this.submitSingleFoto(this.photosToUpload);
     
   }
 
-  submitSingleFoto(photos ?: PhotoToUpload[]) : void{
+  submitSingleFoto(photos : PhotoToUpload[]) : void{
     if(photos && photos.length > 0) {
       let nome = (<HTMLInputElement> window.document.getElementById("nomeFoto"+photos[0].id)).value;
       if (nome != "") {
@@ -133,18 +84,40 @@ export class AddphotoComponent implements OnInit {
       }
       photos[0].descricao = (<HTMLInputElement> window.document.getElementById("descFoto"+photos[0].id)).value;
 
-      console.log(photos[0]);
+      let fd = new FormData();
 
-      this.photoService.postPhoto(photos[0]).subscribe( res =>{ //mandar os bytes ja
-        console.log(res);
-
+      this.photoService.getLastId().subscribe(res => {
         
-
-        if(res.msg == "SUCESSO POSTPHOTO") {
-          this.submitSingleFoto(photos.slice(1, photos.length));
-        } else {
-          //TOMAR CONTA DO ERRO
+        if(res.msg == "FAILED"){
+          console.log("FAILED");
+          return;
         }
+        
+        fd.append('profileImage', photos[0].photo, 'photo_' + res.msg + '.jpg');
+
+        this.photoService.postOnlyPhoto(fd).subscribe(res2 => {
+          
+          console.log(res2.msg)
+          if(res2.msg == "FAILED"){
+            console.log("FAILED");
+            return;
+          }
+          
+          let photoInfo = {"id": photos[0].id,
+                      "dono": photos[0].dono,
+                      "nome": photos[0].nome,
+                      "descricao": photos[0].descricao,
+                      "photo": res2.msg,
+                      "likes": photos[0].likes,
+                      "favoritos": photos[0].favoritos} as Photo;
+
+          this.photoService.postPhotoInfo(photoInfo).subscribe( res3 =>{
+            console.log(res3);
+            this.submitSingleFoto(photos.slice(1, photos.length));
+          });
+
+        });
+        
       });
     }
     
@@ -190,6 +163,14 @@ export class AddphotoComponent implements OnInit {
     }
     (<HTMLInputElement> window.document.getElementById("submitButton")).disabled = false;
     return false;
+  }
+
+  openPhoto(id : string) : string{
+    return this.photosBase[parseInt(id)];
+  }
+
+  temPhoto(id : string) : boolean {
+    return this.photosBase.length - 1 >= parseInt(id);
   }
 
   

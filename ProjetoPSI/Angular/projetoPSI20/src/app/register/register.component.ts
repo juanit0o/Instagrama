@@ -26,7 +26,8 @@ export class RegisterComponent {
 
   //INIT
   ngOnInit(): void {
-
+    this.nicknameRegister();
+    this.passwordRegister();
   }
  
   //ATUALIZA O NICK QUANDO O INPUT É ALTERADO

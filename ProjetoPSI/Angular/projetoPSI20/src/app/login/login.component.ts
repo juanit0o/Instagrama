@@ -63,6 +63,15 @@ export class LoginComponent {
 
   login() {
     this.auth.login(this.credentials).subscribe(() => {
+/*
+      this.auth.hasPhotos(this.credentials.nickname)).subscribe(out => {
+        if(out.msg == "SUCESSO"){
+          this.router.navigateByUrl('/perfil/'+this.credentials.nickname);
+        } else {
+          this.router.navigateByUrl('/feed');
+        }
+      })
+*/
       this.router.navigateByUrl('/feed');
     }, (err) => {
       console.error(err);

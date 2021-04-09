@@ -17,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { FavoritosComponent } from './favoritos/favoritos.component';
 import { LoadingphotoComponent } from './loadingphoto/loadingphoto.component';
-import { TesteuploadComponent } from './testeupload/testeupload.component';
+
 
 
 @NgModule({
@@ -34,8 +34,7 @@ import { TesteuploadComponent } from './testeupload/testeupload.component';
     AddphotoComponent,
     NotfoundComponent,
     FavoritosComponent,
-    LoadingphotoComponent,
-    TesteuploadComponent
+    LoadingphotoComponent
   ],
   imports: [
     BrowserModule,
