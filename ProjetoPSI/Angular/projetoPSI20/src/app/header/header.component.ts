@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
 //import {MatSelectModule} from '@angular/material/select';
 
-export var nick : string;
+//export var nick : string;
 
 @Component({
   selector: 'app-header',
@@ -11,18 +11,21 @@ export var nick : string;
 })
 export class HeaderComponent implements OnInit {
 
-  public nick;
+  //public nick;
   //vai ter um user
   private menuAberto: boolean = false;
 
   constructor(public auth: AuthenticationService) { 
-    this.nick = "PedroFerreira";
+    //this.nick = "PedroFerreira";
     //this.menuAberto = false;
   }
 
   //INIT
   ngOnInit(): void {
-    document.getElementById("dropbt")!.setAttribute("style","display:none");
+    if(document.getElementById("dropbt") != null){
+
+      document.getElementById("dropbt")!.setAttribute("style","display:none");
+    }
     //this.menuAberto = false;
     //document.addEventListener('click', this.closeOnClick.bind(this));
 

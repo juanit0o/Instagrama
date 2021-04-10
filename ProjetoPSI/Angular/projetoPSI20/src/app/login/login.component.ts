@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationService, TokenPayload } from '../authentication.service';
 import { Router } from '@angular/router';
+import { PhotoService } from '../photo.service'
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -21,7 +22,7 @@ export class LoginComponent {
   public error;
   private listError : string[];
 
-  constructor(private auth: AuthenticationService,
+  constructor(private photoService: PhotoService,private auth: AuthenticationService,
     private router: Router,
     ReactiveFormsModule: ReactiveFormsModule) { 
     //this.nick = "";
@@ -63,18 +64,17 @@ export class LoginComponent {
 
   login() {
     this.auth.login(this.credentials).subscribe(() => {
-/*
-      this.auth.hasPhotos(this.credentials.nickname)).subscribe(out => {
-        if(out.msg == "SUCESSO"){
+      // falta nos argumentos this.credentials.nickname
+      this.photoService.getDonosFotos(this.credentials.nickname!).subscribe(out => {
+        if(out.length > 0){
           this.router.navigateByUrl('/perfil/'+this.credentials.nickname);
         } else {
           this.router.navigateByUrl('/feed');
         }
       })
-*/
-      this.router.navigateByUrl('/feed');
     }, (err) => {
       console.error(err);
+      this.error = "Password ou nickname incorretos";
     }); 
   }
 

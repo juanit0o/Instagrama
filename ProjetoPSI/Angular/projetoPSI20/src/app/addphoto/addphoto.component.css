@@ -6,8 +6,6 @@
     padding-right: 20px;
     margin-left: auto;
     margin-right: auto;
-    
-    
 }
 
 .photoList {
@@ -26,6 +24,7 @@
     margin-bottom: 20px;
 
     background-color: rgb(224, 224, 224);
+    position: relative;
 }
 
 .uploadSpace {
@@ -37,6 +36,57 @@
     padding: 0;
     background-color: rgb(224, 224, 224);
     justify-content: center;
+}
+
+.photobox {
+    display:flex;
+    position:absolute;
+    flex-direction: column;
+    width:250px;
+    height:370px;
+    top:0;
+    left:0;
+
+}
+
+.success, .loading, .failed {
+    background-color: rgba(255, 255, 255, 0.767);
+    justify-content: center;
+    align-items: center;
+}
+
+.success h3, .loading h3, .failed h3{
+    color: #004196;
+    font-size: 0.9em;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 0px;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+.loading h3 {
+    margin-top: 40px;
+}
+.failed h3 {
+    margin-top: 30px;
+}
+
+.failed button {
+    padding: 5px 10px 5px 10px;
+    background-color: #004196;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+}
+.failed button:hover {
+    padding: 5px 10px 5px 10px;
+    background-color: #00214b;
+    color: white;
+    border: 0;
+    border-radius: 5px;
 }
 
 .uploadSpace button {
@@ -75,7 +125,7 @@
     left: 17%;
     top:43%;
     border-radius: 50px;
-    background:white;
+    background:rgb(224, 224, 224);
 }
 
 .uploadImg::before {
@@ -86,7 +136,7 @@
     left: 17%;
     top:43%;
     border-radius: 50px;
-    background:white;
+    background:rgb(224, 224, 224);
     transform: rotateZ(90deg);
 }
 .uploadSpace h3 {

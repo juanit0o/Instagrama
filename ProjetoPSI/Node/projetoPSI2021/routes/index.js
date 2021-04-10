@@ -30,6 +30,8 @@ router.get('/photo/:id', photo_controller.getPhoto);
 
 router.get('/file/photo/:id', photo_controller.getPhotoById);
 
+router.get('/donosFotos/:nickname', photo_controller.getDonosFotos);
+router.delete('/apagaFoto/:info', photo_controller.apagaFoto); //AQUI DIOGO
 
 router.post('/photoinfo', photo_controller.uploadPhoto); //sem morgan
 

@@ -17,6 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { FavoritosComponent } from './favoritos/favoritos.component';
 import { LoadingphotoComponent } from './loadingphoto/loadingphoto.component';
+import { SuccessiconComponent } from './successicon/successicon.component';
+import { ErroriconComponent } from './erroricon/erroricon.component';
 
 
 
@@ -34,7 +36,9 @@ import { LoadingphotoComponent } from './loadingphoto/loadingphoto.component';
     AddphotoComponent,
     NotfoundComponent,
     FavoritosComponent,
-    LoadingphotoComponent
+    LoadingphotoComponent,
+    SuccessiconComponent,
+    ErroriconComponent
   ],
   imports: [
     BrowserModule,

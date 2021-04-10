@@ -56,6 +56,12 @@ export class PhotoService {
     return this.http.get<Msg>('http://localhost:3001/photolastid');
   }
 
-
+  getDonosFotos(nickname: string) : Observable<Photo[]> {
+    return this.http.get<Photo[]>('http://localhost:3001/donosFotos/' + nickname);
+  }
+  
+  deletePhoto(info: string) : Observable<Msg> {
+    return this.http.delete<Msg>('http://localhost:3001/apagaFoto/' + info);
+  }
 
 }

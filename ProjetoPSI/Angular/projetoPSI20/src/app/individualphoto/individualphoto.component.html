@@ -20,7 +20,7 @@
 
         <div class="opcoes">
             <div>
-                <a class="dono" href="/perfil/{{nick}}" tabindex="-1" >
+                <a class="dono" href="/perfil/{{nickname}}" tabindex="-1" >
                     <h4 class="dono" tabindex="0">{{photo?.dono}}</h4>
                     <button class="dropbtn" id="dropbtno" tabindex="-1"><img src="assets/user-profile.png" tabindex="-1"></button>
                 </a>
@@ -50,17 +50,26 @@
                     <!-- <img src="assets/favourite.png" /> <h4 class="favoritos">Botao Favorito</h4> -->
             <!-- BOTAO DE SHARE -->
             <div class = "botoes" >
-                <h4 class="partilhar" id="partilhar" (click)="copyMessage()" tabindex="0" (keyup.enter)="copyMessage()"> Partilhar </h4>
-                <img src="assets/share.png" (click)="copyMessage()"/>
+                <div class="tooltip">
+                      <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+                </div>
+                <h4 class="partilhar" id="partilhar" (click)="copyMessage()" tabindex="0" (keyup.enter)="copyMessage()" > Partilhar </h4>
+                <img src="assets/share.png" id="partilharFoto" (click)="copyMessage()"/>
+                
             </div>
                 
                 <!--verificar se quem abriu a foto é dono dela e caso seja ter a hipotese de apagar-->
+
             <!-- BOTAO DE TRASH -->
             <div class = "botoes">
-                <h4 class="eliminar" tabindex="0"> Eliminar </h4>
-                <img src="assets/trash.png" /> 
+                <h4 class="eliminar" id="apagar" (click)="deletePhoto(photo?.id)" tabindex="0" (keyup.enter)="deletePhoto(photo?.id)" > Eliminar </h4>
+                <img src="assets/trash.png" (click)="deletePhoto(photo?.id)"/>
             </div>
+           
             
     </div>
 
 </div>
+
+<div id='popup'>Copiado para a clipboard</div>
+

@@ -7,22 +7,6 @@
         <h1>InstaGrama</h1>
     </div>
 
-    <!-- UTILIZADOR DROPDOWN 
-    <div id ="utilizador">
-        <h2 id="nomeUser">{{name}}</h2>
-        <a id="botaoPerfil" href="/perfil"><img src="assets/user-profile.png"/></a>
-    </div>
-
-
-
-    <div class="ordenarPor" id="ordenarPor">
-                <a (click)="ordenaMuda('Mais Recentes')">Mais Recentes</a>
-                <a (click)="ordenaMuda('Mais Antigas')">Mais Antigas</a>
-                <a (click)="ordenaMuda('Mais Likes')">Mais Likes</a>
-            </div>
-    -->
-
-
     <!-- TODO tentar fazer dropdown com imagens -->
      
     <!--
@@ -38,14 +22,14 @@
 
     -->
   
-    
+    <div *ngIf="auth.getUserDetails()?.nickname">
         <div id ="utilizador">
             <h2 id="nomeUser">{{ auth.getUserDetails()?.nickname }}</h2>
             <div class="dropdown">          
                 <button class="dropbtn" id="dropbtno" (click)="openMenu()"><img src="assets/user-profile.png"></button>
                 <div #botaoAbrir class="dropdown-content" id = "dropbt"> 
 
-
+                    <a href="/feed"><img src="assets/feed.png"> Feed </a>
                     <a href="/perfil/{{auth.getUserDetails()?.nickname}}"><img src="assets/user-profile.png" class="iconProf" id="prof">  Meu perfil</a>
                     <a href="/publicar"><img src="assets/addButton.png"> Adicionar Foto</a>
                     <a href="/favoritos"><img src="assets/favouriteChecked.png"> Meus Favoritos</a>
@@ -55,5 +39,10 @@
             </div>
         
         </div>
+    </div>
+    <div *ngIf="!auth.getUserDetails()?.nickname" class="notlogged">
+        <h2 class="nologin"> <a href="/" id= "removeUnderline"> Iniciar sessão</a> </h2>
+    </div>
+
 
 </div>

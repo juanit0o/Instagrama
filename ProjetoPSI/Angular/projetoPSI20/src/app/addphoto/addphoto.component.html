@@ -14,15 +14,37 @@
     <div class="photoList">
 
         <div *ngFor="let photo of photosToUpload" class="photos">
-            <img *ngIf="temPhoto(photo.id)" src="{{openPhoto(photo.id)}}" class="thumbnail">
-            <app-loadingphoto class="noFoto" *ngIf="!temPhoto(photo.id)"></app-loadingphoto>
-            <input class="inputName" id="nomeFoto{{photo.id}}" type="text" placeholder="Nome da Fotografia" (input)="checkNomeDescricao(photo.id)">
-            <textarea class="inputDesc" id="descFoto{{photo.id}}" placeholder="Descricao da Fotografia" rows="3" (input)="checkNomeDescricao(photo.id)"></textarea>
-            <div class="errorsAndRemove">
-                <h3 class = "errorms" id="errorMsg{{photo.id}}"></h3>
-                <img class="removePhoto" src="assets/trash.png" (click)="removePhoto(photo.id)" (keyup.enter)="removePhoto(photo.id)" tabindex="0">
+            <div class="photobox uploadForm">
+                <img *ngIf="temPhoto(photo.id)" src="{{openPhoto(photo.id)}}" class="thumbnail">
+                <app-loadingphoto class="noFoto" *ngIf="!temPhoto(photo.id)"></app-loadingphoto>
+                <input class="inputName" id="nomeFoto{{photo.id}}" type="text" placeholder="Nome da Fotografia" (input)="checkNomeDescricao(photo.id)">
+                <textarea class="inputDesc" id="descFoto{{photo.id}}" placeholder="Descricao da Fotografia" rows="3" (input)="checkNomeDescricao(photo.id)"></textarea>
+                <div class="errorsAndRemove">
+                    <h3 class = "errorms" id="errorMsg{{photo.id}}"></h3>
+                    <img class="removePhoto" src="assets/trash.png" (click)="removePhoto(photo.id)" (keyup.enter)="removePhoto(photo.id)" tabindex="0">
+                </div>
             </div>
-               
+
+            <!-- QUANDO ATIVAR OS DIVS, DEVE DESATIVAR OS TABINDEX DO PHOTO -->
+
+            <!--
+            <div class="photobox failed">
+                <app-erroricon></app-erroricon>
+                <h3>Foto não foi submetida</h3>
+                <button>Tentar novamente</button>
+            </div>
+
+            
+            <div class="photobox loading">
+                <app-loadingphoto></app-loadingphoto>
+                <h3>A submeter a sua foto...</h3>
+            </div>
+            
+            <div class="photobox success">
+                <app-successicon></app-successicon>
+                <h3>Foto submetida com sucesso!</h3>
+            </div>
+            -->
         </div>
 
         <div class="uploadSpace">
