@@ -29,11 +29,11 @@
             
             <!-- BOTAO DE LIKE -->
             <div *ngIf="tipo == nolike" class = "botoes">
-                <h4 class="likes" (click)="fazerLike()" tabindex="0" (keyup.enter)="fazerLike()" > {{photo?.likes}} Likes</h4>
+                <h4 class="likes" (click)="fazerLike()" tabindex="0" (keyup.enter)="fazerLike()" > {{nrLikes}} Likes</h4>
                 <img src="assets/heart.png" id="botaoLike" (click)="fazerLike()"/>
             </div>
             <div *ngIf="tipo == like" class= "botoes">
-                <h4 class="likes" (click)="tirarLike()" tabindex="0" (keyup.enter)="tirarLike()"> {{photo?.likes}} Likes</h4>
+                <h4 class="likes" (click)="tirarLike()" tabindex="0" (keyup.enter)="tirarLike()"> {{nrLikes}} Likes</h4>
                 <img src="assets/likebutton.png" id="botaoLike" (click)="tirarLike()"/>
             </div>
 
@@ -61,7 +61,7 @@
                 <!--verificar se quem abriu a foto é dono dela e caso seja ter a hipotese de apagar-->
 
             <!-- BOTAO DE TRASH -->
-            <div class = "botoes">
+            <div *ngIf="nickname == dono" class = "botoes" >
                 <h4 class="eliminar" id="apagar" (click)="deletePhoto(photo?.id)" tabindex="0" (keyup.enter)="deletePhoto(photo?.id)" > Eliminar </h4>
                 <img src="assets/trash.png" (click)="deletePhoto(photo?.id)"/>
             </div>

@@ -19,8 +19,8 @@ var photo_controller = require('../controllers/photoController');
 //Import Routes
 //const authRoute = require('./auth');
 //app.use('/', authRoute);
-
-//router.get('/photos', photo_controller.allPhotos);
+router.get('/users', photo_controller.allUsers);
+router.get('/photos', photo_controller.allPhotos);
 //router.post('/')
 router.get('/photolastid', photo_controller.getLastId);
 router.get('/photosidRecentes', photo_controller.allIndexPhotos);
@@ -30,10 +30,16 @@ router.get('/photo/:id', photo_controller.getPhoto);
 
 router.get('/file/photo/:id', photo_controller.getPhotoById);
 
+router.get('/photosUser/:id', photo_controller.getFotosUser);
+
 router.get('/donosFotos/:nickname', photo_controller.getDonosFotos);
 router.delete('/apagaFoto/:info', photo_controller.apagaFoto); //AQUI DIOGO
+router.delete('/apagatodasfotos',photo_controller.apagaTodasFotos);
 
 router.post('/photoinfo', photo_controller.uploadPhoto); //sem morgan
+
+router.post('/likeFoto', photo_controller.addLikeToPhoto);
+router.post('/removeLikeFoto', photo_controller.removeLikeToPhoto);
 
 //router.post('/uploadPhoto', photo_controller.postPhoto); //tentativa com morgan
 

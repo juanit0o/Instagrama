@@ -4,6 +4,7 @@ import { Photo } from '../photo';
 import { PhotoToUpload } from '../photoToUpload';
 import { PhotoService } from '../photo.service'
 import { AuthenticationService } from '../authentication.service';
+import { ConfirmDescriptionComponent } from '../confirm-description/confirm-description.component';
 
 @Component({
   selector: 'app-addphoto',
@@ -20,7 +21,8 @@ export class AddphotoComponent implements OnInit {
   photos ?: File[];
   filesInput ?: HTMLElement;
 
-  constructor(public fb: FormBuilder, private photoService: PhotoService, private auth : AuthenticationService) { 
+  constructor(public fb: FormBuilder, private photoService: PhotoService, private auth : AuthenticationService,
+    private cd : ConfirmDescriptionComponent) { 
     this.uploadForm = this.fb.group({
       avatar: [null],
       name: ['']
@@ -72,11 +74,22 @@ export class AddphotoComponent implements OnInit {
 
   submit(): void{
     console.log(this.photosToUpload);
-      this.submitSingleFoto(this.photosToUpload);
-    
+    this.submitSingleFoto(this.photosToUpload);
   }
 
-  submitSingleFoto(photos : PhotoToUpload[]) : void{
+
+  confirmNoDescription(nomeFoto : string) {
+    this.cd.changeCurrentDescriptionName(nomeFoto);
+
+    (<HTMLInputElement> window.document.getElementsByClassName("description")[0]).style.visibility = "visible";
+
+    this.cd.getConfirmation().subscribe(() => { 
+      console.log(this.cd.checkConfirmation());
+    })
+  }
+
+
+  submitSingleFoto(photos : PhotoToUpload[]) : void {
     if(photos && photos.length > 0) {
       let nome = (<HTMLInputElement> window.document.getElementById("nomeFoto"+photos[0].id)).value;
       if (nome != "") {
@@ -84,24 +97,91 @@ export class AddphotoComponent implements OnInit {
       }
       photos[0].descricao = (<HTMLInputElement> window.document.getElementById("descFoto"+photos[0].id)).value;
 
+      if (photos[0].descricao == "") {
+        this.confirmNoDescription(photos[0].nome);
+      }
+
       let fd = new FormData();
 
+      //Get last photo id
       this.photoService.getLastId().subscribe(res => {
         
-        if(res.msg == "FAILED"){
-          console.log("FAILED");
-          return;
+        
+        //In case getLastId() fails  
+        //Buscar elemento "failed" da foto corrente    
+        let listFailed  = window.document.getElementsByClassName("failed");
+        let failed : HTMLInputElement | undefined = undefined;
+        for (var i = 0; i < listFailed.length; i++) {
+          if(listFailed[i].id === photos[0].id) {
+            failed = (<HTMLInputElement> listFailed[i]);
+          }
+        }
+
+
+        //Buscar elemento "loading" da foto corrente
+        let listLoading  = window.document.getElementsByClassName("loading");
+        let loading : HTMLInputElement | undefined = undefined;
+        for (var i = 0; i < listLoading.length; i++) {
+          if(listLoading[i].id === photos[0].id) {
+             loading = (<HTMLInputElement> listLoading[i]);
+
+             //Mostrar foto load
+             loading.style.display = "grid";
+          }
+        }
+
+
+        //Se erro a buscar id
+        if(res.msg == "FAILED") {
+          console.log("FAILED ID");
+         
+            //Mostrar erro
+            if(failed !== undefined) {
+              failed.style.display = "grid";
+            }
+
+            if(loading !== undefined) {
+              loading.style.display = "none";
+            }          
+
+            return;
         }
         
+
         fd.append('profileImage', photos[0].photo, 'photo_' + res.msg + '.jpg');
 
         this.photoService.postOnlyPhoto(fd).subscribe(res2 => {
           
-          console.log(res2.msg)
-          if(res2.msg == "FAILED"){
-            console.log("FAILED");
+
+          console.log(res.msg);
+          if(res.msg == "FAILED") {
+            console.log("FAILED PHOTO");
+
+            //Mostrar erro
+            if(failed !== undefined) {
+              failed.style.display = "grid";
+            }
+
+            if(loading !== undefined) {
+              loading.style.display = "none";
+            }          
+
             return;
           }
+
+          //Buscar elemento "loading" da foto corrente
+          let listSuccess  = window.document.getElementsByClassName("success");
+          let success : HTMLInputElement;
+          for (var i = 0; i < listSuccess.length; i++) {
+            if(listSuccess[i].id === photos[0].id) {
+              success = (<HTMLInputElement> listSuccess[i]);
+              //Retirar loading
+              loading!.style.display = "none";
+              //Mostrar sucesso
+              success.style.display = "grid";
+            }
+          }
+
           
           let photoInfo = {"id": photos[0].id,
                       "dono": photos[0].dono,

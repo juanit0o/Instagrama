@@ -89,11 +89,17 @@ app-loadingphoto {
 .infoDono  {
     display:flex;
     flex-direction: row;
+    text-decoration: none;
+    color: black;
 }
 
 .infoLike  {
     display:flex;
     flex-direction: row;
+}
+
+.infoLike img {
+    cursor: pointer;
 }
 
 .info img {
@@ -136,7 +142,6 @@ h1 {
 }
 
 /*DROPDOWN*/
-
 select {
     font-size: 0.9rem;
     background-color: transparent;
@@ -148,12 +153,16 @@ select {
 
     text-align-last: right;
     
-    padding: 0.2em 1.3em 0.2em 0.5em
+    padding: 0.2em 1.3em 0.2em 0.5em;
+    cursor: pointer;
+    z-index: 19;
 }
 
 option {
     direction: rtl;
     background-color:#f7f7f7;
+    cursor: pointer;
+    z-index: 19;
 }
 
 .ordena {

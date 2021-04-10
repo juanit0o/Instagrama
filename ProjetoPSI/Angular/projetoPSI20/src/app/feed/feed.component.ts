@@ -69,6 +69,8 @@ export class FeedComponent implements OnInit {
     this.getPhotos();
 
     //TODO DAR LOAD DOS LIKES E FAVORITOS
+
+    //LOAD DOS LIKES
     
   }
 
@@ -77,7 +79,7 @@ export class FeedComponent implements OnInit {
       this.subscription = this.photoService.getPhotosIdsRecentes().subscribe(response => 
         {
           for(var i = 0; i < response.length; ++i){
-            this.photosId.push(response[i].id)
+            this.photosId.push(response[i].id);
           }
           this.getPhoto(this.photosId);
         });
@@ -89,7 +91,15 @@ export class FeedComponent implements OnInit {
         this.subscription = this.photoService.getPhotoById(lista[0]).subscribe(output => 
         {
           this.photos.push(output);
+
+          //TENHO LIKE??
+          if(output.likes.includes(this.details.nickname)){
+            this.liked.push(output.id);
+          }
+
           this.getPhoto(lista.slice(1, lista.length));
+
+
       });
     } else {
       this.temFotosPorLoad = false;
@@ -98,21 +108,31 @@ export class FeedComponent implements OnInit {
   }
 
 
-  likeInvoke(id: string) {
+  likeInvoke(id: string) : void {
+
     if(this.liked.includes(id)){
-      window.document.getElementById("like"+id)!.setAttribute('src',"assets/heart.png");
       const index = this.liked.indexOf(id, 0);
       if (index > -1) {
         this.liked.splice(index, 1);
       }
+      this.photoService.removeLikeToPhoto(id, this.details.nickname).subscribe(output => 
+      {
+        this.photos[this.photosId.indexOf(id)] = output;
+      });
     } else {
-      window.document.getElementById("like"+id)!.setAttribute('src',"assets/likebutton.png");
       this.liked.push(id);
+      this.photoService.addLikeToPhoto(id, this.details.nickname).subscribe(output => 
+      {
+        this.photos[this.photosId.indexOf(id)] = output;
+      });
     }
 
-    //TODO ATUALIZAR BD
-
   }
+
+  tenhoLike(id: string) : boolean {
+    return this.liked.includes(id)
+  }
+
 
   favoriteInvoke(id: string) {
     if(this.favorited.includes(id)){

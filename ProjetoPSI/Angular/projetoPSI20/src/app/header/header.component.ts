@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
     if(document.getElementById("dropbt") != null){
 
       document.getElementById("dropbt")!.setAttribute("style","display:none");
+      document.addEventListener('click', this.closeOnClick.bind(this));
     }
     //this.menuAberto = false;
     //document.addEventListener('click', this.closeOnClick.bind(this));
@@ -135,28 +136,39 @@ export class HeaderComponent implements OnInit {
     
   }
 
-  closeOnClick(e : Event) : void{
+  closeOnTab():void{
+    const botaoF = document.getElementById('dropbt');
+    if(this.menuAberto == true){
+      if(botaoF!.style.display == "block"){
+        botaoF!.setAttribute("style","display:none");
+        this.menuAberto = false;
+      }
+    }
+  }
+
+  closeOnClick(e : Event):void{
     //var self = this;
     
     const botaoF = document.getElementById('dropbt');
     //this.openMenu();
     if(this.menuAberto == true){
-      console.log("Menu esta aberto " + this.menuAberto);
-      console.log(document.getElementById('dropbt')!.style.display);
-      console.log((<HTMLInputElement>e.currentTarget).className);
+      //console.log("Menu esta aberto " + this.menuAberto);
+      //console.log(document.getElementById('dropbt')!.style.display);
+      //console.log((<HTMLInputElement>e.currentTarget).className);
       if(document.getElementById('dropbt')!.style.display == "block"){
         console.log("estou block");
-        document.addEventListener('click', event => {
-          botaoF!.setAttribute("style","display:none");
-          this.menuAberto = false;
-       });
-      }else{
-        //console.log("estou none");
-        //botaoF!.setAttribute("style","display:block");
-        //this.menuAberto = true;
+        // document.addEventListener('click', event => {
+        //   botaoF!.setAttribute("style","display:none");
+        //   this.menuAberto = false;
+        // });
       }
-    
+    } else{
+      console.log("estou none");
+      botaoF!.setAttribute("style","display:block");
+      this.menuAberto = true;
     }
+      //if(self)
+
   }
 
   /*
@@ -171,5 +183,4 @@ export class HeaderComponent implements OnInit {
       
     })
   }*/
-
 }

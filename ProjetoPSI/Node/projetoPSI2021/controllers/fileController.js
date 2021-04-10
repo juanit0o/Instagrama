@@ -16,18 +16,18 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + path.extname(file.originalname));
     }
 });
-/*
+
 const fileFilter = (req, file, cb) => {
     if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png') {
         cb(null, true);
     } else {
         cb(null, false);
     }
-}*/
+}
 
 //const upload = multer({ storage: storage, fileFilter: fileFilter }).single('file');
 //const upload = multer({ storage: storage}).single('file');
-const upload = multer({ storage: storage}).single("dsfsdf");
+const upload = multer({ storage: storage, fileFilter : fileFilter}).single("profileImage");
 
 exports.uploadImage = function(req, res, next){
 
@@ -48,7 +48,16 @@ exports.uploadImage = function(req, res, next){
         var storage = multer.diskStorage({
             destination: "/public/photos"
         });
-        var upload = multer({ storage : storage}).any();
+
+        var fileFilter = (req, file, cb) => {
+            if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png') {
+                cb(null, true);
+            } else {
+                cb(null, false);
+            }
+        }
+
+        var upload = multer({ storage : storage, fileFilter : fileFilter}).any();
     
         upload(req,res,function(err) {
             if(err) {

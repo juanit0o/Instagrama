@@ -19,22 +19,22 @@
            </mat-option>
          </mat-select>
      </mat-form-field>
-
+ 
     -->
   
     <div *ngIf="auth.getUserDetails()?.nickname">
         <div id ="utilizador">
             <h2 id="nomeUser">{{ auth.getUserDetails()?.nickname }}</h2>
-            <div class="dropdown">          
-                <button class="dropbtn" id="dropbtno" (click)="openMenu()"><img src="assets/user-profile.png"></button>
+            <div class="dropdown">    
+                <button class="dropbtn" id="dropbtno" (keydown.enter)="openMenu()"><img src="assets/user-profile.png"></button>
                 <div #botaoAbrir class="dropdown-content" id = "dropbt"> 
 
-                    <a href="/feed"><img src="assets/feed.png"> Feed </a>
+                    <a href="/feed" (keydown.shift.tab)="closeOnTab()"><img src="assets/feed.png"> Feed </a>
                     <a href="/perfil/{{auth.getUserDetails()?.nickname}}"><img src="assets/user-profile.png" class="iconProf" id="prof">  Meu perfil</a>
                     <a href="/publicar"><img src="assets/addButton.png"> Adicionar Foto</a>
                     <a href="/favoritos"><img src="assets/favouriteChecked.png"> Meus Favoritos</a>
                     <a href="/definicoes"><img src="assets/settings.png"> Definições</a>
-                    <a href="#" (click)="auth.logout()"><img src="assets/logout.png"> Terminar Sessão</a>
+                    <a href="#" (click)="auth.logout()" (keydown.tab)="closeOnTab()"><img src="assets/logout.png"> Terminar Sessão</a>
                 </div>
             </div>
         

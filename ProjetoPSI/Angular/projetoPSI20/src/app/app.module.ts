@@ -19,6 +19,7 @@ import { FavoritosComponent } from './favoritos/favoritos.component';
 import { LoadingphotoComponent } from './loadingphoto/loadingphoto.component';
 import { SuccessiconComponent } from './successicon/successicon.component';
 import { ErroriconComponent } from './erroricon/erroricon.component';
+import { ConfirmDescriptionComponent } from './confirm-description/confirm-description.component';
 
 
 
@@ -38,7 +39,8 @@ import { ErroriconComponent } from './erroricon/erroricon.component';
     FavoritosComponent,
     LoadingphotoComponent,
     SuccessiconComponent,
-    ErroriconComponent
+    ErroriconComponent,
+    ConfirmDescriptionComponent
   ],
   imports: [
     BrowserModule,

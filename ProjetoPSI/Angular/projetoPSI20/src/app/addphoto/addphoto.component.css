@@ -55,6 +55,18 @@
     align-items: center;
 }
 
+.success {
+    display: none;
+}
+
+.loading {
+    display: none;
+}
+
+.failed {
+    display: none;
+}
+
 .success h3, .loading h3, .failed h3{
     color: #004196;
     font-size: 0.9em;
@@ -87,6 +99,14 @@
     color: white;
     border: 0;
     border-radius: 5px;
+}
+
+app-erroricon {
+    margin: auto;
+}
+
+.description {
+    visibility: hidden;
 }
 
 .uploadSpace button {

@@ -66,7 +66,9 @@ export class DefinicoesComponent implements OnInit {
     */
   }
 
-  eliminarConta(): void {}
+  eliminarConta(): void {
+    confirm("Tem a certeza que pretende eliminar apagar a sua conta?")
+  }
 
   updateErrorMensage(){
     this.error = "";

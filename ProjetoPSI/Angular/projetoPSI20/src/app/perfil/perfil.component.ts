@@ -32,18 +32,13 @@ export class PerfilComponent implements OnInit {
   }
 
   getPhotosOfUser(): void {
-    
-    //TODO ALTERAR PARA GET IDS DE APENAS DO USER
-    this.photoService.getPhotosIdsRecentes().subscribe(response => 
-      {
-        for(var i = 0; i < response.length; ++i){
-          this.photoService.getPhotoById(response[i].id).subscribe(output => 
-            {
-              this.photos.push(output);
-            });
-        }
-      });
-
+    this.photoService.getPhotosByUserId(this.auth.getUserDetails()?.nickname).subscribe(response => {
+      for(var i = 0; i < response.length; ++i){
+        this.photoService.getPhotoById(response[i].id).subscribe(output => {
+          this.photos.push(output);
+        });
+      }
+    });
   }
 
   likeInvoke(id: string) {

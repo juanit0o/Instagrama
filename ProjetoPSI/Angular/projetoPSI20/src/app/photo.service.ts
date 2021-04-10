@@ -13,7 +13,6 @@ import { Msg } from './msg';
 })
 export class PhotoService {
 
-
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
@@ -30,6 +29,10 @@ export class PhotoService {
   //50 FOTOS MAIS RECENTES
   getPhotosIdsRecentes() : Observable<Photo[]> {
     return this.http.get<Photo[]>('http://localhost:3001/photosidRecentes');
+  }
+
+  getPhotosByUserId(id: string) : Observable<Photo[]> {
+    return this.http.get<Photo[]>('http://localhost:3001/photosUser/'+id);
   }
 
   getPhotosIdsAntigas() : Observable<Photo[]> {
@@ -59,9 +62,21 @@ export class PhotoService {
   getDonosFotos(nickname: string) : Observable<Photo[]> {
     return this.http.get<Photo[]>('http://localhost:3001/donosFotos/' + nickname);
   }
+
+  
   
   deletePhoto(info: string) : Observable<Msg> {
     return this.http.delete<Msg>('http://localhost:3001/apagaFoto/' + info);
+  }
+
+  addLikeToPhoto(id: string, nickname: string) : Observable<Photo> {
+    let content = { "id": id, "nickname": nickname };
+    return this.http.post<Photo>('http://localhost:3001/likeFoto', content, this.httpOptions);
+  }
+
+  removeLikeToPhoto(id: string, nickname: string) : Observable<Photo> {
+    let content = { "id": id, "nickname": nickname };
+    return this.http.post<Photo>('http://localhost:3001/removeLikeFoto', content, this.httpOptions);
   }
 
 }

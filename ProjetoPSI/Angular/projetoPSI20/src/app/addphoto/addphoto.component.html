@@ -26,25 +26,23 @@
             </div>
 
             <!-- QUANDO ATIVAR OS DIVS, DEVE DESATIVAR OS TABINDEX DO PHOTO -->
-
-            <!--
-            <div class="photobox failed">
+            
+            <div class="photobox loading" id="{{photo.id}}">
+                <app-loadingphoto></app-loadingphoto>
+                <h3>A submeter a sua foto...</h3>
+            </div>
+            
+            <div class="photobox failed" id="{{photo.id}}">
                 <app-erroricon></app-erroricon>
                 <h3>Foto não foi submetida</h3>
                 <button>Tentar novamente</button>
             </div>
 
-            
-            <div class="photobox loading">
-                <app-loadingphoto></app-loadingphoto>
-                <h3>A submeter a sua foto...</h3>
-            </div>
-            
-            <div class="photobox success">
+            <div class="photobox success" id="{{photo.id}}">
                 <app-successicon></app-successicon>
                 <h3>Foto submetida com sucesso!</h3>
             </div>
-            -->
+            
         </div>
 
         <div class="uploadSpace">
@@ -66,4 +64,8 @@
     </div>
     
 
+</div>
+
+<div class="description">
+    <app-confirm-description></app-confirm-description>
 </div>

@@ -28,11 +28,9 @@ export class IndividualphotoComponent implements OnInit {
   public textotooltip;
   public copied;
 
-
-
-  //user?: User;
-  public nickname;  //TEMPORARIAMENTE ENQUANTO NAO HA USER (TER ATENCAO AO HTML)
-  
+  public nickname;  //id do user a usar a app
+  public dono; //dono da foto atual
+  public nrLikes;
 
   //auth.getUserDetails()?.nickname
 
@@ -47,8 +45,10 @@ export class IndividualphotoComponent implements OnInit {
     this.tipoFav = "nofav";
     this.textotooltip = "Copiar link para a clipboard";
     this.copied = false;
+    this.nrLikes = 0;
     
     this.nickname = auth.getUserDetails()?.nickname;
+    this.dono="semdono";
     //this.photos = [];
     //this.photo = null;
     //this.user!.nickname = "NOMEDOUSER";
@@ -58,7 +58,8 @@ export class IndividualphotoComponent implements OnInit {
   //INIT
   ngOnInit(): void {
     let btn1 = document.getElementById("myTooltip")?.setAttribute("style", "visibility: hidden");
-    
+    //this.nrLikes = this.photoService.getNrLikes(this.id);
+  
     //document.getElementById("partilhar")!.addEventListener("mouseenter", this.changeTooltip);
     //this.getPhotoById();
     let btn = document.getElementById("partilhar");
@@ -106,18 +107,25 @@ export class IndividualphotoComponent implements OnInit {
   //AO CLICAR PARA METER LIKE
   fazerLike(): void {
     this.tipo = "like";
+    console.log(this.nrLikes);
+    this.nrLikes +=1;
+    console.log(this.nrLikes);
     console.log("fiz like");
   }
 
   //AO CLICAR PARA TIRA LIKE
   tirarLike(): void {
     this.tipo = "nolike";
+    console.log(this.nrLikes);
+    this.nrLikes -=1;
+    console.log(this.nrLikes);
     
     console.log("tirei like");
   }
 
   fazerFav(): void {
     this.tipoFav = "fav";
+
     console.log("fiz fav");
   }
 
@@ -128,12 +136,14 @@ export class IndividualphotoComponent implements OnInit {
   }
 
   getPhotoById():void {
-    //console.log(" ID e" + id);
-    this.photoService.getPhotoById(this.id).subscribe(output => 
-      {
-        //this.photos.push(output);
-        this.photo = output;
-      });
+    console.log(" ID FOTO::" + this.id);
+    this.photoService.getPhotoById(this.id).subscribe(output => {
+      //this.photos.push(output);
+      this.photo = output;
+      this.dono = output.dono;
+      this.nrLikes = (output.likes.length) - 1;
+      console.log(this.nrLikes);
+    });
   }
 
   copyMessage() : void{
@@ -153,7 +163,7 @@ export class IndividualphotoComponent implements OnInit {
 
     
     //var tooltip = document.getElementById("myTooltip");
-   // tooltip!.innerHTML = "Copiado!";
+    // tooltip!.innerHTML = "Copiado!";
 
     //this.textotooltip = "Link copiado";
     //document.getElementById("tooltiptext")!.innerHTML = "Link copiado";
@@ -165,9 +175,12 @@ export class IndividualphotoComponent implements OnInit {
 
   //tipo do id mudado de string para any
   deletePhoto(id : any) : void{
+    if(confirm("Tem a certeza que pretende eliminar a fotografia?")) {
+      console.log("Implement delete functionality here");
+    }
     console.log(id);
     console.log(this.auth.getUserDetails()?.nickname);
-    
+    //alert iwth input answer
     this.photoService.deletePhoto(id+';'+this.auth.getUserDetails()?.nickname).subscribe((out) => {
         console.log(out.msg);
       if(out.msg == "SUCESSO APAGAR FOTO"){
@@ -175,7 +188,6 @@ export class IndividualphotoComponent implements OnInit {
       } else {
         console.log("ERROUUU");
       }
-      
     }, (err) => {
       console.error(err);
     });
