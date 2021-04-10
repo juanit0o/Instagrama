@@ -38,6 +38,19 @@
     justify-content: center;
 }
 
+.uploadSpace .disabled {
+    background-color: rgb(216, 216, 216);
+}
+.uploadSpace .disabled div{
+    background-color: #396094;
+}
+.uploadSpace .disabled h3 {
+    color: rgb(92, 92, 92);
+}
+.uploadSpace .disabled h4 {
+    color: rgb(163, 163, 163);
+}
+
 .photobox {
     display:flex;
     position:absolute;
@@ -49,21 +62,10 @@
 
 }
 
-.success, .loading, .failed {
+.success, .loading, .failed, .comDescricao {
     background-color: rgba(255, 255, 255, 0.767);
     justify-content: center;
     align-items: center;
-}
-
-.success {
-    display: none;
-}
-
-.loading {
-    display: none;
-}
-
-.failed {
     display: none;
 }
 
@@ -105,8 +107,37 @@ app-erroricon {
     margin: auto;
 }
 
-.description {
-    visibility: hidden;
+.comDescricao h3 {
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    color: #004196;
+}
+
+.comDescricao .confirm {
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    margin-top: 30px;
+    background-color: #004196;
+    color: white;
+    border:0;
+    border-radius: 5px;
+    padding: 5px 20px 5px 20px;
+}
+
+.comDescricao .confirm:hover {
+    background-color: #5f7fa8;
+}
+
+.comDescricao .cancel {
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    margin-top: 10px;
+    background-color: #474747;
+    color: white;
+    border:0;
+    border-radius: 5px;
+    padding: 5px 20px 5px 20px;
+}
+
+.comDescricao .cancel:hover {
+    background-color: #a8a8a8;
 }
 
 .uploadSpace button {
@@ -205,7 +236,9 @@ app-erroricon {
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
-
+.submitButton .disabled {
+    background-color: #f3db66;
+}
 .submitButton:hover, .submitButton:focus {
     background-color: #9e8404;
 }

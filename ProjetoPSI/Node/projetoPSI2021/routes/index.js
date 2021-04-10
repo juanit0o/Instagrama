@@ -19,7 +19,6 @@ var photo_controller = require('../controllers/photoController');
 //Import Routes
 //const authRoute = require('./auth');
 //app.use('/', authRoute);
-router.get('/users', photo_controller.allUsers);
 router.get('/photos', photo_controller.allPhotos);
 //router.post('/')
 router.get('/photolastid', photo_controller.getLastId);

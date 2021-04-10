@@ -4,7 +4,6 @@ import { Photo } from '../photo';
 import { PhotoToUpload } from '../photoToUpload';
 import { PhotoService } from '../photo.service'
 import { AuthenticationService } from '../authentication.service';
-import { ConfirmDescriptionComponent } from '../confirm-description/confirm-description.component';
 
 @Component({
   selector: 'app-addphoto',
@@ -21,14 +20,16 @@ export class AddphotoComponent implements OnInit {
   photos ?: File[];
   filesInput ?: HTMLElement;
 
-  constructor(public fb: FormBuilder, private photoService: PhotoService, private auth : AuthenticationService,
-    private cd : ConfirmDescriptionComponent) { 
+  isSubmit : boolean;
+
+  constructor(public fb: FormBuilder, private photoService: PhotoService, private auth : AuthenticationService) { 
     this.uploadForm = this.fb.group({
       avatar: [null],
       name: ['']
     })
     this.photosToUpload = [ ];
     this.photosBase = [ ];
+    this.isSubmit = false;
   }
 
   ngOnInit(): void {
@@ -36,13 +37,19 @@ export class AddphotoComponent implements OnInit {
   }
 
   onFileChanged(ev: any): void {
-    if((<HTMLInputElement> window.document.getElementById("submitButton")) != null){
-      (<HTMLInputElement> window.document.getElementById("submitButton")).disabled = false;
+
+    if(!this.isSubmit){
+      if((<HTMLInputElement> window.document.getElementById("submitButton")) != null){
+        (<HTMLInputElement> window.document.getElementById("submitButton")).disabled = false;
+      }
+      let file = (ev.target as HTMLInputElement).files;
+      for(var i = 0; i < file!.length; i++) {
+        this.singleFile(file![i], i);
+      }
+    } else {
+
     }
-    let file = (ev.target as HTMLInputElement).files;
-    for(var i = 0; i < file!.length; i++) {
-      this.singleFile(file![i], i);
-    }
+    
     
   }
 
@@ -74,22 +81,53 @@ export class AddphotoComponent implements OnInit {
 
   submit(): void{
     console.log(this.photosToUpload);
+
+    this.isSubmit = true;
+
+    let check = false;
+    for(var i = 0; i < this.photosToUpload.length; ++i){
+      if(this.photosToUpload[i].descricao == ""){
+        check = true;
+        //MOSTRAR QUE NAO TEM DESCRICAO
+        (<HTMLInputElement> window.document.getElementsByClassName("comDescricao")[i]).style.display = "flex";
+        
+        
+      } else {
+        (<HTMLInputElement> window.document.getElementsByClassName("loading")[i]).style.display = "flex";
+      }
+
+    }
+    if(check){
+      return; 
+    }
+
     this.submitSingleFoto(this.photosToUpload);
+
+    
+     
   }
 
 
   confirmNoDescription(nomeFoto : string) {
-    this.cd.changeCurrentDescriptionName(nomeFoto);
+    console.log(nomeFoto);
+    this.photosToUpload[parseInt(nomeFoto)].descricao = " ";
+    (<HTMLInputElement> window.document.getElementsByClassName("comDescricao")[parseInt(nomeFoto)]).style.display = "none";
+    this.submit();
+  }
 
-    (<HTMLInputElement> window.document.getElementsByClassName("description")[0]).style.visibility = "visible";
+  cancelNoDescription(nomeFoto : string) {
+    
+    (<HTMLInputElement> window.document.getElementsByClassName("comDescricao")[parseInt(nomeFoto)]).style.display = "none";
+    (<HTMLInputElement> window.document.getElementsByClassName("loading")[parseInt(nomeFoto)]).style.display = "none";
 
-    this.cd.getConfirmation().subscribe(() => { 
-      console.log(this.cd.checkConfirmation());
-    })
   }
 
 
   submitSingleFoto(photos : PhotoToUpload[]) : void {
+    if(photos.length == 0) {
+      window.location.reload(false);
+    }
+
     if(photos && photos.length > 0) {
       let nome = (<HTMLInputElement> window.document.getElementById("nomeFoto"+photos[0].id)).value;
       if (nome != "") {
@@ -97,9 +135,9 @@ export class AddphotoComponent implements OnInit {
       }
       photos[0].descricao = (<HTMLInputElement> window.document.getElementById("descFoto"+photos[0].id)).value;
 
-      if (photos[0].descricao == "") {
-        this.confirmNoDescription(photos[0].nome);
-      }
+      // if (photos[0].descricao == "") {
+      //   this.confirmNoDescription(photos[0].nome);
+      // }
 
       let fd = new FormData();
 
@@ -119,6 +157,7 @@ export class AddphotoComponent implements OnInit {
 
 
         //Buscar elemento "loading" da foto corrente
+        
         let listLoading  = window.document.getElementsByClassName("loading");
         let loading : HTMLInputElement | undefined = undefined;
         for (var i = 0; i < listLoading.length; i++) {
@@ -126,7 +165,7 @@ export class AddphotoComponent implements OnInit {
              loading = (<HTMLInputElement> listLoading[i]);
 
              //Mostrar foto load
-             loading.style.display = "grid";
+             //loading.style.display = "grid";
           }
         }
 
@@ -169,18 +208,6 @@ export class AddphotoComponent implements OnInit {
             return;
           }
 
-          //Buscar elemento "loading" da foto corrente
-          let listSuccess  = window.document.getElementsByClassName("success");
-          let success : HTMLInputElement;
-          for (var i = 0; i < listSuccess.length; i++) {
-            if(listSuccess[i].id === photos[0].id) {
-              success = (<HTMLInputElement> listSuccess[i]);
-              //Retirar loading
-              loading!.style.display = "none";
-              //Mostrar sucesso
-              success.style.display = "grid";
-            }
-          }
 
           
           let photoInfo = {"id": photos[0].id,
@@ -191,8 +218,37 @@ export class AddphotoComponent implements OnInit {
                       "likes": photos[0].likes,
                       "favoritos": photos[0].favoritos} as Photo;
 
-          this.photoService.postPhotoInfo(photoInfo).subscribe( res3 =>{
+          this.photoService.postPhotoInfo(photoInfo).subscribe( res3 => {
             console.log(res3);
+
+            if(res3.msg == "FAILED") {
+              console.log("FAILED ID");
+             
+                //Mostrar erro
+                if(failed !== undefined) {
+                  failed.style.display = "grid";
+                }
+    
+                if(loading !== undefined) {
+                  loading.style.display = "none";
+                }          
+    
+                return;
+            }
+
+            //Buscar elemento "success" da foto corrente
+            let listSuccess  = window.document.getElementsByClassName("success");
+            let success : HTMLInputElement;
+            for (var i = 0; i < listSuccess.length; i++) {
+              if(listSuccess[i].id === photos[0].id) {
+                success = (<HTMLInputElement> listSuccess[i]);
+                //Retirar loading
+                loading!.style.display = "none";
+                //Mostrar sucesso
+                success.style.display = "grid";
+              }
+            }
+
             this.submitSingleFoto(photos.slice(1, photos.length));
           });
 
@@ -200,6 +256,7 @@ export class AddphotoComponent implements OnInit {
         
       });
     }
+    
     
   }
 
@@ -218,6 +275,9 @@ export class AddphotoComponent implements OnInit {
       }
     }
     this.temErro();
+    if(this.isSubmit) {
+      this.submit();
+    }
   }
 
   checkNomeDescricao(id : string): void {
@@ -230,10 +290,16 @@ export class AddphotoComponent implements OnInit {
     } else {
       (<HTMLInputElement> window.document.getElementById("errorMsg"+id)).innerHTML = "";
       (<HTMLInputElement> window.document.getElementById("submitButton")).disabled = false;
+      this.photosToUpload[parseInt(id)].descricao = (<HTMLInputElement> window.document.getElementById("descFoto"+id)).value;
     }
   }
 
   temErro() : boolean {
+
+    if(this.isSubmit){
+      return false;
+    }
+    
     for(var i = 0; i < this.photosToUpload.length; ++i){
       if((<HTMLInputElement> window.document.getElementById("descFoto"+i)).value.length > 500 ||
         (<HTMLInputElement> window.document.getElementById("nomeFoto"+i)).value.length > 100){

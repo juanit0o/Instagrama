@@ -19,9 +19,6 @@ import { FavoritosComponent } from './favoritos/favoritos.component';
 import { LoadingphotoComponent } from './loadingphoto/loadingphoto.component';
 import { SuccessiconComponent } from './successicon/successicon.component';
 import { ErroriconComponent } from './erroricon/erroricon.component';
-import { ConfirmDescriptionComponent } from './confirm-description/confirm-description.component';
-
-
 
 @NgModule({
   declarations: [
@@ -39,8 +36,7 @@ import { ConfirmDescriptionComponent } from './confirm-description/confirm-descr
     FavoritosComponent,
     LoadingphotoComponent,
     SuccessiconComponent,
-    ErroriconComponent,
-    ConfirmDescriptionComponent
+    ErroriconComponent
   ],
   imports: [
     BrowserModule,
