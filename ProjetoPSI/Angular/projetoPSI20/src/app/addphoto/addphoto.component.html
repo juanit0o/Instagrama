@@ -29,8 +29,8 @@
             
             <div class="photobox comDescricao" id="{{photo.id}}">
                 <h3>Foto sem descrição</h3>
-                <button class="confirm" (click)="confirmNoDescription(photo.id)">Ok</button>
-                <button class="cancel" (click)="cancelNoDescription(photo.id)">Cancelar</button>
+                <button class="confirm" (click)="confirmNoDescription(photo.id)" tabindex="0">Ok</button>
+                <button class="cancel" (click)="cancelNoDescription(photo.id)" tabindex="0">Cancelar</button>
             </div>
 
             <div class="photobox loading" id="{{photo.id}}">
@@ -52,7 +52,7 @@
         </div>
 
         <div class="uploadSpace">
-            <input style="display: none;" type="file"  (change)="onFileChanged($event)" #fileInput multiple/>
+            <input style="display: none;" type="file" (change)="onFileChanged($event)" #fileInput multiple/>
             <button *ngIf="!isSubmit" class="photoUploadButton" (click)="fileInput.click()" (keyup.enter)="fileInput.click()" >
                 
                 <div class="uploadImg"></div>

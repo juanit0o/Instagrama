@@ -49,12 +49,17 @@ export class AddphotoComponent implements OnInit {
     } else {
 
     }
-    
-    
   }
 
   singleFile(file: any, i: number) : void {
-    if(file != null && file.size < 10000000){
+
+    let isAllowedType : boolean = true;
+    let allImages : Array<string> = ['image/png', 'image/jpg', 'image/jpeg', 'image/tiff', 'image/bpg'];
+    if(allImages.indexOf(file.type) > -1) {
+      isAllowedType = false;
+    }
+
+    if(file != null && file.size < 10000000 && isAllowedType == false){
         const reader = new FileReader();
         //let fd = new FormData();
         //fd.append('profileImage', file);
@@ -95,6 +100,10 @@ export class AddphotoComponent implements OnInit {
       } else {
         (<HTMLInputElement> window.document.getElementsByClassName("loading")[i]).style.display = "flex";
       }
+      
+      (<HTMLInputElement>window.document.getElementById("nomeFoto" + i)).tabIndex = -1;
+      (<HTMLInputElement>window.document.getElementById("descFoto" + i)).tabIndex = -1;
+      (<HTMLInputElement>window.document.getElementsByClassName("removePhoto")[i]).tabIndex = -1;
 
     }
     if(check){
@@ -113,12 +122,19 @@ export class AddphotoComponent implements OnInit {
     this.photosToUpload[parseInt(nomeFoto)].descricao = " ";
     (<HTMLInputElement> window.document.getElementsByClassName("comDescricao")[parseInt(nomeFoto)]).style.display = "none";
     this.submit();
+
+    
+
   }
 
   cancelNoDescription(nomeFoto : string) {
     
     (<HTMLInputElement> window.document.getElementsByClassName("comDescricao")[parseInt(nomeFoto)]).style.display = "none";
     (<HTMLInputElement> window.document.getElementsByClassName("loading")[parseInt(nomeFoto)]).style.display = "none";
+
+    (<HTMLInputElement>window.document.getElementById("nomeFoto" + nomeFoto)).tabIndex = 0;
+    (<HTMLInputElement>window.document.getElementById("descFoto" + nomeFoto)).tabIndex = 0;
+    (<HTMLInputElement>window.document.getElementsByClassName("removePhoto")[parseInt(nomeFoto)]).tabIndex = 0;
 
   }
 
