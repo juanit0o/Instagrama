@@ -141,12 +141,17 @@ export class IndividualphotoComponent implements OnInit {
 
   getPhotoById():void {
     console.log(" ID FOTO::" + this.id);
-    this.photoService.getPhotoById(this.id).subscribe(output => {
+    this.photoService.getPhotoById(this.id)?.subscribe(output => {
       //this.photos.push(output);
-      this.photo = output;
-      this.dono = output.dono;
-      this.nrLikes = (output.likes.length) - 1;
-      console.log(this.nrLikes);
+
+      if(output != undefined) {
+        this.photo = output;
+      
+        this.dono = output.dono;
+        this.nrLikes = (output.likes.length) - 1;
+        console.log(this.nrLikes);
+      }
+     
     });
   }
 

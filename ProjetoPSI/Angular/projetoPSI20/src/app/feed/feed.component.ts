@@ -88,17 +88,18 @@ export class FeedComponent implements OnInit {
   getPhoto(lista: string[]): void {
     if(lista.length > 0){
 
-        this.subscription = this.photoService.getPhotoById(lista[0]).subscribe(output => 
+        this.subscription = this.photoService.getPhotoById(lista[0])?.subscribe(output => 
         {
-          this.photos.push(output);
+          if(output != undefined) {
+            this.photos.push(output);
 
-          //TENHO LIKE??
-          if(output.likes.includes(this.details.nickname)){
-            this.liked.push(output.id);
+            //TENHO LIKE??
+            if(output.likes.includes(this.details.nickname)){
+              this.liked.push(output.id);
+            }
+
+            this.getPhoto(lista.slice(1, lista.length));
           }
-
-          this.getPhoto(lista.slice(1, lista.length));
-
 
       });
     } else {

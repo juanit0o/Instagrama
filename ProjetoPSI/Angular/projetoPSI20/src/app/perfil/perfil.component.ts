@@ -34,8 +34,10 @@ export class PerfilComponent implements OnInit {
   getPhotosOfUser(): void {
     this.photoService.getPhotosByUserId(this.auth.getUserDetails()?.nickname).subscribe(response => {
       for(var i = 0; i < response.length; ++i){
-        this.photoService.getPhotoById(response[i].id).subscribe(output => {
-          this.photos.push(output);
+        this.photoService.getPhotoById(response[i].id)?.subscribe(output => {
+            if(output != undefined) {
+              this.photos.push(output);
+            }
         });
       }
     });

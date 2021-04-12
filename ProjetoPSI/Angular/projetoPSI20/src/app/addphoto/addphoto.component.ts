@@ -187,7 +187,7 @@ export class AddphotoComponent implements OnInit {
 
 
         //Se erro a buscar id
-        if(res.msg == "FAILED") {
+        if(res == undefined || res.msg == "FAILED") {
           console.log("FAILED ID");
          
             //Mostrar erro
@@ -209,7 +209,7 @@ export class AddphotoComponent implements OnInit {
           
 
           console.log(res.msg);
-          if(res.msg == "FAILED") {
+          if(res.msg == "FAILED" || res2 == undefined) {
             console.log("FAILED PHOTO");
 
             //Mostrar erro
@@ -237,7 +237,7 @@ export class AddphotoComponent implements OnInit {
           this.photoService.postPhotoInfo(photoInfo).subscribe( res3 => {
             console.log(res3);
 
-            if(res3.msg == "FAILED") {
+            if(res3 == undefined || res3.msg == "FAILED") {
               console.log("FAILED ID");
              
                 //Mostrar erro
