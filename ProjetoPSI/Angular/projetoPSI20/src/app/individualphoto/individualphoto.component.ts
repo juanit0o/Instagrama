@@ -32,6 +32,8 @@ export class IndividualphotoComponent implements OnInit {
   public dono; //dono da foto atual
   public nrLikes;
 
+  confirmDelete : boolean;
+
   //auth.getUserDetails()?.nickname
 
 
@@ -52,7 +54,9 @@ export class IndividualphotoComponent implements OnInit {
     //this.photos = [];
     //this.photo = null;
     //this.user!.nickname = "NOMEDOUSER";
-    this.id = "";     
+    this.id = "";
+
+    this.confirmDelete = false;
   }
 
   //INIT
@@ -83,7 +87,7 @@ export class IndividualphotoComponent implements OnInit {
   }
 
   mouseOut(){
-    console.log("not hovered");
+    // console.log("not hovered");
     this.copied = false;
     //this.textotooltip = "";
     //let btn = document.getElementById("tooltiptext")?.setAttribute("style", "visibility: hidden");
@@ -95,7 +99,7 @@ export class IndividualphotoComponent implements OnInit {
   }
 
   mouseOn(){
-    console.log("hovered");
+    // console.log("hovered");
     let btn1 = document.getElementById("myTooltip")?.setAttribute("style", "visibility: visible");
     document.getElementById("myTooltip")!.innerHTML = "Copiar link";
 
@@ -175,9 +179,12 @@ export class IndividualphotoComponent implements OnInit {
 
   //tipo do id mudado de string para any
   deletePhoto(id : any) : void{
-    if(confirm("Tem a certeza que pretende eliminar a fotografia?")) {
-      console.log("Implement delete functionality here");
+    if(!this.confirmDelete) {
+      (<HTMLInputElement> window.document.getElementsByClassName("deleteConfirmation")[0]).style.display = "flex";
+
+      return;
     }
+
     console.log(id);
     console.log(this.auth.getUserDetails()?.nickname);
     //alert iwth input answer
@@ -186,11 +193,22 @@ export class IndividualphotoComponent implements OnInit {
       if(out.msg == "SUCESSO APAGAR FOTO"){
         this.router.navigateByUrl('/feed');
       } else {
-        console.log("ERROUUU");
+        console.log("ERRO APAGAR FOTO");
       }
     }, (err) => {
       console.error(err);
     });
+  }
+
+  confirmDeletePhoto(id : any) {
+    console.log("CONFIRM DELETE");
+    this.confirmDelete = true;
+    this.deletePhoto(id);
+  }
+
+  cancelDeletePhoto() {
+    console.log("CANCEL DELETE");
+    (<HTMLInputElement> window.document.getElementsByClassName("deleteConfirmation")[0]).style.display = "none";
   }
 
 }

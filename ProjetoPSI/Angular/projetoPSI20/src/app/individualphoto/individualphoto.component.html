@@ -14,6 +14,12 @@
         <div class="info">
             <h1>{{photo?.nome}}</h1>
             <h2>{{photo?.descricao}}</h2>
+
+            <div class="deleteConfirmation">
+                Queres mesmo apagar esta foto?
+                <button type="button" class="confirmYes" (click)="confirmDeletePhoto(photo?.id)">Sim</button>
+                <button type="button" class="confirmNo" (click)="cancelDeletePhoto()">Não</button>
+            </div>
         </div>
 
 
@@ -64,8 +70,7 @@
             <div *ngIf="nickname == dono" class = "botoes" >
                 <h4 class="eliminar" id="apagar" (click)="deletePhoto(photo?.id)" tabindex="0" (keyup.enter)="deletePhoto(photo?.id)" > Eliminar </h4>
                 <img src="assets/trash.png" (click)="deletePhoto(photo?.id)"/>
-            </div>
-           
+            </div>        
             
     </div>
 

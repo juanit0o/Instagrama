@@ -185,3 +185,52 @@ h4{
         border-radius: 0;
     }
 }
+
+.deleteConfirmation {
+    background-color: rgba(255, 255, 255, 0.767);
+    justify-content: center;
+    align-items: center;
+    display: none;
+
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    color: #fd0015;
+    font-weight: bold;
+
+    justify-content: center;
+    align-items: center;
+    
+    border-radius: 10px;
+    background: rgba(216, 216, 216, 0.719);
+    padding: 10px;
+
+    margin-left: 23%;
+    margin-top: 7%;
+}
+
+.deleteConfirmation .confirmYes {
+    margin-left: 5px;
+    background-color: #004196;
+    color: white;
+    border:0;
+    border-radius: 5px;
+    padding: 5px 20px 5px 20px;
+}
+
+.deleteConfirmation .confirmNo {
+    margin-left: 5px;
+    background-color: #474747;
+    color: white;
+    border:0;
+    border-radius: 5px;
+    padding: 5px 20px 5px 20px;
+}
+
+.deleteConfirmation .confirmYes:hover{
+    background-color: #5f7fa8;
+    cursor: pointer;
+}
+
+.deleteConfirmation .confirmNo:hover{
+    background-color: #a8a8a8;
+    cursor: pointer;
+}
