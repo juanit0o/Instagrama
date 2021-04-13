@@ -23,10 +23,20 @@
 
                 
                 <a class="photoDiv" href="/foto/{{photo.id}}">
-                    <div class="imgLoader">
-                        <div class="img"><img class="mainImg" id="mainImg{{photo.id}}" src={{photo.photo}} title="{{photo.nome}}" alt="{{photo.nome}}"></div>
-                        <div class="loading"><app-loadingphoto></app-loadingphoto></div> 
+                    <div *ngIf="photo.descricao; else elseBlock">
+                        <div class="imgLoader">
+                            <div class="img"><img class="mainImg" id="mainImg{{photo.id}}" src={{photo.photo}} title="{{photo.nome}}" alt="{{photo.descricao}}"></div>
+                            <div class="loading"><app-loadingphoto></app-loadingphoto></div> 
+                        </div>
                     </div>
+                    <ng-template #elseBlock>
+                        <div class="imgLoader">
+                            <div class="img"><img class="mainImg" id="mainImg{{photo.id}}" src={{photo.photo}} title="{{photo.nome}}" alt="{{photo.nome}}"></div>
+                            <div class="loading"><app-loadingphoto></app-loadingphoto></div> 
+                        </div>
+                    </ng-template>
+
+                   
                 </a>    
                 <div class="info">
                     <a class="infoDono" href="/perfil/{{photo.dono}}">

@@ -3,9 +3,19 @@
     
     <!-- FOTO INDIVIDUAL -->
     <div class="photoIndv">
-        <div *ngIf="photo" class="photoExists">
-            <img class="mainImg" src={{photo?.photo}}>
+        <div *ngIf="photo && photo.descricao; else elseBlock">
+            <div *ngIf="photo" class="photoExists">
+                <img class="mainImg" src={{photo?.photo}} alt="{{photo.descricao}}">
+            </div>
         </div>
+        <ng-template #elseBlock>
+            <div *ngIf="photo" class="photoExists">
+                <img class="mainImg" src={{photo?.photo}} alt="{{photo.nome}}">
+            </div>
+        </ng-template>
+
+
+        
     </div>
     
 
