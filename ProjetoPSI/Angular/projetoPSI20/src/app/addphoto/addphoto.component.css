@@ -67,6 +67,8 @@
     justify-content: center;
     align-items: center;
     display: none;
+
+    text-align: center;
 }
 
 .success h3, .loading h3, .failed h3{
@@ -323,10 +325,15 @@ textarea {
         padding: 0;
     }
 
-    .photos {
+    .photos, .uploadSpace, .photobox {
         width:100vw;
         margin-left:auto;
         margin-right: auto;
+
+    }
+
+    .thumbnail {
+        width: 100%;
     }
 
 }

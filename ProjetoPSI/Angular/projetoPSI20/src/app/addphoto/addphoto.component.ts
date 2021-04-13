@@ -138,10 +138,10 @@ export class AddphotoComponent implements OnInit {
 
   }
 
-
-  submitSingleFoto(photos : PhotoToUpload[]) : void {
+  async submitSingleFoto(photos : PhotoToUpload[]) : Promise<void> {
     if(photos.length == 0) {
-      window.location.reload(false);
+
+      setTimeout( () => { window.location.reload(false); },  1000);
     }
 
     if(photos && photos.length > 0) {
@@ -199,6 +199,7 @@ export class AddphotoComponent implements OnInit {
               loading.style.display = "none";
             }          
 
+            this.submitSingleFoto(photos.slice(1, photos.length));
             return;
         }
         
@@ -221,6 +222,7 @@ export class AddphotoComponent implements OnInit {
               loading.style.display = "none";
             }          
 
+            this.submitSingleFoto(photos.slice(1, photos.length));
             return;
           }
 
@@ -249,6 +251,7 @@ export class AddphotoComponent implements OnInit {
                   loading.style.display = "none";
                 }          
     
+                this.submitSingleFoto(photos.slice(1, photos.length));
                 return;
             }
 
