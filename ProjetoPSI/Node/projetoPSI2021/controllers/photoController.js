@@ -29,6 +29,7 @@ exports.getFotosUser = function(req, res, next) {
         });
 }
 
+
 //50 FOTOS MAIS ANTIGAS
 exports.allIndexPhotosOld = function(req, res, next){
     Photo.find({}, {_id:0, dono:0, nome:0, descricao:0, photo:0, likes:0, favoritos:0})

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 import { Router } from '@angular/router';
+import { Msg } from './msg';
 
 export interface UserDetails {
   _id: string;
@@ -102,6 +103,14 @@ export class AuthenticationService {
     window.localStorage.removeItem('mean-token');
     this.router.navigateByUrl('/');
   }
+
+  userExists(nickname: string) : Observable<Msg> {
+    const getUserURL = `http://localhost:3001/getUser/`;
+    const url = `${getUserURL}${nickname}`;
+    console.log(url)
+    return this.http.get<Msg>(url);
+  }
+
 /*
   public hasPhotos(): Observable<any> {
 

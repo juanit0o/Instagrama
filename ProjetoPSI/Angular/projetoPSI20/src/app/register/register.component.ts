@@ -16,11 +16,12 @@ export class RegisterComponent {
 
   public error;
   private listError : string[];
+  nickNameExists: boolean;
 
   constructor(private auth: AuthenticationService, private router: Router) { 
-
     this.error = "";
     this.listError = [];
+    this.nickNameExists = false;
     
   }
 
@@ -34,13 +35,6 @@ export class RegisterComponent {
   nicknameRegister(): void {
     //this.credentials.nickname = nick;
 
-    const msgExist = "Nickname já existe!\n";
-    if(this.listError.includes(msgExist)){
-      const index = this.listError.indexOf(msgExist, 0);
-      if (index > -1) {
-        this.listError.splice(index, 1);
-      }
-    }
 
     //PELO MENOS 3 CHARS
     const msg = "Nickname deve ter pelo menos 3 caracteres\n";
@@ -176,9 +170,19 @@ export class RegisterComponent {
       return;
     }
 
-
-    this.register();
-  
+    
+    this.auth.userExists(this.credentials.nickname!).subscribe(res => {
+      if(res.msg == "NOTEXISTS") {
+        this.register();
+      } else {
+        const msgExist = "Nickname já existe!\n";
+        
+        if(!this.listError.includes(msgExist)){
+          this.listError.push(msgExist);
+          this.updateErrorMensage();
+        }         
+      }
+    });
 
   }
   

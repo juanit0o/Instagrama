@@ -26,6 +26,16 @@ module.exports.register = function(req, res) {
 
 };
 
+module.exports.getUser = function(req, res) {
+  User.findOne({'nickname' : req.params.nome}, {_id:0 , nickname : 1})
+      .exec(function (err, user){
+          if (err || user == null) { res.send(JSON.parse('{"msg":"NOTEXISTS"}'));
+          return;
+        }
+          res.send(JSON.parse('{"msg":"EXISTS"}'));
+      });
+}
+
 module.exports.login = function(req, res) {
 
   // if(!req.body.email || !req.body.password) {

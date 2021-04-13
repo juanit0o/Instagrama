@@ -16,7 +16,6 @@ export class HeaderComponent implements OnInit {
   private menuAberto: boolean = false;
 
   constructor(public auth: AuthenticationService) { 
-    //this.nick = "PedroFerreira";
     //this.menuAberto = false;
   }
 

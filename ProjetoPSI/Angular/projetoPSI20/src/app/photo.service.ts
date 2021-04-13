@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap, timeout } from 'rxjs/operators';
@@ -24,7 +24,7 @@ export class PhotoService {
   ) { 
     
     //Tempo para dar timeout de qualquer pedido
-    this.timeoutTime = 5000;
+    this.timeoutTime = 30000;
   }
 
   //DEVOLVE TODAS AS FOTOS (COM TODA A INFO)
@@ -79,7 +79,7 @@ export class PhotoService {
     );;
   }
 
-  getLastId() : Observable<Msg | undefined>{
+  getLastId() : Observable<Msg | undefined> {
     return this.http.get<Msg>('http://localhost:3001/photolastid').pipe(
       timeout(this.timeoutTime),
       catchError(e => {

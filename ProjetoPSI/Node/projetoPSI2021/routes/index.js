@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('express-jwt');
 const multer = require('multer');
+const { authenticate } = require('passport');
 const app = express();
 
 //var auth = jwt({
@@ -10,6 +11,7 @@ const app = express();
 //});
 
 var photo_controller = require('../controllers/photoController');
+var auth_controller = require('../api/controllers/authentication');
 
 /* GET home page. */
 //router.get('/', function(req, res, next) {
@@ -39,6 +41,8 @@ router.post('/photoinfo', photo_controller.uploadPhoto); //sem morgan
 
 router.post('/likeFoto', photo_controller.addLikeToPhoto);
 router.post('/removeLikeFoto', photo_controller.removeLikeToPhoto);
+
+router.get('/getUser/:nome', auth_controller.getUser);
 
 //router.post('/uploadPhoto', photo_controller.postPhoto); //tentativa com morgan
 
