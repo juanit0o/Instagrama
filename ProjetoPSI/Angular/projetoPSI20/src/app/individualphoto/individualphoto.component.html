@@ -24,66 +24,63 @@
         <div class="info">
             <h1>{{photo?.nome}}</h1>
             <h2>{{photo?.descricao}}</h2>
-
-            <div class="deleteConfirmation">
-                Queres mesmo apagar esta foto?
-                <button type="button" class="confirmYes" (click)="confirmDeletePhoto(photo?.id)">Sim</button>
-                <button type="button" class="confirmNo" (click)="cancelDeletePhoto()">Não</button>
-            </div>
         </div>
-
-
 
         <div class="opcoes">
             <div>
-                <a class="dono" href="/perfil/{{nickname}}" tabindex="-1" >
-                    <h4 class="dono" tabindex="0">{{photo?.dono}}</h4>
+                <a class="dono" href="/perfil/{{nickname}}" tabindex="0" >
+                    <h4 class="dono" tabindex="-1">{{photo?.dono}}</h4>
                     <button class="dropbtn" id="dropbtno" tabindex="-1"><img src="assets/user-profile.png" tabindex="-1"></button>
                 </a>
             </div>
             
             
             <!-- BOTAO DE LIKE -->
-            <div *ngIf="tipo == nolike" class = "botoes">
-                <h4 class="likes" (click)="fazerLike()" tabindex="0" (keyup.enter)="fazerLike()" > {{nrLikes}} Likes</h4>
-                <img src="assets/heart.png" id="botaoLike" (click)="fazerLike()"/>
+            <div *ngIf="tipo == nolike" class = "botoes" (click)="fazerLike()" (keyup.enter)="fazerLike()" tabindex="0">
+                <h4 class="likes"> {{nrLikes}} Likes</h4>
+                <img src="assets/heart.png" id="botaoLike"/>
             </div>
-            <div *ngIf="tipo == like" class= "botoes">
-                <h4 class="likes" (click)="tirarLike()" tabindex="0" (keyup.enter)="tirarLike()"> {{nrLikes}} Likes</h4>
-                <img src="assets/likebutton.png" id="botaoLike" (click)="tirarLike()"/>
+            <div *ngIf="tipo == like" class= "botoes" (click)="tirarLike()" (keyup.enter)="tirarLike()" tabindex="0">
+                <h4 class="likes"> {{nrLikes}} Likes</h4>
+                <img src="assets/likebutton.png" id="botaoLike"/>
             </div>
 
             <!-- BOTAO DE FAVORITO -->
-            <div *ngIf="tipoFav == nofav" class = "botoes">
-                <h4 class="favs" (click)="fazerFav()" tabindex="0" (keyup.enter)="fazerFav()"> Favorita </h4>
-                <img src="assets/favourite.png" id="botaoFav" (click)="fazerFav()" />
+            <div *ngIf="tipoFav == nofav" class = "botoes" (click)="fazerFav()" (keyup.enter)="fazerFav()" tabindex="0">
+                <h4 class="favs"> Favorita </h4>
+                <img src="assets/favourite.png" id="botaoFav"/>
             </div>
-            <div *ngIf="tipoFav == fav" class= "botoes">
-                <h4 class="favs" (click)="tirarFav()" tabindex="0" (keyup.enter)="tirarFav()"> Favorita </h4>
-                <img src="assets/favouriteChecked.png" id="botaoFav" (click)="tirarFav()"/>
+            <div *ngIf="tipoFav == fav" class= "botoes" (click)="tirarFav()" (keyup.enter)="tirarFav()" tabindex="0">
+                <h4 class="favs" > Favorita </h4>
+                <img src="assets/favouriteChecked.png" id="botaoFav"/>
             </div>
 
                     <!-- <img src="assets/favourite.png" /> <h4 class="favoritos">Botao Favorito</h4> -->
             <!-- BOTAO DE SHARE -->
-            <div class = "botoes" >
+            <div class = "botoes" (click)="copyMessage()" (keyup.enter)="copyMessage()" tabindex="0">
                 <div class="tooltip">
                       <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
                 </div>
-                <h4 class="partilhar" id="partilhar" (click)="copyMessage()" tabindex="0" (keyup.enter)="copyMessage()" > Partilhar </h4>
-                <img src="assets/share.png" id="partilharFoto" (click)="copyMessage()"/>
+                <h4 class="partilhar" id="partilhar" > Partilhar </h4>
+                <img src="assets/share.png" id="partilharFoto"/>
                 
             </div>
                 
                 <!--verificar se quem abriu a foto é dono dela e caso seja ter a hipotese de apagar-->
 
             <!-- BOTAO DE TRASH -->
-            <div *ngIf="nickname == dono" class = "botoes" >
-                <h4 class="eliminar" id="apagar" (click)="deletePhoto(photo?.id)" tabindex="0" (keyup.enter)="deletePhoto(photo?.id)" > Eliminar </h4>
-                <img src="assets/trash.png" (click)="deletePhoto(photo?.id)"/>
+            <div *ngIf="nickname == dono" class = "botoes" (click)="deletePhoto(photo?.id)" (keyup.enter)="deletePhoto(photo?.id)" tabindex="0">
+                <h4 class="eliminar" id="apagar"> Eliminar </h4>
+                <img src="assets/trash.png"/>
             </div>        
-            
     </div>
+</div>
 
+<!--BOTAO DE CONFIRMAR APAGAR-->
+<div class="deleteConfirmation">
+    Queres mesmo apagar esta foto?
+    <button type="button" class="confirmYes" (click)="confirmDeletePhoto(photo?.id)">Sim</button>
+    <button type="button" class="confirmNo" (click)="cancelDeletePhoto()">Não</button>
 </div>
 
 <div id='popup'>Copiado para a clipboard</div>

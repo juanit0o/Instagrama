@@ -93,7 +93,7 @@ app-loadingphoto {
     color: black;
 }
 
-.infoDono:hover {
+.infoDono:hover, .infoDono:focus {
     opacity: 0.5;
 }
 
@@ -111,7 +111,7 @@ app-loadingphoto {
     height:20px;
 }
 
-.infoLike img:hover {
+.infoLike img:hover, .infoLike img:focus {
     opacity: 0.5;
 }
 
