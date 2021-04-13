@@ -38,12 +38,14 @@
     font-weight: bold;
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
     padding-right: 20px;
+    word-wrap: break-word;
 }
 
 .info h2 {
     color:#575757;
     font-size:1rem;
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    word-wrap: break-word;
 }
 
 
@@ -66,6 +68,10 @@
     justify-content: flex-end;
 }
 
+.botoes:hover {
+    opacity: 0.5;
+}
+
 .dono{
     display: flex;
     justify-content: flex-end;
@@ -77,8 +83,12 @@
     font-size:1.5rem;
     flex-wrap: nowrap;
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    word-wrap: break-word;
 }
 
+.dono:hover {
+    opacity: 0.5;
+}
 
 h4{
     margin-top: auto;
@@ -233,4 +243,21 @@ h4{
 .deleteConfirmation .confirmNo:hover{
     background-color: #a8a8a8;
     cursor: pointer;
+}
+
+@media only screen and (max-width: 500px){
+    .infoFoto {
+        flex-direction: column;
+    }
+
+    .opcoes {
+        width: 100%;
+    }
+
+    .info {
+        width: 100%;
+    }
+    .info h1{
+        padding: 0;
+    }
 }
