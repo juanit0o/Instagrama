@@ -184,16 +184,18 @@ export class FeedComponent implements OnInit {
               this.getPhoto(this.photosId);
         });
         break;
+    }
   }
-    }
       
-    voltarTopo(): void {
-      window.document.body.scrollTop = 0;
-      window.document.documentElement.scrollTop = 0;
-      //window.document.querySelector("app-header")?.focus();
-    }
+  voltarTopo(): void {
+    window.document.body.scrollTop = 0;
+    window.document.documentElement.scrollTop = 0;
+    //window.document.querySelector("app-header")?.focus();
+  }
+
+  onTabPressInSelectBox() : void {
     
-  
+  }
 
 }
  
