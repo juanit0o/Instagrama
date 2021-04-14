@@ -67,10 +67,6 @@ export class FeedComponent implements OnInit {
 
 
     this.getPhotos();
-
-    //TODO DAR LOAD DOS LIKES E FAVORITOS
-
-    //LOAD DOS LIKES
     
   }
 
@@ -131,7 +127,7 @@ export class FeedComponent implements OnInit {
   }
 
   tenhoLike(id: string) : boolean {
-    return this.liked.includes(id)
+    return this.liked.includes(id) && this.liked.length > 0;
   }
 
 
@@ -151,12 +147,13 @@ export class FeedComponent implements OnInit {
   }
 
   onChange(deviceValue : string) : void  {
-    this.photos = [];
+    /*this.photos = [];
     this.photosId = [];
     if(this.subscription)
       this.subscription.unsubscribe();
     switch (deviceValue){
       case "Mais Antigas":
+        
           this.subscription = this.photoService.getPhotosIdsAntigas().subscribe(response => 
             {
               for(var i = 0; i < response.length; ++i){
@@ -166,6 +163,7 @@ export class FeedComponent implements OnInit {
         });
         break;
       case "Mais Likes":
+        /*
           this.subscription = this.photoService.getPhotosIdsAntigas().subscribe(response => 
             {
               for(var i = 0; i < response.length; ++i){
@@ -184,7 +182,7 @@ export class FeedComponent implements OnInit {
               this.getPhoto(this.photosId);
         });
         break;
-    }
+    }*/
   }
       
   voltarTopo(): void {

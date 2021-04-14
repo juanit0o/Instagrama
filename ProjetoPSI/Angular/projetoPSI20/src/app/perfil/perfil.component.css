@@ -5,6 +5,28 @@
     margin: auto;
 }
 
+.userDoesntExist {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 800px;
+    margin: auto;
+}
+
+.noexist {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #003F9A;
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    padding-top: 10%;
+    margin-block-start: 0em;
+    word-break: break-word;
+    text-align: center;
+}
+
 .nomeUser{
     color: #003F9A;
     font-weight: bold;
@@ -12,10 +34,12 @@
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
     /*padding-top: 5px;*/
     margin-block-start: 0em;
+    word-break: break-word;
 }
 
 .nomeUser h1{
     padding-top:10px;
+    
 }
 
 .titulo{
@@ -110,3 +134,4 @@ h1 {
 .favorite {
     margin-left: 3px;
 }
+

@@ -27,6 +27,7 @@ module.exports.register = function(req, res) {
 };
 
 module.exports.getUser = function(req, res) {
+  
   User.findOne({'nickname' : req.params.nome}, {_id:0 , nickname : 1})
       .exec(function (err, user){
           if (err || user == null) { res.send(JSON.parse('{"msg":"NOTEXISTS"}'));
@@ -68,3 +69,17 @@ module.exports.login = function(req, res) {
   })(req, res);
 
 };
+
+module.exports.apagaTodosUsers = function(req, res) {
+  User.find({}, {nickname:1})
+        .exec(function (err, users){
+            if (err) { return next(err); }
+            users.forEach(user => {
+                    User.findOneAndRemove({'nickname': user.nickname})
+                        .exec(function (err2){
+                            if (err2) { return next(err2); }
+                    });
+            });
+        });
+    res.send("TODAS UTILIZADORES LIMPOS DA BD");
+}

@@ -57,6 +57,8 @@ export class IndividualphotoComponent implements OnInit {
     this.id = "";
 
     this.confirmDelete = false;
+
+    
   }
 
   //INIT

@@ -41,7 +41,8 @@
                 <div class="info">
                     <a class="infoDono" href="/perfil/{{photo.dono}}">
                         <img src="assets/user-profile.png"  />
-                        <h2  >{{photo.dono}}</h2>  
+                        <h2 *ngIf="photo.dono.length < 18">{{photo.dono}}</h2>  
+                        <h2 *ngIf="photo.dono.length >= 18">{{photo.dono.substring(0,16)}}...</h2>  
                     </a>
 
                     <div class="infoLike"> 

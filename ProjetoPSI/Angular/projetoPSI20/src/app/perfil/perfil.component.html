@@ -2,38 +2,47 @@
 <app-header></app-header>
 
 <!-- TITULO -->
-<div class="perfil-body">
-    <div class="topo">
-        <h4 class="titulo"> Perfil de </h4>
-        <h1 class="nomeUser">{{ auth.getUserDetails()?.nickname }}</h1>
-    </div>
 
-    <!-- FOTO FEED -->
-    <div class="photosFeed">
-        <ul class="photosList">
-            <li *ngFor="let photo of photos" >
+<div *ngIf="this.userExists; else elseBlock">
+    <div class="perfil-body">
+        <div class="topo">
+            <h4 class="titulo"> Perfil de </h4>
+            <h1 class="nomeUser">{{nickname}}</h1>
+        </div>
 
-                <!-- TODO ALTERAR OS CLIQUES -->
+        <!-- FOTO FEED -->
+        <div class="photosFeed">
+            <ul class="photosList">
+                <li *ngFor="let photo of photos" >
 
-                <a class="photoDiv" href="/foto/{{photo.id}}">
-                    <img class="mainImg" src={{photo.photo}}>
-                </a>    
-                <div class="info">
-                    <div class="infoDono">
-                        <img src="assets/user-profile.png"/>
-                        <h2>{{photo.dono}}</h2>
+                    <!-- TODO ALTERAR OS CLIQUES -->
+
+                    <a class="photoDiv" href="/foto/{{photo.id}}">
+                        <img class="mainImg" src={{photo.photo}}>
+                    </a>    
+                    <div class="info">
+                        <div class="infoDono">
+                            <img src="assets/user-profile.png"/>
+                            <h2>{{photo.dono}}</h2>
+                        </div>
+
+                        <div class="infoLike">
+                            <h3>{{photo.likes.length}}</h3>
+                            <img id="like{{photo.id}}" src="assets/heart.png" tabindex="0" (click)="likeInvoke(photo.id)" (keyup.enter)="likeInvoke(photo.id)"/>
+                            <img id="favorite{{photo.id}}" class="favorite" tabindex="0" src="assets/favourite.png" (click)="favoriteInvoke(photo.id)" (keyup.enter)="favoriteInvoke(photo.id)"/>
+                        </div>
                     </div>
+                    
+                </li>
+            </ul>
+        </div>
 
-                    <div class="infoLike">
-                        <h3>{{photo.likes.length}}</h3>
-                        <img id="like{{photo.id}}" src="assets/heart.png" tabindex="0" (click)="likeInvoke(photo.id)" (keyup.enter)="likeInvoke(photo.id)"/>
-                        <img id="favorite{{photo.id}}" class="favorite" tabindex="0" src="assets/favourite.png" (click)="favoriteInvoke(photo.id)" (keyup.enter)="favoriteInvoke(photo.id)"/>
-                    </div>
-                </div>
-                
-            </li>
-        </ul>
     </div>
-
 </div>
+
+<ng-template #elseBlock>
+    <div *ngIf="this.answerReceived" class = "noexist">
+        Este utilizador não existe.
+    </div>
+</ng-template>
 

@@ -20,6 +20,7 @@
 .mainImg {
     max-width: 100%;
     max-height: 100%;
+    object-fit: contain;
 }
 
 .infoFoto {
@@ -29,7 +30,7 @@
 }
 
 .info {
-    width: 80%;
+    width: 70%;
 }
 
 .info h1 {
@@ -56,7 +57,7 @@
 }
 
 .opcoes {
-    width:20%;
+    width:30%;
     margin: 10px;
     display: flex;
     flex-direction: column;
@@ -80,9 +81,14 @@
     padding-bottom: 10px;
     text-decoration: none;
     color: black;
-    font-size:1.5rem;
+    width: 100%;
+}
+
+.donoText {
+    font-size:1rem;
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
     word-wrap: break-word;
+    max-width: 70%;
 }
 
 .dono:hover,.dono:focus {
@@ -95,7 +101,10 @@ h4{
     font-size:1rem;
     margin-right: 5px;
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+    text-align: right; 
 }
+
+
 
 .dropbtn{
     background-color: #F7F7F7;
@@ -116,9 +125,9 @@ h4{
 .tooltip {
     position: relative;
     display: inline-block;
-  }
+}
   
-  .tooltip .tooltiptext {
+.tooltip .tooltiptext {
     width: 140px;
     background-color: #555;
     color: #fff;
@@ -132,9 +141,9 @@ h4{
     margin-left: -75px;
     opacity: 0;
     transition: opacity 0.3s;
-  }
+}
   
-  .tooltip .tooltiptext::after {
+.tooltip .tooltiptext::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -143,13 +152,13 @@ h4{
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
-  }
+}
   
-  .tooltip:hover .tooltiptext {
+.tooltip:hover .tooltiptext {
     opacity: 1;
-  }
+}
 
-  #popup {
+#popup {
       position: fixed;
       z-index:100;
       bottom:-1000px;
@@ -166,16 +175,16 @@ h4{
       color: white;
 
       font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
-  }
+}
 
-  @keyframes slideDown {
+@keyframes slideDown {
     0%   {bottom:-1000px;}
     0%   {bottom:-100px;}
     15%  {bottom:0;}
     50%  {bottom:0;}
     75%  {background-color: #004196; color: white;bottom:0;}
     100% {background-color: #00419600; color: rgba(255, 255, 255, 0); bottom:0;}
-    }
+}
 
 @media only screen and (max-width: 1000px) {
 
@@ -250,6 +259,7 @@ h4{
 
     .opcoes {
         width: 100%;
+        margin:0;
     }
 
     .info {
@@ -258,4 +268,5 @@ h4{
     .info h1{
         padding: 0;
     }
+
 }

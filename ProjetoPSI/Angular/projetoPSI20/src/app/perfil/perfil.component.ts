@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Photo } from '../photo';
 import { PhotoService } from '../photo.service'
 import { AuthenticationService } from '../authentication.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -14,16 +15,26 @@ export class PerfilComponent implements OnInit {
   photos : Photo[];
   liked: string[];
   favorited: string[];
+  nickname : string | null;
+  userExists : boolean;
+  answerReceived : boolean;
   
-  public nome;
   constructor(
-    private photoService: PhotoService,public auth: AuthenticationService
+    private photoService: PhotoService, public auth: AuthenticationService,
+     private route: ActivatedRoute,
   ) {
-    this.nome = "Pedro Ferreira";
 
     this.photos = [];
     this.liked = [];
     this.favorited = [];
+    this.nickname = this.route.snapshot.paramMap.get("nickname");
+
+    this.answerReceived = false;
+    this.userExists = false;
+    this.auth.userExists(this.nickname!).subscribe(res => {this.userExists = res.msg == "EXISTS"
+    this.answerReceived = true;
+    });
+    
    }
 
   //INIT
@@ -32,7 +43,7 @@ export class PerfilComponent implements OnInit {
   }
 
   getPhotosOfUser(): void {
-    this.photoService.getPhotosByUserId(this.auth.getUserDetails()?.nickname).subscribe(response => {
+    this.photoService.getPhotosByUserId(this.nickname as string).subscribe(response => {
       for(var i = 0; i < response.length; ++i){
         this.photoService.getPhotoById(response[i].id)?.subscribe(output => {
             if(output != undefined) {

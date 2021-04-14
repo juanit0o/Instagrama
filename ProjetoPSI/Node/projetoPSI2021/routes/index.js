@@ -36,7 +36,7 @@ router.get('/photosUser/:id', photo_controller.getFotosUser);
 router.get('/donosFotos/:nickname', photo_controller.getDonosFotos);
 router.delete('/apagaFoto/:info', photo_controller.apagaFoto); //AQUI DIOGO
 router.delete('/apagatodasfotos',photo_controller.apagaTodasFotos);
-
+router.delete('/apagatodosusers',auth_controller.apagaTodosUsers);
 router.post('/photoinfo', photo_controller.uploadPhoto); //sem morgan
 
 router.post('/likeFoto', photo_controller.addLikeToPhoto);
