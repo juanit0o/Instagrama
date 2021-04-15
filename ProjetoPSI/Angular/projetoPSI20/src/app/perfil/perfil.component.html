@@ -27,8 +27,8 @@
                         </div>
 
                         <div class="infoLike">
-                            <h3>{{photo.likes.length}}</h3>
-                            <img id="like{{photo.id}}" src="assets/heart.png" tabindex="0" (click)="likeInvoke(photo.id)" (keyup.enter)="likeInvoke(photo.id)"/>
+                            <h3 id="numberLikes{{photo.id}}">{{photo.likes[0] != "" ? photo.likes.length : 0}}</h3>
+                            <img id="like{{photo.id}}" src="assets/heart.png" tabindex="0" (click)="likeInvoke(photo)" (keyup.enter)="likeInvoke(photo)"/>
                             <img id="favorite{{photo.id}}" class="favorite" tabindex="0" src="assets/favourite.png" (click)="favoriteInvoke(photo.id)" (keyup.enter)="favoriteInvoke(photo.id)"/>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
         <div *ngIf="photos.length == 0">
 
           <div class="semFotos">
-            <div *ngIf="this.userIsProfileOwner(); then thenBlock else elseBlock"></div>
+            <div *ngIf="this.nickname == this.auth.getUserDetails()?.nickname ? true : false; then thenBlock else elseBlock"></div>
             <ng-template #thenBlock>
               <h4> Você ainda não postou fotos </h4>
             </ng-template>
@@ -48,7 +48,7 @@
               <h4> Este usuário ainda não postou fotos </h4>
             </ng-template>
             <h3>
-                <a tabindex="0" class="voltarFeed" href="/feed" > Voltar ao perfil </a>
+                <a tabindex="0" class="voltarFeed" href="/feed" > Voltar ao feed </a>
             </h3>
           </div>
 
