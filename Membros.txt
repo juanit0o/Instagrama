@@ -2,7 +2,7 @@ Membros
 ------------------
 André Costa 52788
 Diogo Pinto 52763
-Francisco Freire
+Francisco Freire 52177
 Francisco Ramalho
 João Funenga 53504
 Martim Silva 51304

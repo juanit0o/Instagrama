@@ -18,7 +18,7 @@ export class PerfilComponent implements OnInit {
   nickname : string | null;
   userExists : boolean;
   answerReceived : boolean;
-  
+
   constructor(
     private photoService: PhotoService, public auth: AuthenticationService,
      private route: ActivatedRoute,
@@ -34,7 +34,7 @@ export class PerfilComponent implements OnInit {
     this.auth.userExists(this.nickname!).subscribe(res => {this.userExists = res.msg == "EXISTS"
     this.answerReceived = true;
     });
-    
+
    }
 
   //INIT
@@ -83,6 +83,15 @@ export class PerfilComponent implements OnInit {
     }
 
     //TODO ATUALIZAR BD
+  }
+
+  /**
+   *
+   * @returns True caso o cliente corrente seja o dono do perfil a ser mostrado
+   */
+  userIsProfileOwner() {
+    console.log(this.auth.getUserDetails()?.nickname);
+    return true ? this.nickname == this.auth.getUserDetails()?.nickname : false;
   }
 
 }

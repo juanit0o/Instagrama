@@ -19,7 +19,7 @@
 
                     <a class="photoDiv" href="/foto/{{photo.id}}">
                         <img class="mainImg" src={{photo.photo}}>
-                    </a>    
+                    </a>
                     <div class="info">
                         <div class="infoDono">
                             <img src="assets/user-profile.png"/>
@@ -32,9 +32,26 @@
                             <img id="favorite{{photo.id}}" class="favorite" tabindex="0" src="assets/favourite.png" (click)="favoriteInvoke(photo.id)" (keyup.enter)="favoriteInvoke(photo.id)"/>
                         </div>
                     </div>
-                    
+
                 </li>
             </ul>
+        </div>
+        <!-- Caso o cliente corrente ou o user dono do perfil ainda não tenham fotos -->
+        <div *ngIf="photos.length == 0">
+
+          <div class="semFotos">
+            <div *ngIf="this.userIsProfileOwner(); then thenBlock else elseBlock"></div>
+            <ng-template #thenBlock>
+              <h4> Você ainda não postou fotos </h4>
+            </ng-template>
+            <ng-template #elseBlock>
+              <h4> Este usuário ainda não postou fotos </h4>
+            </ng-template>
+            <h3>
+                <a tabindex="0" class="voltarFeed" href="/feed" > Voltar ao perfil </a>
+            </h3>
+          </div>
+
         </div>
 
     </div>

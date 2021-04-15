@@ -39,7 +39,7 @@
 
 .nomeUser h1{
     padding-top:10px;
-    
+
 }
 
 .titulo{
@@ -58,8 +58,8 @@
 .photosList {
     display: grid;
     grid-template-columns: repeat(auto-fill, 250px);
-    grid-gap: auto; 
-    justify-content: space-between; 
+    grid-gap: auto;
+    justify-content: space-between;
     padding: 0;
 }
 
@@ -93,7 +93,7 @@
 .info {
     display:flex;
     flex-direction: row;
-    justify-content: space-between; 
+    justify-content: space-between;
     background-color: rgb(192, 192, 192);
     margin: 0;
     padding:8px;
@@ -114,7 +114,7 @@
     height:20px;
 }
 
-h1 { 
+h1 {
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
     font-size: 0.8rem;
     margin: auto 5px auto 0;
@@ -133,5 +133,22 @@ h1 {
 
 .favorite {
     margin-left: 3px;
+}
+
+.semFotos {
+    color: #7B7B7B;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+}
+
+a.voltarFeed:visited, a.voltarFeed {
+    text-decoration: none;
+    color: #003F9A;
+}
+
+a.voltarFeed:hover {
+    color: #0062eb;
 }
 

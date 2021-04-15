@@ -30,7 +30,7 @@ export class AuthenticationService {
   private backendURL = "http://localhost:3001";
 
   constructor(private http: HttpClient, private router: Router) {}
-
+  
   private saveToken(token: string): void {
     localStorage.setItem('mean-token', token);
     this.token = token;
