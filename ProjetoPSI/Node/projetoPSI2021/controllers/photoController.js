@@ -117,7 +117,7 @@ exports.apagaFoto = function(req, res, next){
 
 
 exports.getDonosFotos = function(req, res, next){
-    Photo.find({'nome': req.params.nickname}, {_id:0, id:1, dono:1})
+    Photo.find({'dono': req.params.nickname}, {_id:0, id:1, dono:1})
         .exec(function (err, lista_donos){
             if (err) { return next(err); }
             res.send(lista_donos)
