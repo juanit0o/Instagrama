@@ -286,7 +286,9 @@ export class AddphotoComponent implements OnInit {
       for(let i = 0; i < this.photosToUpload.length; i++) {
         if(this.photosToUpload[i].id != id ){
           photosToUploadAux.push(this.photosToUpload[i]);
-        }
+        } else {
+			this.photosBase.splice(i,1);
+		}
       }
       this.photosToUpload = photosToUploadAux;
       for(let i = 0; i < this.photosToUpload.length; i++) {
