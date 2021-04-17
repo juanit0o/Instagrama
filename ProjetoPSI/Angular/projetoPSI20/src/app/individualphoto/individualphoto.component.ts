@@ -193,12 +193,13 @@ export class IndividualphotoComponent implements OnInit {
     }
 
     console.log(id);
-    console.log(this.auth.getUserDetails()?.nickname);
+    this.nickname = this.auth.getUserDetails()?.nickname;
+    console.log(this.nickname);
     //alert iwth input answer
     this.photoService.deletePhoto(id+';'+this.auth.getUserDetails()?.nickname).subscribe((out) => {
-        console.log(out.msg);
+        console.log("RES:" + out.msg);
       if(out.msg == "SUCESSO APAGAR FOTO"){
-        this.router.navigateByUrl('/feed');
+        this.router.navigateByUrl('/perfil/' + this.nickname);
       } else {
         console.log("ERRO APAGAR FOTO");
       }
