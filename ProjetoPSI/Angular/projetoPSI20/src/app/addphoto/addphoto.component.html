@@ -53,14 +53,14 @@
 
         <div class="uploadSpace">
             <input style="display: none;" type="file" (change)="onFileChanged($event)" #fileInput multiple/>
-            <button *ngIf="!isSubmit" class="photoUploadButton" (click)="fileInput.click()" (keyup.enter)="fileInput.click()" >
+            <button *ngIf="!isUpload" class="photoUploadButton" (click)="fileInput.click()" (keyup.enter)="fileInput.click()" >
                 
                 <div class="uploadImg"></div>
                 <h3>Adicionar imagens</h3>
                 <h4>(Max 10mb)</h4>
     
             </button>
-            <button *ngIf="isSubmit" class="photoUploadButton disabled">
+            <button *ngIf="isUpload" class="photoUploadButton disabled">
                 
                 <div class="uploadImg"></div>
                 <h3>Adicionar imagens</h3>
@@ -73,7 +73,7 @@
     </div>
     
     <div *ngIf="!isSubmit" class="submitDiv">
-        <button disabled id="submitButton" class="submitButton" (click)="submit()">Submeter</button>
+        <button id="submitButton" class="submitButton" (click)="submit()">Submeter</button>
     </div>
     <div *ngIf="isSubmit" class="submitDiv">
         <button disabled id="submitButton" class="submitButton">Submeter</button>

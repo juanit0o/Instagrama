@@ -132,7 +132,6 @@ p {
     text-align: center;
 }
 
-
 @media only screen and (max-width: 300px) {
     .logo-div h1 {
         display: none;
@@ -141,4 +140,8 @@ p {
         padding-left: 1px;
         padding-right: 1px;
     }
+}
+
+#erros {
+    color: rgb(245, 94, 94);
 }

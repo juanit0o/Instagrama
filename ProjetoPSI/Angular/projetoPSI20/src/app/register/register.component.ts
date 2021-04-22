@@ -17,18 +17,27 @@ export class RegisterComponent {
   public error;
   private listError : string[];
   nickNameExists: boolean;
+  public passwordNeeds;
+  public erroRegistar;
+  public teste;
 
   constructor(private auth: AuthenticationService, private router: Router) { 
     this.error = "";
     this.listError = [];
     this.nickNameExists = false;
-    
+    this.passwordNeeds = "Requisitos registo:\n"+"Nickname deve ter pelo menos 3 caracteres\n"+
+    "Password deve ter no mínimo 8 caracteres\n"+
+    "Password deve ter no mínimo 1 dígito\n"+
+    "Password deve ter pelo menos uma letra minúscula\n"+
+    "Password deve ter pelo menos uma letra maiúscula\n";
+    this.erroRegistar = "\n";
+    this.teste = "";
   }
 
   //INIT
   ngOnInit(): void {
-    this.nicknameRegister();
-    this.passwordRegister();
+    //this.nicknameRegister();
+    //this.passwordRegister();
   }
  
   //ATUALIZA O NICK QUANDO O INPUT É ALTERADO
@@ -131,9 +140,10 @@ export class RegisterComponent {
         }
       }
     }
-   
+
     this.updateErrorMensage();
-  }
+  } 
+
 
   //ATUALIZA OS ERROS DO REGISTAR (O QUE FALTA NO NICK OU NA PASS)
   updateErrorMensage(){
@@ -143,47 +153,92 @@ export class RegisterComponent {
 
   //REGISTAR O UTILIZADOR
   registar(): void {
-    
+    this.teste = "";
     //NICK TEM DE TER PELO MENOS 3 CARACTERS
     if(!this.credentials.nickname || this.credentials.nickname.length < 3){
+      this.erroRegistar = this.error;
+      console.log(this.erroRegistar);
       return;
     }
+
     //NICK NAO PODE TER CHARS ESPECIAIS
     if(this.credentials.nickname.match("^(?=.*[@$!%*?&#^-])")){
+      this.erroRegistar = this.error;
       return;
     }
 
     //PASS TEM DE TER PELO MENOS 8 CHARS
     if(!this.credentials.password || this.credentials.password.length < 8){
+      this.erroRegistar = this.error;
       return;
     }
+
     //PASS TEM DE TER PELO MENOS UM DIGITO
     if(!this.credentials.password.match("^(?=.*[0-9])")){
+      this.erroRegistar = this.error;
       return;
     }
+
     //PASS TEM DE TER PELO MENOS UM LOWERCASE LETTER
     if(!this.credentials.password.match("^(?=.*[a-z])")){
+      this.erroRegistar = this.error;
       return;
     }
+
     //PASS TEM DE TER PELO MENOS UM UPPERCASE LETTER
     if(!this.credentials.password.match("^(?=.*[A-Z])")){
+      this.erroRegistar = this.error;
       return;
     }
-
+    
     
     this.auth.userExists(this.credentials.nickname!).subscribe(res => {
-      if(res.msg == "NOTEXISTS") {
-        this.register();
-      } else {
-        const msgExist = "Nickname já existe!\n";
-        
+      console.log(res);
+      if(res.msg == "EXISTS"){
+       // this.erroRegistar = this.error;
+        console.log(this.erroRegistar);
+        this.teste = "Nickname já existe!";
+        return;
+      }
+      this.register();
+    }
+      
+    
+
+        /*
+    const msgExist = "Nickname já existe!\n";
+    this.auth.userExists(this.credentials.nickname!).subscribe(res => {
+      console.log(res);
+      if(res.msg == "EXISTS"){
         if(!this.listError.includes(msgExist)){
           this.listError.push(msgExist);
+          console.log("nao inclui");
+          
           this.updateErrorMensage();
-        }         
-      }
-    });
-
+          this.erroRegistar = this.error;
+          
+          
+          console.log(this.erroRegistar);
+          
+          //return;
+        }
+      } else{
+        this.register();
+        /*
+        if(this.listError.includes(msgExist)){
+          console.log("ja inclui");
+          const index = this.listError.indexOf(msgExist, 0);
+          if (index > -1) {
+            this.listError.splice(index, 1);
+          }
+        }*/
+         
+  
+      //this.updateErrorMensage();
+      
+      
+    
+    );
   }
   
   register() {

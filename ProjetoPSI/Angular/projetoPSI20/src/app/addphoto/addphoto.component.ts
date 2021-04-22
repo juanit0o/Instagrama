@@ -21,6 +21,7 @@ export class AddphotoComponent implements OnInit {
   filesInput ?: HTMLElement;
 
   isSubmit : boolean;
+  isUpload : boolean;
 
   constructor(public fb: FormBuilder, private photoService: PhotoService, private auth : AuthenticationService) { 
     this.uploadForm = this.fb.group({
@@ -29,19 +30,21 @@ export class AddphotoComponent implements OnInit {
     })
     this.photosToUpload = [ ];
     this.photosBase = [ ];
-    this.isSubmit = false;
+    this.isSubmit = true;
+    this.isUpload = false;
+
   }
 
   ngOnInit(): void {
-
   }
 
   onFileChanged(ev: any): void {
 
-    if(!this.isSubmit){
-      if((<HTMLInputElement> window.document.getElementById("submitButton")) != null){
-        (<HTMLInputElement> window.document.getElementById("submitButton")).disabled = false;
-      }
+    if(!this.isUpload){
+      //if((<HTMLInputElement> window.document.getElementById("submitButton")) != null){
+        //(<HTMLInputElement> window.document.getElementById("submitButton")).disabled = false;
+        this.isSubmit = false;
+      //}
       let file = (ev.target as HTMLInputElement).files;
       for(var i = 0; i < file!.length; i++) {
         this.singleFile(file![i], i);
@@ -88,6 +91,7 @@ export class AddphotoComponent implements OnInit {
     console.log(this.photosToUpload);
 
     this.isSubmit = true;
+    this.isUpload = true;
 
     let check = false;
     for(var i = 0; i < this.photosToUpload.length; ++i){
@@ -128,6 +132,9 @@ export class AddphotoComponent implements OnInit {
   }
 
   cancelNoDescription(nomeFoto : string) {
+
+    this.isSubmit = false;
+    this.isUpload = false;
     
     (<HTMLInputElement> window.document.getElementsByClassName("comDescricao")[parseInt(nomeFoto)]).style.display = "none";
     (<HTMLInputElement> window.document.getElementsByClassName("loading")[parseInt(nomeFoto)]).style.display = "none";
@@ -136,6 +143,9 @@ export class AddphotoComponent implements OnInit {
     (<HTMLInputElement>window.document.getElementById("descFoto" + nomeFoto)).tabIndex = 0;
     (<HTMLInputElement>window.document.getElementsByClassName("removePhoto")[parseInt(nomeFoto)]).tabIndex = 0;
 
+    if((<HTMLInputElement> window.document.getElementById("submitButton")) != null){
+      (<HTMLInputElement> window.document.getElementById("submitButton")).disabled = false;
+    }
   }
 
   async submitSingleFoto(photos : PhotoToUpload[]) : Promise<void> {
@@ -280,6 +290,9 @@ export class AddphotoComponent implements OnInit {
   }
 
   removePhoto(id: string) : void {
+
+    this.isUpload = false;
+
     if (parseInt(id) > -1) {
       
       let photosToUploadAux = [ ];
@@ -296,8 +309,14 @@ export class AddphotoComponent implements OnInit {
       }
     }
     this.temErro();
+
+    
     if(this.isSubmit) {
       this.submit();
+    }
+
+    if(this.photosToUpload.length <= 0) {
+      this.isSubmit = true;
     }
   }
 
