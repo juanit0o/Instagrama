@@ -35,6 +35,9 @@ export class PerfilComponent implements OnInit {
     this.answerReceived = true;
     });
 
+
+    
+    
    }
 
   //INIT

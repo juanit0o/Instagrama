@@ -48,7 +48,7 @@
                     <div class="infoLike"> 
                         <!-- likes comecam por default com 1 -->
                         <h3>{{photo.likes.length-1}}</h3> 
-                        <img *ngIf="!tenhoLike(photo.id)" id="like{{photo.id}}" src="assets/heart.png" tabindex="0" (click)="likeInvoke(photo.id)" (keyup.enter)="likeInvoke(photo.id)"/>
+                        <img *ngIf="!tenhoLike(photo.id)" id="like{{photo.id}}" src=    "assets/heart.png" tabindex="0" (click)="likeInvoke(photo.id)" (keyup.enter)="likeInvoke(photo.id)"/>
                         <img *ngIf="tenhoLike(photo.id)" id="like{{photo.id}}" src="assets/likebutton.png" tabindex="0" (click)="likeInvoke(photo.id)" (keyup.enter)="likeInvoke(photo.id)"/>
 
                         <img id="favorite{{photo.id}}" class="favorite" tabindex="0" src="assets/favourite.png" (click)="favoriteInvoke(photo.id)" (keyup.enter)="favoriteInvoke(photo.id)"/>

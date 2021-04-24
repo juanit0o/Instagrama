@@ -143,6 +143,11 @@ h1 {
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
 }
 
+.semFotos h3 {
+    margin-left: 0;
+}
+
+
 a.voltarFeed:visited, a.voltarFeed {
     text-decoration: none;
     color: #003F9A;

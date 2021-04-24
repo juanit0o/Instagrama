@@ -55,7 +55,7 @@
             <!-- <input style="display: none;" type="file" (change)="onFileChanged($event)" #fileInput multiple/> --> <!-- NAO ESTA A SER USADO, APAGAR QUANDO ESTIVER REVISTO-->
             
             
-            <button *ngIf="!isUpload" class="photoUploadButton" (click)="fileInput.click()" (keyup.enter)="fileInput.click()">
+            <button *ngIf="!isUpload" class="photoUploadButton" (keyup.enter)="fileInput.click()">
                 <input class="inputFile" type="file" (change)="onFileChanged($event)" (drop)="onFileChanged($event)" accept=".png, .jpg, .jpeg" #fileInput multiple tabindex="-1"> 
                 <div class="uploadImg"></div>
                 <h3>Adicionar imagens</h3>
@@ -68,7 +68,7 @@
             </button>
 
             
-            <button class="pasta" tabindex="0" (click)="folderInput.click()" (keyup.enter)="folderInput.click()">
+            <button class="pasta" tabindex="0" (keyup.enter)="folderInput.click()">
                 <input class="inputFolder" type="file" (change)="onFolderSelected($event)" (drop)="onFolderSelected($event)" #folderInput webkitdirectory tabindex="-1">
                 Adicionar pasta
             </button>

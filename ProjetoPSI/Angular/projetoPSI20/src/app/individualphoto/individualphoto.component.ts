@@ -38,7 +38,7 @@ export class IndividualphotoComponent implements OnInit {
   //auth.getUserDetails()?.nickname
 
 
-  constructor(private photoService: PhotoService, private router: Router,private auth : AuthenticationService, private route: ActivatedRoute) {
+  constructor(private photoService: PhotoService, private router: Router,public auth : AuthenticationService, private route: ActivatedRoute) {
     this.like = "like";
     this.nolike = "nolike";
     this.tipo = "nolike";
@@ -56,6 +56,13 @@ export class IndividualphotoComponent implements OnInit {
     this.id = "";
 
     this.confirmDelete = false;
+
+    //REFRESH NA BACK
+    let perfEntries : any;
+    perfEntries = performance.getEntriesByType("navigation");
+    if (perfEntries[0].type === "back_forward") {
+      location.reload(true);
+    }
 
     
   }
@@ -91,7 +98,6 @@ export class IndividualphotoComponent implements OnInit {
     //document.getElementById("tooltiptext")!.innerHTML = "Copiar link";
 
     let btn1 = document.getElementById("myTooltip")?.setAttribute("style", "visibility: hidden");
-    document.getElementById("myTooltip")!.innerHTML = "Copy to clipboard";
     
   }
 
@@ -262,5 +268,10 @@ export class IndividualphotoComponent implements OnInit {
   cancelDeletePhoto() {
     window.document.getElementById("deleteConfirmation")!.style.display = "none";
   }
+
+  goHome() {
+    window.location.href ='/';
+  }
+
 
 }

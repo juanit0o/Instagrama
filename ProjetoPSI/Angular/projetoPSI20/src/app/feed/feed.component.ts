@@ -39,6 +39,13 @@ export class FeedComponent implements OnInit {
     { nativeElement }: ElementRef<HTMLImageElement>
   ) { 
 
+    //REFRESH NA BACK
+    let perfEntries : any;
+    perfEntries = performance.getEntriesByType("navigation");
+    if (perfEntries[0].type === "back_forward") {
+      location.reload(true);
+    }
+
     this.details = {_id: "",
                     nickname: "",
                     exp: 0,
@@ -127,11 +134,15 @@ export class FeedComponent implements OnInit {
         this.photos[this.photosId.indexOf(id)] = output;
       });
     }
-    window.location.reload(false);
+    //window.location.reload(false);
   }
 
   tenhoLike(id: string) : boolean {
-    return this.liked.includes(id);
+    for(var i = 0; i <this.photos.length; i++){
+      if(this.photos[i].likes.includes(this.details.nickname) && this.photos[i].id == id)
+        return true;
+    }
+    return false;
   }
 
 

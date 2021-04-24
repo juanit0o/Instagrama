@@ -195,50 +195,12 @@ export class RegisterComponent {
     this.auth.userExists(this.credentials.nickname!).subscribe(res => {
       console.log(res);
       if(res.msg == "EXISTS"){
-       // this.erroRegistar = this.error;
-        console.log(this.erroRegistar);
+        this.erroRegistar="";
         this.teste = "Nickname já existe!";
         return;
       }
       this.register();
-    }
-      
-    
-
-        /*
-    const msgExist = "Nickname já existe!\n";
-    this.auth.userExists(this.credentials.nickname!).subscribe(res => {
-      console.log(res);
-      if(res.msg == "EXISTS"){
-        if(!this.listError.includes(msgExist)){
-          this.listError.push(msgExist);
-          console.log("nao inclui");
-          
-          this.updateErrorMensage();
-          this.erroRegistar = this.error;
-          
-          
-          console.log(this.erroRegistar);
-          
-          //return;
-        }
-      } else{
-        this.register();
-        /*
-        if(this.listError.includes(msgExist)){
-          console.log("ja inclui");
-          const index = this.listError.indexOf(msgExist, 0);
-          if (index > -1) {
-            this.listError.splice(index, 1);
-          }
-        }*/
-         
-  
-      //this.updateErrorMensage();
-      
-      
-    
-    );
+    });
   }
   
   register() {
@@ -249,25 +211,5 @@ export class RegisterComponent {
     });
   }
 
-  /*
-  //CRIAR O UTILIZADOR E ATUALIZAR A BD
-  criarUtilizador(): void {
-
-    //no caso de sucesso, do lado do backend criar o utilizador com o nome e a pass + valorLogin a 1
-    this.autService.addUser(, ththis.nickis.pw).subscribe(out => {
-      console.log(out.msg)
-      if (out.msg == "SUCESSO REGISTO"){
-        
-        window.location.href = "http://localhost:4200/feed";
-
-
-      } else {
-        this.listError = [];
-        this.listError.push("Nickname já existe!\n");
-        this.updateErrorMensage();
-      }
-    });
-
-  }*/
-
+  
 }

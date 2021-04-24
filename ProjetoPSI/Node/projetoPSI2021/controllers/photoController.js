@@ -42,11 +42,10 @@ exports.allIndexPhotosOld = function(req, res, next){
 //50 FOTOS COM MAIS LIKE
 exports.allIndexPhotosMostLiked = function(req, res, next){
     Photo.find({}, {_id:0, id:1, likes:1})
-    .sort([['likes'.size, 'descending']])
         .exec(function (err, list_photos){
             if (err) { return next(err); }
             list_photos.sort((a, b) => b.likes.length - a.likes.length);
-            res.send(list_photos);
+            res.send(list_photos.slice(0,50));
     });
 }
 
