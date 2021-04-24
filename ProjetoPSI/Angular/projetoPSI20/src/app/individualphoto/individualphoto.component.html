@@ -34,13 +34,14 @@
                 </a>
             </div>
             
-            
-            <!-- BOTAO DE LIKE -->
-            <div *ngIf="tipo == nolike" class = "botoes" (click)="fazerLike()" (keyup.enter)="fazerLike()" tabindex="0">
+            <!-- tipo == nolike-->
+            <!-- ja tinha like, vai tirar-->
+            <div *ngIf="checkLike()" class = "botoes" (click)="likeInvoke(this.id)" (keyup.enter)="likeInvoke(this.id)" tabindex="0">
                 <h4 class="likes"> {{nrLikes}} Likes</h4>
                 <img src="assets/heart.png" id="botaoLike"/>
             </div>
-            <div *ngIf="tipo == like" class= "botoes" (click)="tirarLike()" (keyup.enter)="tirarLike()" tabindex="0">
+            <!-- nao tinha like, vai por-->
+            <div *ngIf="!checkLike()" class= "botoes" (click)="likeInvoke(this.id)" (keyup.enter)="likeInvoke(this.id)" tabindex="0">
                 <h4 class="likes"> {{nrLikes}} Likes</h4>
                 <img src="assets/likebutton.png" id="botaoLike"/>
             </div>
@@ -77,7 +78,7 @@
 </div>
 
 <!--BOTAO DE CONFIRMAR APAGAR-->
-<div class="deleteConfirmation">
+<div id="deleteConfirmation">
     Queres mesmo apagar esta foto?
     <button type="button" class="confirmYes" (click)="confirmDeletePhoto(photo?.id)">Sim</button>
     <button type="button" class="confirmNo" (click)="cancelDeletePhoto()">Não</button>

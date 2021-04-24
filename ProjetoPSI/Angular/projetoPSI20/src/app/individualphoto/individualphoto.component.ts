@@ -31,6 +31,7 @@ export class IndividualphotoComponent implements OnInit {
   public nickname;  //id do user a usar a app
   public dono; //dono da foto atual
   public nrLikes;
+  public likers : string[];
 
   confirmDelete : boolean;
 
@@ -47,13 +48,11 @@ export class IndividualphotoComponent implements OnInit {
     this.tipoFav = "nofav";
     this.textotooltip = "Copiar link para a clipboard";
     this.copied = false;
-    this.nrLikes = 0;
+    this.nrLikes=0;
+    this.likers= [ ];
     
     this.nickname = auth.getUserDetails()?.nickname;
     this.dono="semdono";
-    //this.photos = [];
-    //this.photo = null;
-    //this.user!.nickname = "NOMEDOUSER";
     this.id = "";
 
     this.confirmDelete = false;
@@ -78,14 +77,10 @@ export class IndividualphotoComponent implements OnInit {
       (params: Params) => {
       console.log(params['id']);
       this.id = params['id'];
-     
       }
     );
 
     this.getPhotoById();
-
-    console.log(window.location.href);
-    
   }
 
   mouseOut(){
@@ -112,37 +107,94 @@ export class IndividualphotoComponent implements OnInit {
 
   //AO CLICAR PARA METER LIKE
   fazerLike(): void {
-    this.tipo = "like";
-    console.log(this.nrLikes);
-    this.nrLikes +=1;
-    console.log(this.nrLikes);
-    console.log("fiz like");
+    //SO POSSO FAZER LIKE SE AINDA NAO TIVER FEITO
+    if(!this.likers.includes(this.nickname)){ 
+      this.tipo = "like";
+      console.log(this.nrLikes);
+      //this.nrLikes +=1;
+      console.log(this.nrLikes);
+      console.log("fiz like");
+      this.likeInvoke(this.id);
+    }else{
+      this.likeInvoke(this.id);
+      this.tipo = "like";
+      return;
+    }
+  }
+
+
+  likeInvoke(idFoto: string) : void {
+    console.log("LIKERS: " + this.likers);
+    if(this.likers.includes(this.nickname)){
+      //const index = this.liked.indexOf(id, 0);
+      //if (index > -1) {
+      //  this.liked.splice(index, 1);
+      //}
+      this.photoService.removeLikeToPhoto(idFoto, this.nickname).subscribe(output => 
+      {
+        console.log(output);
+        //this.photos[this.photosId.indexOf(id)] = output;
+        this.tipo = "nolike";
+        this.likers = output.likes;
+        this.nrLikes = output.likes.length - 1;
+      });
+
+    } else {
+      //this.liked.push(id);
+      this.photoService.addLikeToPhoto(idFoto, this.nickname).subscribe(output => 
+      {
+        console.log(output);
+        //this.photos[this.photosId.indexOf(id)] = output;
+        this.tipo = "like";
+        this.likers = output.likes;
+        this.nrLikes = output.likes.length - 1;
+      });
+      
+    }
+
   }
 
   //AO CLICAR PARA TIRA LIKE
   tirarLike(): void {
-    this.tipo = "nolike";
-    console.log(this.nrLikes);
-    this.nrLikes -=1;
-    console.log(this.nrLikes);
+    console.log("LIKERS: " + this.likers);
+    //SO POSSO TIRAR LIKE SE JA TIVER FEITO
+    //if(this.likers.includes(this.nickname)){ 
+      this.tipo = "nolike";
+      console.log(this.nrLikes);
+      //this.nrLikes -=1;
+      console.log(this.nrLikes);
+      console.log("tirei like");
+      this.likeInvoke(this.id);
+    //}else{
+    //  this.tipo = "nolike";
+    //  return;
+    //}
     
-    console.log("tirei like");
+  }
+
+  checkLike() : boolean{
+    //console.log(this.likers);
+    if(this.likers.includes(this.nickname)){
+      console.log("JA INCLUO");
+      return false;
+    }else{
+      console.log("NAO INCLUO");
+      return true;
+    }
+    
   }
 
   fazerFav(): void {
     this.tipoFav = "fav";
-
     console.log("fiz fav");
   }
 
   tirarFav(): void {
     this.tipoFav = "nofav";
-    
     console.log("tirei fav");
   }
 
   getPhotoById():void {
-    console.log(" ID FOTO::" + this.id);
     this.photoService.getPhotoById(this.id)?.subscribe(output => {
       //this.photos.push(output);
 
@@ -151,7 +203,8 @@ export class IndividualphotoComponent implements OnInit {
       
         this.dono = output.dono;
         this.nrLikes = (output.likes.length) - 1;
-        console.log(this.nrLikes);
+        this.likers = output.likes;
+        console.log(this.likers);
       }
      
     });
@@ -160,35 +213,25 @@ export class IndividualphotoComponent implements OnInit {
   copyMessage() : void{
     window.document.getElementById("popup")!.style.animation = "";
     const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
     selBox.value = window.location.href;
     document.body.appendChild(selBox);
     selBox.focus();
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
-    console.log("copiado");
 
-    
-    //var tooltip = document.getElementById("myTooltip");
-    // tooltip!.innerHTML = "Copiado!";
 
-    //this.textotooltip = "Link copiado";
-    //document.getElementById("tooltiptext")!.innerHTML = "Link copiado";
     this.copied = true;
-    //window.alert("O link para a fotografia foi copiado para a área de transferência!");
-    
-    window.document.getElementById("popup")!.style.animation = "slideDown 3s 1 linear";
+
+    window.document.getElementById("popup")!.style.animation = "slideUp 3s 1 linear";
   }
 
   //tipo do id mudado de string para any
   deletePhoto(id : any) : void{
-    if(!this.confirmDelete) {
-      (<HTMLInputElement> window.document.getElementsByClassName("deleteConfirmation")[0]).style.display = "flex";
 
+    if(!this.confirmDelete) {
+       window.document.getElementById("deleteConfirmation")!.style.display = "flex";
+      window.document.getElementById("deleteConfirmation")!.style.animation = "slideRemove 3s 1 linear";
       return;
     }
 
@@ -206,17 +249,18 @@ export class IndividualphotoComponent implements OnInit {
     }, (err) => {
       console.error(err);
     });
+
+    
   }
 
   confirmDeletePhoto(id : any) {
-    console.log("CONFIRM DELETE");
+    window.document.getElementById("deleteConfirmation")!.style.display = "none";
     this.confirmDelete = true;
     this.deletePhoto(id);
   }
 
   cancelDeletePhoto() {
-    console.log("CANCEL DELETE");
-    (<HTMLInputElement> window.document.getElementsByClassName("deleteConfirmation")[0]).style.display = "none";
+    window.document.getElementById("deleteConfirmation")!.style.display = "none";
   }
 
 }

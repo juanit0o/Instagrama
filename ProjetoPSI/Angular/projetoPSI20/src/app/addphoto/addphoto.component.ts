@@ -38,7 +38,7 @@ export class AddphotoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onFileChanged(ev: any): void {
+  onFileChanged(ev: any): void { // NAO ESTA A SER USADO
 
     if(!this.isUpload){
       //if((<HTMLInputElement> window.document.getElementById("submitButton")) != null){
@@ -54,6 +54,33 @@ export class AddphotoComponent implements OnInit {
     }
   }
 
+  onFolderSelected(event: any){
+    if (!this.isUpload) {
+      this.isSubmit = false;
+        let files = (event.target as HTMLInputElement).files;
+        for(var i = 0; i < files!.length; i++) {
+          this.singleFile(files![i], i);
+        }
+    } else {
+      console.log("err onFolderSelected");
+    }
+  }
+
+  
+/*
+  onFolderSelected(files: any){
+    if (!this.isUpload) {
+      this.isSubmit = false;
+      if (files.length > 0){
+        for(var i = 0; i < files!.length; i++) {
+          this.singleFile(files![i], i);
+        }
+      }
+    } else {
+      console.log("err onFolderSelected");
+    }
+  }*/
+
   singleFile(file: any, i: number) : void {
 
     let isAllowedType : boolean = true;
@@ -63,28 +90,30 @@ export class AddphotoComponent implements OnInit {
     }
 
     if(file != null && file.size < 10000000 && isAllowedType == false){
-        const reader = new FileReader();
-        //let fd = new FormData();
-        //fd.append('profileImage', file);
-        let photo = {"id": this.photosToUpload.length.toString(),
-                    "dono": this.auth.getUserDetails()?.nickname.toString(),
-                    "nome": file.name.split(".")[0],           //NOME DO FILE
-                    "descricao": "",
-                    "photo": file,
-                    "likes": [""],
-                    "favoritos": [""]} as PhotoToUpload;
-        let base = "";
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-          base = reader.result as string;  
-          this.photosBase.push(base);
-        }
       
-        this.photosToUpload.push(photo);
-      } else {
-        //TODO --------------------------------- MOSTRA NO UTILIZADOR
-        alert("Cant upload this file!");
+      const reader = new FileReader();
+      //let fd = new FormData();
+      //fd.append('profileImage', file);
+      let photo = {"id": this.photosToUpload.length.toString(),
+                  "dono": this.auth.getUserDetails()?.nickname.toString(),
+                  "nome": file.name.split(".")[0],           //NOME DO FILE
+                  "descricao": "",
+                  "photo": file,
+                  "likes": [""],
+                  "favoritos": [""]} as PhotoToUpload;
+      let base = "";
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        base = reader.result as string;  
+        this.photosBase.push(base);
       }
+    
+      this.photosToUpload.push(photo);
+      
+    } else {
+      //TODO --------------------------------- MOSTRA NO UTILIZADOR
+      alert("Cant upload this file!");
+    }
   }
 
   submit(): void{
@@ -149,6 +178,7 @@ export class AddphotoComponent implements OnInit {
   }
 
   async submitSingleFoto(photos : PhotoToUpload[]) : Promise<void> {
+    console.log("entrei");
     if(photos.length == 0) {
 
       setTimeout( () => { window.location.reload(false); },  1000);

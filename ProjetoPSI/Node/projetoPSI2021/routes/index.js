@@ -27,6 +27,7 @@ router.get('/photolastid', photo_controller.getLastId);
 router.get('/photosidRecentes', photo_controller.allIndexPhotos);
 router.get('/photosidAntigas', photo_controller.allIndexPhotosOld);
 router.get('/photosidLikes', photo_controller.allIndexPhotosMostLiked);
+router.get('/photolikers/:id', photo_controller.photolikers);
 router.get('/photo/:id', photo_controller.getPhoto);
 
 router.get('/file/photo/:id', photo_controller.getPhotoById);

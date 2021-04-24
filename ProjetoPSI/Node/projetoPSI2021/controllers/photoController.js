@@ -41,15 +41,26 @@ exports.allIndexPhotosOld = function(req, res, next){
 
 //50 FOTOS COM MAIS LIKE
 exports.allIndexPhotosMostLiked = function(req, res, next){
-    Photo.find({}, {_id:0, id:1})
+    Photo.find({}, {_id:0, id:1, likes:1})
+    .sort([['likes'.size, 'descending']])
         .exec(function (err, list_photos){
             if (err) { return next(err); }
-
-                    //TODO ------------------------------------------------------ ORDENAR POR MAIS LIKES
-
+            list_photos.sort((a, b) => b.likes.length - a.likes.length);
             res.send(list_photos);
     });
 }
+
+exports.photolikers = function(req, res, next){
+    Photo.find({'id': req.params.id}, {_id:0, id:0, __v:0,  dono:0, nome:0, descricao:0, photo:0, favoritos:0})
+        .exec(function (err, list_likers){
+            if(err) { 
+                console.log(err); 
+                return next(err);
+            }
+            res.send(list_likers);
+        });
+}
+
 
 exports.apagaTodasFotos = function(req,res,next){
     Photo.find({}, {id:1})

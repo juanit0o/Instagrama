@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Directive, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Photo } from '../photo';
 import { PhotoService } from '../photo.service';
 
 import { AuthenticationService, UserDetails } from '../authentication.service';
+
 
 @Component({
   selector: 'app-feed',
@@ -34,15 +35,15 @@ export class FeedComponent implements OnInit {
   
   constructor(
     private photoService: PhotoService,
-    private auth: AuthenticationService
+    private auth: AuthenticationService,
+    { nativeElement }: ElementRef<HTMLImageElement>
   ) { 
 
     this.details = {_id: "",
                     nickname: "",
                     exp: 0,
                     iat: 0 };
-    //this.nickname = this.autenticacaoService.getNick();
-    //console.log(this.nickname);
+
     this.photos = [];
     this.photosId = [];
 
@@ -50,10 +51,13 @@ export class FeedComponent implements OnInit {
     this.favorited = [];
 
     this.ordena = "Mais Recentes V";
+    this.temFotosPorLoad = true;
 
+    const supports = 'loading' in HTMLImageElement.prototype;
+    if (supports) {
+      nativeElement.setAttribute('loading', 'lazy');
+    }
 
-
-    
   }
 
   //INIT
@@ -65,9 +69,7 @@ export class FeedComponent implements OnInit {
           //console.error(err);
         });
 
-
     this.getPhotos();
-    
   }
 
   //OBTEM AS FOTOS QUE EXISTEM (POR ORDEM "MAIS RECENTES")
@@ -80,6 +82,8 @@ export class FeedComponent implements OnInit {
           this.getPhoto(this.photosId);
         });
   }
+
+  
   
   getPhoto(lista: string[]): void {
     if(lista.length > 0){
@@ -123,11 +127,11 @@ export class FeedComponent implements OnInit {
         this.photos[this.photosId.indexOf(id)] = output;
       });
     }
-
+    window.location.reload(false);
   }
 
   tenhoLike(id: string) : boolean {
-    return this.liked.includes(id) && this.liked.length > 0;
+    return this.liked.includes(id);
   }
 
 
@@ -147,7 +151,7 @@ export class FeedComponent implements OnInit {
   }
 
   onChange(deviceValue : string) : void  {
-    /*this.photos = [];
+    this.photos = [];
     this.photosId = [];
     if(this.subscription)
       this.subscription.unsubscribe();
@@ -163,8 +167,8 @@ export class FeedComponent implements OnInit {
         });
         break;
       case "Mais Likes":
-        /*
-          this.subscription = this.photoService.getPhotosIdsAntigas().subscribe(response => 
+        
+          this.subscription = this.photoService.getPhotosIdsLikes().subscribe(response => 
             {
               for(var i = 0; i < response.length; ++i){
                 this.photosId.push(response[i].id)
@@ -182,7 +186,7 @@ export class FeedComponent implements OnInit {
               this.getPhoto(this.photosId);
         });
         break;
-    }*/
+    }
   }
       
   voltarTopo(): void {
@@ -195,5 +199,7 @@ export class FeedComponent implements OnInit {
     
   }
 
+
+  
 }
  

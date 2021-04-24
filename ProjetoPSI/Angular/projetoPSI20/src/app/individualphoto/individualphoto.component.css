@@ -177,7 +177,61 @@ h4{
       font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
 }
 
-@keyframes slideDown {
+#deleteConfirmation {
+
+    display: none;
+
+    position: fixed;
+    z-index:100;
+    bottom:0;
+    left:30%;
+    right:30%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    background-color: #004196;
+    text-align: center;
+    font-size: 0.8em;
+    overflow: hidden;
+    padding: 10px 5px 10px 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+
+    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+
+}
+
+.confirmYes {
+    margin-left: 5px;
+    background-color: #F7F7F7;
+    color: black;
+    border:0;
+    border-radius: 5px;
+    padding: 5px 20px 5px 20px;
+}
+
+.confirmNo {
+    margin-left: 5px;
+    background-color: #8a8a8a;
+    color: white;
+    border:0;
+    border-radius: 5px;
+    padding: 5px 20px 5px 20px;
+}
+
+.confirmYes:hover{
+    background-color: #5f7fa8;
+    cursor: pointer;
+}
+
+.confirmNo:hover{
+    background-color: #a8a8a8;
+    cursor: pointer;
+}
+
+@keyframes slideUp {
     0%   {bottom:-1000px;}
     0%   {bottom:-100px;}
     15%  {bottom:0;}
@@ -186,73 +240,29 @@ h4{
     100% {background-color: #00419600; color: rgba(255, 255, 255, 0); bottom:0;}
 }
 
+@keyframes slideRemove {
+    0%   {bottom:-1000px;}
+    0%   {bottom:-100px;}
+    15%  {bottom:0;}
+    50%  {bottom:0;}
+    100%  {background-color: #004196; color: white;bottom:0;}
+}
+
 @media only screen and (max-width: 1000px) {
 
     #popup {
         left:20%;
         right:20%;
     }
-}
 
-@media only screen and (max-width: 350px) {
-
-    #popup {
-        left:0;
-        right:0;
-        margin-bottom: 0;
-        border-radius: 0;
+    #deleteConfirmation {
+        left:10%;
+        right:10%;
     }
 }
 
-.deleteConfirmation {
-    background-color: rgba(255, 255, 255, 0.767);
-    display: none;
-
-
-    font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
-    color: #fd0015;
-    font-weight: bold;
-
-    justify-content: center;
-    align-items: center;
-    
-    border-radius: 10px;
-    background: rgba(216, 216, 216, 0.719);
-    padding: 10px;
-
-    margin-left: 23%;
-    margin-top: 7%;
-}
-
-.deleteConfirmation .confirmYes {
-    margin-left: 5px;
-    background-color: #004196;
-    color: white;
-    border:0;
-    border-radius: 5px;
-    padding: 5px 20px 5px 20px;
-}
-
-.deleteConfirmation .confirmNo {
-    margin-left: 5px;
-    background-color: #474747;
-    color: white;
-    border:0;
-    border-radius: 5px;
-    padding: 5px 20px 5px 20px;
-}
-
-.deleteConfirmation .confirmYes:hover{
-    background-color: #5f7fa8;
-    cursor: pointer;
-}
-
-.deleteConfirmation .confirmNo:hover{
-    background-color: #a8a8a8;
-    cursor: pointer;
-}
-
 @media only screen and (max-width: 500px){
+
     .infoFoto {
         flex-direction: column;
     }
@@ -268,5 +278,37 @@ h4{
     .info h1{
         padding: 0;
     }
+    
+    #deleteConfirmation {
+        left:0;
+        right:0;
+        margin-bottom: 0;
+        border-radius: 0;
+    }
 
 }
+
+@media only screen and (max-width: 350px) {
+
+    #popup {
+        left:0;
+        right:0;
+        margin-bottom: 0;
+        border-radius: 0;
+    }
+
+    #deleteConfirmation {
+        flex-direction: column;
+    }
+
+    .confirmYes {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .confirmNo {
+        margin-bottom: 5px;
+    }
+
+}
+

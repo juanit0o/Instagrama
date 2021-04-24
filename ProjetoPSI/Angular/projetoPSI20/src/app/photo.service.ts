@@ -49,6 +49,10 @@ export class PhotoService {
     return this.http.get<Photo[]>('http://localhost:3001/photosidLikes');
   }
 
+  getPhotosLikers(id: string) : Observable<string[]> {
+    return this.http.get<string[]>('http://localhost:3001/photolikers/' + id);
+  }
+
   getPhotoById(id: string) : Observable<Photo | undefined>  {
     return this.http.get<Photo>('http://localhost:3001/photo/' + id).pipe(
       timeout(this.timeoutTime),
