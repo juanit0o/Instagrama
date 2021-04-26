@@ -30,7 +30,7 @@ export class AuthenticationService {
   private backendURL = "http://localhost:3001";
 
   constructor(private http: HttpClient, private router: Router) {}
-  
+
   private saveToken(token: string): void {
     localStorage.setItem('mean-token', token);
     this.token = token;
@@ -64,14 +64,15 @@ export class AuthenticationService {
     }
   }
 
-  private request(method: 'post'|'get', type: 'login'|'register'|'profile', user?: TokenPayload): Observable<any> {
+  private request(method: 'post'|'get'|'put', type: 'login'|'register'|'profile'|'update', user?: TokenPayload): Observable<any> {
     let base;
 
     if (method === 'post') {
-      console.log(user);
       base = this.http.post(this.backendURL + `/api/${type}`, user);
-    } else {
+    } else if(method === 'get') {
       base = this.http.get(this.backendURL + `/api/${type}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
+    } else {
+      base = this.http.put(this.backendURL + `/api/${type}`, user);
     }
 
     const request = base.pipe(
@@ -96,6 +97,11 @@ export class AuthenticationService {
 
   public profile(): Observable<any> {
     return this.request('get', 'profile');
+  }
+
+  public update(user: TokenPayload): Observable<any> {
+    console.log(user);
+    return this.request('put', 'update', user);
   }
 
   public logout(): void {

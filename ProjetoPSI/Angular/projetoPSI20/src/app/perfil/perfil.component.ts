@@ -23,6 +23,7 @@ export class PerfilComponent implements OnInit {
     private photoService: PhotoService, public auth: AuthenticationService,
      private route: ActivatedRoute,
   ) {
+    // TODO: verificar se eh necessario o uso do auth
 
     this.photos = [];
     this.liked = [];
@@ -36,8 +37,8 @@ export class PerfilComponent implements OnInit {
     });
 
 
-    
-    
+
+
    }
 
   //INIT

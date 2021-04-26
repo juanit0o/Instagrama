@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
+import { AuthenticationService, TokenPayload } from '../authentication.service';
+
 
 @Component({
   selector: 'app-definicoes',
@@ -8,17 +10,21 @@ import { HeaderComponent } from '../header/header.component';
 })
 export class DefinicoesComponent implements OnInit {
 
-  public nick;
-  private pwAtual;
-  private pwNova;
-  private pwConfirmarNova;
+  credentials: TokenPayload = {
+    nickname: '',
+    password: ''
+  }
 
-  public error;
-  private listError: string[];
+  pwNova: string;
+  pwConfirmarNova: string;
 
-  constructor() { 
-    this.nick = "diogo"; //TODO: hardcoded por enquanto, ainda nao se sabe quem eh o client
-    this.pwAtual = "";
+  error: string;
+  listError: string[];
+
+  constructor(private auth: AuthenticationService) {
+
+    this.credentials.nickname = this.auth.getUserDetails()?.nickname.toString();
+    this.credentials.password = "";
     this.pwNova = "";
     this.pwConfirmarNova = "";
 
@@ -30,40 +36,48 @@ export class DefinicoesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //Verifica se a password atual está correta
-  pwAtualInsert(pwAtual : string): void {
-    this.pwAtual = pwAtual;
-  }
-
-  //Inserir a password nova
-  pwNovaInsert(pwNova : string): void {
-    this.pwNova = pwNova;
-
-    
-  }
-
   //Verifica se a password nova confirmada é igual à usada
-  pwNovaConfirmarInsert(pwNovaConfirmar : string): void {
-    if(this.pwNova === pwNovaConfirmar){
-        this.pwConfirmarNova = pwNovaConfirmar;
-    } else {
-      const msg10 = "Passwords diferentes.\n";
+  // ou se é igual a password atual
+  verificarPassIguais(): boolean {
+    if(this.pwNova !== this.pwConfirmarNova){
+      // TODO: concertar a maneira que esse erro é mostrado, adicionar a lista de erros
+      this.error = "Passwords diferentes.\n";
+      return false;
+    } else if(this.pwNova === this.credentials.password) {
+      // TODO: concertar a maneira que esse erro é mostrado, adicionar a lista de erros
+      this.error = "Password nova não pode ser igual a password atual";
+      return false;
     }
+    return true;
   }
 
+  // Guarda a nova password referente ao cliente corrente
   guardarAlteracoes(): void {
-    console.log('NICK: '+this.nick + '\nATUAL: '+ this.pwAtual + 
+    console.log('NICK: '+ this.credentials.nickname + '\nATUAL: '+ this.credentials.password +
     '\nNOVA: '+ this.pwNova + '\nCONFIRMARNOVA: ' + this.pwConfirmarNova);
-    /**
-    this.autService.update(this.nick, this.pwNova).subscribe(out => {
-      console.log(out.msg);
-      if (out.msg == "SUCESSO UPDATE") {
-        window.location.href = "http://localhost:4200/feed";
-      } else {
-        console.log('erro update @ definicoes.component');
-      }
-    })
-    */
+
+    this.verificarPassIguais();
+
+    // Verificar se a password atual está correta
+    this.auth.login(this.credentials).subscribe(() => {
+      // Password atual inserida correta
+
+      // Atualizar as credenciais
+      this.credentials.password = this.pwNova;
+
+      // Chamar a função que fará o update da password
+      this.auth.update(this.credentials).subscribe(() => {
+        // Password está no formato correto e foi atualizada
+        // Mostrar msg de sucesso
+      }, () => {
+        // Password não está no formato correto
+        this.error = "Password nova não está no formato correto";
+        // Mostrar o que falta na password
+      })
+    }, () => {
+      // Password atual inserida errada
+      this.error = "Password incorreta";
+    });
   }
 
   eliminarConta(): void {
