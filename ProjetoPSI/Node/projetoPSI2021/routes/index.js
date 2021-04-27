@@ -11,6 +11,7 @@ const app = express();
 //});
 
 var photo_controller = require('../controllers/photoController');
+var favorite_controller = require('../controllers/favoriteController');
 var auth_controller = require('../api/controllers/authentication');
 
 /* GET home page. */
@@ -44,6 +45,12 @@ router.post('/likeFoto', photo_controller.addLikeToPhoto);
 router.post('/removeLikeFoto', photo_controller.removeLikeToPhoto);
 
 router.get('/getUser/:nome', auth_controller.getUser);
+
+//Adicionar Favorito a dado user
+router.post('/addFavorite/:fotoId', favorite_controller.addFavorite);
+router.delete('/removeFavorite/:fotoId', favorite_controller.removeFavorite);
+router.get('/getFavorites', favorite_controller.getFavorites);
+
 
 //router.post('/uploadPhoto', photo_controller.postPhoto); //tentativa com morgan
 
