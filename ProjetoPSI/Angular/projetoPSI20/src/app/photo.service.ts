@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable, ObservableLike, of } from 'rxjs';
 import { catchError, map, tap, timeout } from 'rxjs/operators';
 
 import { Photo } from './photo';
 import { PhotoToUpload } from './photoToUpload';
 import { Msg } from './msg';
+import { StringMapWithRename } from '@angular/compiler/src/compiler_facade_interface';
+import { nick } from './app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +23,8 @@ export class PhotoService {
 
   constructor (
     private http: HttpClient
-  ) { 
-    
+  ) {
+
     //Tempo para dar timeout de qualquer pedido
     this.timeoutTime = 30000;
   }
@@ -97,8 +99,8 @@ export class PhotoService {
     return this.http.get<Photo[]>('http://localhost:3001/donosFotos/' + nickname);
   }
 
-  
-  
+
+
   deletePhoto(info: string) : Observable<Msg> {
     return this.http.delete<Msg>('http://localhost:3001/apagaFoto/' + info);
   }
@@ -111,6 +113,14 @@ export class PhotoService {
   removeLikeToPhoto(id: string, nickname: string) : Observable<Photo> {
     let content = { "id": id, "nickname": nickname };
     return this.http.post<Photo>('http://localhost:3001/removeLikeFoto', content, this.httpOptions);
+  }
+
+  /**
+   * Retorna as fotos favoritas de um certo cliente
+   * @param nickname nickname do cliente
+   */
+  getPhotosFavourited(nickname: string) : Observable<Photo[]> {
+    return this.http.get<Photo[]>('http://localhost:3001/photosFavoritas' + nickname);
   }
 
 }

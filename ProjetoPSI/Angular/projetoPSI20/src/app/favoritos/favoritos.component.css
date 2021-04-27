@@ -1,4 +1,4 @@
-.perfil-body{
+.favorito-body{
     align-items: center;
     justify-content: center;
     max-width: 800px;
@@ -27,3 +27,27 @@
     text-align: right;
 
 }
+
+/* Caso o cliente corrente não tenha favoritado nenhuma foto */
+.semFotos {
+  color: #7B7B7B;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 0px;
+  font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
+}
+
+.semFotos h3 {
+  margin-left: 0;
+}
+
+
+a.voltarFeed:visited, a.voltarFeed {
+  text-decoration: none;
+  color: #003F9A;
+}
+
+a.voltarFeed:hover {
+  color: #0062eb;
+}
+/* --- */
