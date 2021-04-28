@@ -48,8 +48,8 @@ router.get('/getUser/:nome', auth_controller.getUser);
 
 //Adicionar Favorito a dado user
 router.post('/addFavorite/:fotoId', favorite_controller.addFavorite);
-router.delete('/removeFavorite/:fotoId', favorite_controller.removeFavorite);
-router.get('/getFavorites', favorite_controller.getFavorites);
+router.put('/removeFavorite/:fotoId', favorite_controller.removeFavorite);
+router.get('/getFavorites/:nickname', favorite_controller.getFavorites);
 
 
 //router.post('/uploadPhoto', photo_controller.postPhoto); //tentativa com morgan

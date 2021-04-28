@@ -25,19 +25,19 @@ export class FeedComponent implements OnInit {
   photosId : string[];
   liked: string[];
   favorited: string[];
-  
+
   //
 
   //ELEMENTO SELECIONADO ATUALMENTE NO "ORDENA POR"
   ordena : string;
-  
+
   temFotosPorLoad ?: boolean;
-  
+
   constructor(
     private photoService: PhotoService,
     private auth: AuthenticationService,
     { nativeElement }: ElementRef<HTMLImageElement>
-  ) { 
+  ) {
 
     //REFRESH NA BACK
     let perfEntries : any;
@@ -72,16 +72,23 @@ export class FeedComponent implements OnInit {
 
    this.auth.profile().subscribe(user => {
           this.details = user;
+          this.getPhotos();
+
+          // Obter fotos favoritas do cliente corrente
+          this.subscription = this.photoService.getPhotosFavourited(this.details.nickname).subscribe(response =>
+            {
+              for(var i = 0; i < response.length; ++i){
+                this.favorited.push(response[i]);
+              }
+            });
         }, (err) => {
           //console.error(err);
         });
-
-    this.getPhotos();
   }
 
   //OBTEM AS FOTOS QUE EXISTEM (POR ORDEM "MAIS RECENTES")
   getPhotos(): void {
-      this.subscription = this.photoService.getPhotosIdsRecentes().subscribe(response => 
+      this.subscription = this.photoService.getPhotosIdsRecentes().subscribe(response =>
         {
           for(var i = 0; i < response.length; ++i){
             this.photosId.push(response[i].id);
@@ -90,12 +97,12 @@ export class FeedComponent implements OnInit {
         });
   }
 
-  
-  
+
+
   getPhoto(lista: string[]): void {
     if(lista.length > 0){
 
-        this.subscription = this.photoService.getPhotoById(lista[0])?.subscribe(output => 
+        this.subscription = this.photoService.getPhotoById(lista[0])?.subscribe(output =>
         {
           if(output != undefined) {
             this.photos.push(output);
@@ -123,13 +130,13 @@ export class FeedComponent implements OnInit {
       if (index > -1) {
         this.liked.splice(index, 1);
       }
-      this.photoService.removeLikeToPhoto(id, this.details.nickname).subscribe(output => 
+      this.photoService.removeLikeToPhoto(id, this.details.nickname).subscribe(output =>
       {
         this.photos[this.photosId.indexOf(id)] = output;
       });
     } else {
       this.liked.push(id);
-      this.photoService.addLikeToPhoto(id, this.details.nickname).subscribe(output => 
+      this.photoService.addLikeToPhoto(id, this.details.nickname).subscribe(output =>
       {
         this.photos[this.photosId.indexOf(id)] = output;
       });
@@ -145,6 +152,18 @@ export class FeedComponent implements OnInit {
     return false;
   }
 
+  /**
+   * Verifica se a foto id é uma das fotos favoritas do cliente corrente
+   * @param id identificação da foto
+   * @returns True caso seja foto favorita do cliente corrente
+   */
+  tenhoFavorite(id: string) : boolean {
+    if(this.favorited.includes(id))
+      return true;
+    else
+      return false;
+  }
+
 
   favoriteInvoke(id: string) {
     if(this.favorited.includes(id)){
@@ -153,9 +172,17 @@ export class FeedComponent implements OnInit {
       if (index > -1) {
         this.favorited.splice(index, 1);
       }
+      this.photoService.removeFavoriteToPhoto(id, this.details.nickname).subscribe(output => {
+        console.log(output);
+        // this.photos[this.photosId.indexOf(id)] = output;
+      });
     } else {
       window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favouriteChecked.png");
       this.favorited.push(id);
+      this.photoService.addFavoriteToPhoto(id, this.details.nickname).subscribe(output => {
+        console.log(output);
+        // this.photos[this.photosId.indexOf(id)] = output;
+      });
     }
 
     //TODO ATUALIZAR BD
@@ -168,8 +195,8 @@ export class FeedComponent implements OnInit {
       this.subscription.unsubscribe();
     switch (deviceValue){
       case "Mais Antigas":
-        
-          this.subscription = this.photoService.getPhotosIdsAntigas().subscribe(response => 
+
+          this.subscription = this.photoService.getPhotosIdsAntigas().subscribe(response =>
             {
               for(var i = 0; i < response.length; ++i){
                 this.photosId.push(response[i].id)
@@ -178,8 +205,8 @@ export class FeedComponent implements OnInit {
         });
         break;
       case "Mais Likes":
-        
-          this.subscription = this.photoService.getPhotosIdsLikes().subscribe(response => 
+
+          this.subscription = this.photoService.getPhotosIdsLikes().subscribe(response =>
             {
               for(var i = 0; i < response.length; ++i){
                 this.photosId.push(response[i].id)
@@ -189,7 +216,7 @@ export class FeedComponent implements OnInit {
         break;
 
       default:
-          this.subscription = this.photoService.getPhotosIdsRecentes().subscribe(response => 
+          this.subscription = this.photoService.getPhotosIdsRecentes().subscribe(response =>
             {
               for(var i = 0; i < response.length; ++i){
                 this.photosId.push(response[i].id)
@@ -199,7 +226,7 @@ export class FeedComponent implements OnInit {
         break;
     }
   }
-      
+
   voltarTopo(): void {
     window.document.body.scrollTop = 0;
     window.document.documentElement.scrollTop = 0;
@@ -207,10 +234,9 @@ export class FeedComponent implements OnInit {
   }
 
   onTabPressInSelectBox() : void {
-    
+
   }
 
 
-  
+
 }
- 

@@ -21,40 +21,42 @@
 
                 <!-- TODO ALTERAR OS CLIQUES -->
 
-                
+
                 <a class="photoDiv" href="/foto/{{photo.id}}">
                     <div *ngIf="photo.descricao; else elseBlock">
                         <div class="imgLoader">
                             <div class="img"><img class="mainImg" id="mainImg{{photo.id}}" data-src={{photo.photo}} title="{{photo.nome}}" alt="{{photo.descricao}}"></div>
-                            <div class="loading"><app-loadingphoto></app-loadingphoto></div> 
+                            <div class="loading"><app-loadingphoto></app-loadingphoto></div>
                         </div>
                     </div>
                     <ng-template #elseBlock>
                         <div class="imgLoader">
                             <div class="img"><img class="mainImg" id="mainImg{{photo.id}}" data-src={{photo.photo}} title="{{photo.nome}}" alt="{{photo.nome}}"></div>
-                            <div class="loading"><app-loadingphoto></app-loadingphoto></div> 
+                            <div class="loading"><app-loadingphoto></app-loadingphoto></div>
                         </div>
                     </ng-template>
 
-                   
-                </a>    
+
+                </a>
                 <div class="info">
                     <a class="infoDono" href="/perfil/{{photo.dono}}">
                         <img src="assets/user-profile.png"  />
-                        <h2 *ngIf="photo.dono.length < 18">{{photo.dono}}</h2>  
-                        <h2 *ngIf="photo.dono.length >= 18">{{photo.dono.substring(0,16)}}...</h2>  
+                        <h2 *ngIf="photo.dono.length < 18">{{photo.dono}}</h2>
+                        <h2 *ngIf="photo.dono.length >= 18">{{photo.dono.substring(0,16)}}...</h2>
                     </a>
 
-                    <div class="infoLike"> 
+                    <div class="infoLike">
                         <!-- likes comecam por default com 1 -->
-                        <h3>{{photo.likes.length-1}}</h3> 
+                        <h3>{{photo.likes.length-1}}</h3>
                         <img *ngIf="!tenhoLike(photo.id)" id="like{{photo.id}}" src=    "assets/heart.png" tabindex="0" (click)="likeInvoke(photo.id)" (keyup.enter)="likeInvoke(photo.id)"/>
                         <img *ngIf="tenhoLike(photo.id)" id="like{{photo.id}}" src="assets/likebutton.png" tabindex="0" (click)="likeInvoke(photo.id)" (keyup.enter)="likeInvoke(photo.id)"/>
 
-                        <img id="favorite{{photo.id}}" class="favorite" tabindex="0" src="assets/favourite.png" (click)="favoriteInvoke(photo.id)" (keyup.enter)="favoriteInvoke(photo.id)"/>
+                        <img *ngIf="!tenhoFavorite(photo.id)" id="favorite{{photo.id}}" class="favorite" tabindex="0" src="assets/favourite.png" (click)="favoriteInvoke(photo.id)" (keyup.enter)="favoriteInvoke(photo.id)"/>
+                        <img *ngIf="tenhoFavorite(photo.id)" id="favorite{{photo.id}}" class="favorite" tabindex="0" src="assets/favouriteChecked.png" (click)="favoriteInvoke(photo.id)" (keyup.enter)="favoriteInvoke(photo.id)"/>
+
                     </div>
                 </div>
-                
+
             </li>
         </ul>
     </div>
@@ -64,4 +66,4 @@
 
 
 
-    
+

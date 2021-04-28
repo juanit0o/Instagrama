@@ -119,8 +119,20 @@ export class PhotoService {
    * Retorna as fotos favoritas de um certo cliente
    * @param nickname nickname do cliente
    */
-  getPhotosFavourited(nickname: string) : Observable<Photo[]> {
-    return this.http.get<Photo[]>('http://localhost:3001/photosFavoritas' + nickname);
+  getPhotosFavourited(nickname: string) : Observable<any> {
+    var aux2 = "http://localhost:3001/getFavorites/";
+    const url1 = `${aux2}${nickname}`;
+    return this.http.get<any>(url1);
+  }
+
+  removeFavoriteToPhoto(id: string, nickname: string) : Observable<Msg> {
+    let content = { "nickname": nickname };
+    return this.http.put<Msg>('http://localhost:3001/removeFavorite/' + id, content, this.httpOptions);
+  }
+
+  addFavoriteToPhoto(id: string, nickname: string) : Observable<Msg> {
+    let content = { "nickname": nickname };
+    return this.http.post<Msg>('http://localhost:3001/addFavorite/' + id, content, this.httpOptions);
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Photo } from '../photo';
@@ -63,19 +63,20 @@ export class FavoritosComponent implements OnInit {
   ngOnInit(): void {
     this.auth.profile().subscribe(user => {
           this.details = user;
+          this.getPhotos();
         }, (err) => {
           //console.error(err);
         });
 
-    this.getPhotos();
   }
 
   // Obtem as fotos favoritas do cliente corrente
   getPhotos(): void {
+
     this.subscription = this.photoService.getPhotosFavourited(this.details.nickname).subscribe(response =>
       {
         for(var i = 0; i < response.length; ++i){
-          this.photosId.push(response[i].id);
+          this.photosId.push(response[i]);
         }
         this.getPhoto(this.photosId);
       });
@@ -106,7 +107,6 @@ export class FavoritosComponent implements OnInit {
   // ---
 
   likeInvoke(id: string) : void {
-
     if(this.liked.includes(id)){
       const index = this.liked.indexOf(id, 0);
       if (index > -1) {
@@ -135,57 +135,33 @@ export class FavoritosComponent implements OnInit {
   }
 
   favoriteInvoke(id: string) {
-    if(this.favorited.includes(id)){
+    if(this.photosId.includes(id)){
+      // Remove Favorite
+
+      // Atualizar página
+      window.location.reload();
+
       window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favourite.png");    //VERIFICAR SE HA ALGUMA FORMA DE DAR LOAD ANTES (NO INIT)
-      const index = this.favorited.indexOf(id, 0);
+      const index = this.photosId.indexOf(id, 0);
       if (index > -1) {
-        this.favorited.splice(index, 1);
+        this.photosId.splice(index, 1);
       }
+      // Atualizar BD
+      this.photoService.removeFavoriteToPhoto(id, this.details.nickname).subscribe(output => {
+        console.log(output);
+      });
+
     } else {
+      // Add Favorite
       window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favouriteChecked.png");
-      this.favorited.push(id);
+      this.photosId.push(id);
+      // Atualizar BD
+      this.photoService.addFavoriteToPhoto(id, this.details.nickname).subscribe(output => {
+        console.log(output);
+      });
     }
 
-    //TODO ATUALIZAR BD
-  }
 
-  onChange(deviceValue : string) : void  {
-    this.photos = [];
-    this.photosId = [];
-    if(this.subscription)
-      this.subscription.unsubscribe();
-    switch (deviceValue){
-      case "Mais Antigas":
-
-          this.subscription = this.photoService.getPhotosIdsAntigas().subscribe(response =>
-            {
-              for(var i = 0; i < response.length; ++i){
-                this.photosId.push(response[i].id)
-              }
-              this.getPhoto(this.photosId);
-        });
-        break;
-      case "Mais Likes":
-
-          this.subscription = this.photoService.getPhotosIdsLikes().subscribe(response =>
-            {
-              for(var i = 0; i < response.length; ++i){
-                this.photosId.push(response[i].id)
-              }
-              this.getPhoto(this.photosId);
-        });
-        break;
-
-      default:
-          this.subscription = this.photoService.getPhotosIdsRecentes().subscribe(response =>
-            {
-              for(var i = 0; i < response.length; ++i){
-                this.photosId.push(response[i].id)
-              }
-              this.getPhoto(this.photosId);
-        });
-        break;
-    }
   }
 
   voltarTopo(): void {

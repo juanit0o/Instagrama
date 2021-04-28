@@ -98,7 +98,7 @@ exports.removeFavorite = function(req, res){
 }
 
 exports.getFavorites = function(req, res){
-    Favorites.findOne({ 'nickname': req.body.nickname }, {})
+    Favorites.findOne({ 'nickname': req.params.nickname }, {})
         .exec(function (err, resposta){
 
             if (err) {
