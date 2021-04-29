@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="detalhesFotografia">
-    
+
     <!-- FOTO INDIVIDUAL -->
     <div class="photoIndv">
         <div *ngIf="photo && photo.descricao; else elseBlock">
@@ -15,9 +15,9 @@
         </ng-template>
 
 
-        
+
     </div>
-    
+
 
     <div class="infoFoto">
 
@@ -25,16 +25,16 @@
             <h1>{{photo?.nome}}</h1>
             <h2>{{photo?.descricao}}</h2>
         </div>
-        
+
         <div class="opcoes" *ngIf="auth.getUserDetails()?.nickname">
-        
+
             <div>
                 <a class="dono" href="/perfil/{{nickname}}" tabindex="0" >
                     <h4 class="donoText" tabindex="-1">{{photo?.dono}}</h4>
                     <button class="dropbtn" id="dropbtno" tabindex="-1"><img src="assets/user-profile.png" tabindex="-1"></button>
                 </a>
             </div>
-        
+
             <!-- tipo == nolike-->
             <!-- ja tinha like, vai tirar-->
             <div *ngIf="checkLike()" class = "botoes" (click)="likeInvoke(this.id)" (keyup.enter)="likeInvoke(this.id)" tabindex="0">
@@ -48,31 +48,29 @@
             </div>
 
             <!-- BOTAO DE FAVORITO -->
-            <div *ngIf="tipoFav == nofav" class = "botoes" (click)="fazerFav()" (keyup.enter)="fazerFav()" tabindex="0">
-                <h4 class="favs"> Favorita </h4>
-                <img src="assets/favourite.png" id="botaoFav"/>
-            </div>
-            <div *ngIf="tipoFav == fav" class= "botoes" (click)="tirarFav()" (keyup.enter)="tirarFav()" tabindex="0">
+            <div class= "botoes" (click)="favoriteInvoke(photo?.id)" (keyup.enter)="favoriteInvoke(photo?.id)" tabindex="0">
                 <h4 class="favs" > Favorita </h4>
-                <img src="assets/favouriteChecked.png" id="botaoFav"/>
+                <img *ngIf="!tenhoFavorite(photo?.id)" id="favorite{{photo?.id}}" src="assets/favourite.png" />
+                <img *ngIf="tenhoFavorite(photo?.id)" id="favorite{{photo?.id}}" src="assets/favouriteChecked.png" />
+
             </div>
 
                     <!-- <img src="assets/favourite.png" /> <h4 class="favoritos">Botao Favorito</h4> -->
             <!-- BOTAO DE SHARE -->
             <div class = "botoes" (click)="copyMessage()" (keyup.enter)="copyMessage()" tabindex="0">
-                
+
                 <h4 class="partilhar" id="partilhar" > Partilhar </h4>
                 <img src="assets/share.png" id="partilharFoto"/>
-                
+
             </div>
-                
+
                 <!--verificar se quem abriu a foto é dono dela e caso seja ter a hipotese de apagar-->
 
             <!-- BOTAO DE TRASH -->
             <div *ngIf="nickname == dono" class = "botoes" (click)="deletePhoto(photo?.id)" (keyup.enter)="deletePhoto(photo?.id)" tabindex="0">
                 <h4 class="eliminar" id="apagar"> Eliminar </h4>
                 <img src="assets/trash.png"/>
-            </div>        
+            </div>
         </div>
 
         <div class="opcoes" *ngIf="!auth.getUserDetails()?.nickname">
@@ -89,13 +87,13 @@
             </div>
 
 
-      
+
                      <!-- <img src="assets/favourite.png" /> <h4 class="favoritos">Botao Favorito</h4> -->
             <!-- BOTAO DE SHARE -->
             <div class = "botoes" (click)="copyMessage()" (keyup.enter)="copyMessage()" tabindex="0">
-                
+
                 <h4 class="partilhar" id="partilhar" > Partilhar </h4>
-                <img src="assets/share.png" id="partilharFoto"/> 
+                <img src="assets/share.png" id="partilharFoto"/>
             </div>
         </div>
 </div>

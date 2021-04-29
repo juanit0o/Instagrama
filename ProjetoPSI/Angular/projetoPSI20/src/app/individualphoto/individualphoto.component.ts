@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Photo } from '../photo';
 import { PhotoService } from '../photo.service';
 import { AuthenticationService } from '../authentication.service';
@@ -20,7 +20,7 @@ export class IndividualphotoComponent implements OnInit {
   public nolike;
   public tipo;
   //photos : Photo[];
-  
+
   public fav;
   public nofav;
   public tipoFav;
@@ -32,6 +32,8 @@ export class IndividualphotoComponent implements OnInit {
   public dono; //dono da foto atual
   public nrLikes;
   public likers : string[];
+
+  public favoritePhotos : string[];
 
   confirmDelete : boolean;
 
@@ -50,10 +52,12 @@ export class IndividualphotoComponent implements OnInit {
     this.copied = false;
     this.nrLikes=0;
     this.likers= [ ];
-    
+
     this.nickname = auth.getUserDetails()?.nickname;
     this.dono="semdono";
     this.id = "";
+
+    this.favoritePhotos = [];
 
     this.confirmDelete = false;
 
@@ -64,14 +68,14 @@ export class IndividualphotoComponent implements OnInit {
       location.reload(true);
     }
 
-    
+
   }
 
   //INIT
   ngOnInit(): void {
     let btn1 = document.getElementById("myTooltip")?.setAttribute("style", "visibility: hidden");
     //this.nrLikes = this.photoService.getNrLikes(this.id);
-  
+
     //document.getElementById("partilhar")!.addEventListener("mouseenter", this.changeTooltip);
     //this.getPhotoById();
     let btn = document.getElementById("partilhar");
@@ -87,6 +91,13 @@ export class IndividualphotoComponent implements OnInit {
       }
     );
 
+    // Obter fotos favoritas
+    this.photoService.getPhotosFavourited(this.nickname)
+        .subscribe(output =>
+              {
+                this.favoritePhotos = output;
+              });
+
     this.getPhotoById();
   }
 
@@ -98,7 +109,7 @@ export class IndividualphotoComponent implements OnInit {
     //document.getElementById("tooltiptext")!.innerHTML = "Copiar link";
 
     let btn1 = document.getElementById("myTooltip")?.setAttribute("style", "visibility: hidden");
-    
+
   }
 
   mouseOn(){
@@ -114,7 +125,7 @@ export class IndividualphotoComponent implements OnInit {
   //AO CLICAR PARA METER LIKE
   fazerLike(): void {
     //SO POSSO FAZER LIKE SE AINDA NAO TIVER FEITO
-    if(!this.likers.includes(this.nickname)){ 
+    if(!this.likers.includes(this.nickname)){
       this.tipo = "like";
       console.log(this.nrLikes);
       //this.nrLikes +=1;
@@ -136,7 +147,7 @@ export class IndividualphotoComponent implements OnInit {
       //if (index > -1) {
       //  this.liked.splice(index, 1);
       //}
-      this.photoService.removeLikeToPhoto(idFoto, this.nickname).subscribe(output => 
+      this.photoService.removeLikeToPhoto(idFoto, this.nickname).subscribe(output =>
       {
         console.log(output);
         //this.photos[this.photosId.indexOf(id)] = output;
@@ -147,7 +158,7 @@ export class IndividualphotoComponent implements OnInit {
 
     } else {
       //this.liked.push(id);
-      this.photoService.addLikeToPhoto(idFoto, this.nickname).subscribe(output => 
+      this.photoService.addLikeToPhoto(idFoto, this.nickname).subscribe(output =>
       {
         console.log(output);
         //this.photos[this.photosId.indexOf(id)] = output;
@@ -155,7 +166,7 @@ export class IndividualphotoComponent implements OnInit {
         this.likers = output.likes;
         this.nrLikes = output.likes.length - 1;
       });
-      
+
     }
 
   }
@@ -164,7 +175,7 @@ export class IndividualphotoComponent implements OnInit {
   tirarLike(): void {
     console.log("LIKERS: " + this.likers);
     //SO POSSO TIRAR LIKE SE JA TIVER FEITO
-    //if(this.likers.includes(this.nickname)){ 
+    //if(this.likers.includes(this.nickname)){
       this.tipo = "nolike";
       console.log(this.nrLikes);
       //this.nrLikes -=1;
@@ -175,7 +186,7 @@ export class IndividualphotoComponent implements OnInit {
     //  this.tipo = "nolike";
     //  return;
     //}
-    
+
   }
 
   checkLike() : boolean{
@@ -187,17 +198,56 @@ export class IndividualphotoComponent implements OnInit {
       console.log("NAO INCLUO");
       return true;
     }
-    
+
   }
 
-  fazerFav(): void {
-    this.tipoFav = "fav";
-    console.log("fiz fav");
+  /**
+  * Verifica se a foto id é uma das fotos favoritas do cliente corrente
+  * @param id identificação da foto
+  * @returns True caso seja foto favorita do cliente corrente
+  */
+  tenhoFavorite(id: string | undefined) : boolean {
+    debugger;
+    if(id !== undefined) {
+      if(this.favoritePhotos.includes(id))
+        return true;
+      else
+        return false;
+    }
+    return false;
   }
 
-  tirarFav(): void {
-    this.tipoFav = "nofav";
-    console.log("tirei fav");
+  favoriteInvoke(id: string | undefined) {
+    if(id === undefined) {
+      return
+    }
+    if(this.favoritePhotos.includes(id)){
+      // Remove Favorite
+
+      // Atualizar página
+      window.location.reload();
+
+      window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favourite.png");    //VERIFICAR SE HA ALGUMA FORMA DE DAR LOAD ANTES (NO INIT)
+      const index = this.favoritePhotos.indexOf(id, 0);
+      if (index > -1) {
+        this.favoritePhotos.splice(index, 1);
+      }
+      // Atualizar BD
+      this.photoService.removeFavoriteToPhoto(id, this.nickname).subscribe(output => {
+        console.log(output);
+      });
+
+    } else {
+      // Add Favorite
+      window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favouriteChecked.png");
+      this.favoritePhotos.push(id);
+      // Atualizar BD
+      this.photoService.addFavoriteToPhoto(id, this.nickname).subscribe(output => {
+        console.log(output);
+      });
+    }
+
+
   }
 
   getPhotoById():void {
@@ -206,13 +256,13 @@ export class IndividualphotoComponent implements OnInit {
 
       if(output != undefined) {
         this.photo = output;
-      
+
         this.dono = output.dono;
         this.nrLikes = (output.likes.length) - 1;
         this.likers = output.likes;
         console.log(this.likers);
       }
-     
+
     });
   }
 
@@ -256,7 +306,7 @@ export class IndividualphotoComponent implements OnInit {
       console.error(err);
     });
 
-    
+
   }
 
   confirmDeletePhoto(id : any) {
