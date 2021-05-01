@@ -22,10 +22,11 @@ exports.allIndexPhotos = function(req, res, next){
 }
 
 exports.getFotosUser = function(req, res, next) {
-    Photo.find({'dono' : req.params.id},{_id:0, dono:0, nome:0, descricao:0, photo:0, likes:0, favoritos:0, __v:0})
-        .exec(function (err, list_photos){
+    Photo.find({'dono': req.params.id}, {_id:0, id:1, dono:1})
+        .sort([['id', 'ascending']])
+        .exec(function (err, lista_donos){
             if (err) { return next(err); }
-            res.send(list_photos.reverse());
+            res.send(lista_donos.reverse())
         });
 }
 
@@ -128,6 +129,7 @@ exports.apagaFoto = function(req, res, next){
 
 exports.getDonosFotos = function(req, res, next){
     Photo.find({'dono': req.params.nickname}, {_id:0, id:1, dono:1})
+        .sort([['id', 'ascending']])
         .exec(function (err, lista_donos){
             if (err) { return next(err); }
             res.send(lista_donos)

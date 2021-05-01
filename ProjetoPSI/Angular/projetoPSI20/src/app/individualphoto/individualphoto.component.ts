@@ -207,7 +207,6 @@ export class IndividualphotoComponent implements OnInit {
   * @returns True caso seja foto favorita do cliente corrente
   */
   tenhoFavorite(id: string | undefined) : boolean {
-    debugger;
     if(id !== undefined) {
       if(this.favoritePhotos.includes(id))
         return true;
