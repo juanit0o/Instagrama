@@ -28,7 +28,6 @@
 
 }
 
-/* Caso o cliente corrente não tenha favoritado nenhuma foto */
 .semFotos {
   color: #7B7B7B;
   font-weight: bold;

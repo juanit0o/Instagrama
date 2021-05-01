@@ -25,8 +25,6 @@ const fileFilter = (req, file, cb) => {
     }
 }
 
-//const upload = multer({ storage: storage, fileFilter: fileFilter }).single('file');
-//const upload = multer({ storage: storage}).single('file');
 const upload = multer({ storage: storage, fileFilter : fileFilter}).single("profileImage");
 
 exports.uploadImage = function(req, res, next){
@@ -42,8 +40,6 @@ exports.uploadImage = function(req, res, next){
         console.log("AAAA " + req.body);
         console.log(JSON.stringify(req.body));
         console.log("BBBB " + req.body.photo);
-        //upload.single(req.body.photo);
-
 
         var storage = multer.diskStorage({
             destination: "/public/photos"
@@ -71,14 +67,12 @@ exports.uploadImage = function(req, res, next){
             }
         });
 
-
-
         var photo = new Photo({
             id: count + 1,
             dono: req.body.dono,
             nome: req.body.nome,
             descricao: req.body.descricao,
-            photo: "NAO TEM AINDA",           //METER O PATH PARA A FOTO GUARDADA
+            photo: "NAO TEM AINDA",
             likes: req.body.likes,
             favoritos: req.body.favoritos
         });

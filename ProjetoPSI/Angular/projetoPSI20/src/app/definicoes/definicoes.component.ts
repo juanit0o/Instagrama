@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { AuthenticationService, TokenPayload } from '../authentication.service';
 
-
 @Component({
   selector: 'app-definicoes',
   templateUrl: './definicoes.component.html',
@@ -40,11 +39,9 @@ export class DefinicoesComponent implements OnInit {
   // ou se é igual a password atual
   verificarPassIguais(): boolean {
     if(this.pwNova !== this.pwConfirmarNova){
-      // TODO: concertar a maneira que esse erro é mostrado, adicionar a lista de erros
       this.error = "Passwords diferentes.\n";
       return false;
     } else if(this.pwNova === this.credentials.password) {
-      // TODO: concertar a maneira que esse erro é mostrado, adicionar a lista de erros
       this.error = "Password nova não pode ser igual a password atual";
       return false;
     }

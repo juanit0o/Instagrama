@@ -12,8 +12,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class LoginComponent {
   
-  //private nick;
-  //private pw;
   credentials: TokenPayload = {
     nickname: '',
     password: ''
@@ -25,8 +23,6 @@ export class LoginComponent {
   constructor(private photoService: PhotoService,private auth: AuthenticationService,
     private router: Router,
     ReactiveFormsModule: ReactiveFormsModule) { 
-    //this.nick = "";
-    //this.pw = ""
     
     this.error = "";
     this.listError = [];
@@ -34,28 +30,13 @@ export class LoginComponent {
 
   //INIT
   ngOnInit(): void {
-    //this.nicknameInsert("");
-    //this.passwordInsert("");
+
   }
 
   //AO CLICAR NO BOTAO DE LOGIN
   entrar(): void {
-
-    //VERIFICACOES DA PW É NO REGISTO 
     this.login();
-    
-
   }
-
-  //ATUALIZA O NICK QUANDO O INPUT É ALTERADO
-  //nicknameInsert(nick: string): void {
-  //  this.credentials.nickname = nick;
-  //}
-
-  //ATUALIZA O PASSWORD QUANDO O INPUT É ALTERADO
-  //passwordInsert(pw: string): void {
-  //  this.pw = pw;
-  //}
 
   updateErrorMensage(){
     this.error = "";
@@ -64,7 +45,6 @@ export class LoginComponent {
 
   login() {
     this.auth.login(this.credentials).subscribe(() => {
-      // falta nos argumentos this.credentials.nickname
       this.photoService.getDonosFotos(this.credentials.nickname!).subscribe(out => {
         if(out.length > 0){
           this.router.navigateByUrl('/perfil/'+this.credentials.nickname);
@@ -77,42 +57,5 @@ export class LoginComponent {
       this.error = "Password ou nickname incorretos";
     }); 
   }
-
-  /*
-  login(): void {
-    this.autService.login(this.nick, this.pw).subscribe(out => {
-        if(out.msg == "SUCESSO LOGIN"){
-          console.log(out.msg);
-          
-        //this.autService.hasPhotos(this.nick)
-        //SE TIVER FOTOS VAI PARA O PERFIL
-        window.location.href = "http://localhost:4200/feed";
-
-        //SENAO VAI PARA O FEED
-
-      } else {
-        this.listError = []
-        this.listError.push("Falha na autenticação!");
-        this.updateErrorMensage();
-      }
-    });
-  }
-
-  logout(): void {
-    this.autService.logout(this.nick).subscribe(out => {
-      if(out.msg == "SUCESSO LOGOUT"){
-        console.log(out.msg);
-        
-      window.location.href = "http://localhost:4200/";
-
-
-    } else {
-      //this.listError = []
-      //this.listError.push("Falha na autenticação!");
-      //this.updateErrorMensage();
-    }
-  });
-  }*/
-
 
 }

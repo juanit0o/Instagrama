@@ -113,13 +113,7 @@ export class AuthenticationService {
   userExists(nickname: string) : Observable<Msg> {
     const getUserURL = `http://localhost:3001/getUser/`;
     const url = `${getUserURL}${nickname}`;
-    console.log(url)
     return this.http.get<Msg>(url);
   }
 
-/*
-  public hasPhotos(): Observable<any> {
-
-  }
-  */
 }

@@ -38,9 +38,6 @@ export class PerfilComponent implements OnInit {
     this.answerReceived = true;
     });
 
-
-
-
    }
 
   //INIT
@@ -57,7 +54,6 @@ export class PerfilComponent implements OnInit {
 
   getPhotosOfUser(): void {
     this.photoService.getPhotosByUserId(this.nickname as string).subscribe(response => {
-      console.log(response);
       for(var i = 0; i < response.length; ++i){
         this.photosId.push(response[i].id);
       }
@@ -102,26 +98,23 @@ export class PerfilComponent implements OnInit {
         this.photos[this.photosId.indexOf(id)] = output;
       });
     }
-    //window.location.reload(false);
   }
 
   favoriteInvoke(id: string) {
     if(this.favorited.includes(id)){
-      window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favourite.png");    //VERIFICAR SE HA ALGUMA FORMA DE DAR LOAD ANTES (NO INIT)
+      window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favourite.png");
       const index = this.favorited.indexOf(id, 0);
       if (index > -1) {
         this.favorited.splice(index, 1);
       }
       this.photoService.removeFavoriteToPhoto(id, this.nickname as string).subscribe(output => {
         console.log(output);
-        // this.photos[this.photosId.indexOf(id)] = output;
       });
     } else {
       window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favouriteChecked.png");
       this.favorited.push(id);
       this.photoService.addFavoriteToPhoto(id, this.nickname as string).subscribe(output => {
         console.log(output);
-        // this.photos[this.photosId.indexOf(id)] = output;
       });
     }
   }

@@ -1,9 +1,7 @@
 import { Component, OnInit, Directive, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
-
 import { Photo } from '../photo';
 import { PhotoService } from '../photo.service';
-
 import { AuthenticationService, UserDetails } from '../authentication.service';
 
 
@@ -15,9 +13,6 @@ import { AuthenticationService, UserDetails } from '../authentication.service';
 export class FeedComponent implements OnInit {
 
   //LISTA DE FOTOS
-
-  //nickname : string;
-
   details: UserDetails;
 
   subscription?: Subscription;
@@ -25,8 +20,6 @@ export class FeedComponent implements OnInit {
   photosId : string[];
   liked: string[];
   favorited: string[];
-
-  //
 
   //ELEMENTO SELECIONADO ATUALMENTE NO "ORDENA POR"
   ordena : string;
@@ -82,7 +75,7 @@ export class FeedComponent implements OnInit {
               }
             });
         }, (err) => {
-          //console.error(err);
+
         });
   }
 
@@ -107,7 +100,6 @@ export class FeedComponent implements OnInit {
           if(output != undefined) {
             this.photos.push(output);
 
-            //TENHO LIKE??
             if(output.likes.includes(this.details.nickname)){
               this.liked.push(output.id);
             }
@@ -141,7 +133,7 @@ export class FeedComponent implements OnInit {
         this.photos[this.photosId.indexOf(id)] = output;
       });
     }
-    //window.location.reload(false);
+
   }
 
   tenhoLike(id: string) : boolean {
@@ -174,18 +166,15 @@ export class FeedComponent implements OnInit {
       }
       this.photoService.removeFavoriteToPhoto(id, this.details.nickname).subscribe(output => {
         console.log(output);
-        // this.photos[this.photosId.indexOf(id)] = output;
       });
     } else {
       window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favouriteChecked.png");
       this.favorited.push(id);
       this.photoService.addFavoriteToPhoto(id, this.details.nickname).subscribe(output => {
         console.log(output);
-        // this.photos[this.photosId.indexOf(id)] = output;
       });
     }
 
-    //TODO ATUALIZAR BD
   }
 
   onChange(deviceValue : string) : void  {
@@ -230,13 +219,6 @@ export class FeedComponent implements OnInit {
   voltarTopo(): void {
     window.document.body.scrollTop = 0;
     window.document.documentElement.scrollTop = 0;
-    //window.document.querySelector("app-header")?.focus();
   }
-
-  onTabPressInSelectBox() : void {
-
-  }
-
-
 
 }

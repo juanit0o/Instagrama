@@ -5,9 +5,6 @@ import { AuthenticationService } from '../authentication.service';
 import { ActivatedRoute, Params} from '@angular/router';
 import { Router } from '@angular/router';
 
-
-
-
 @Component({
   selector: 'app-individualphoto',
   templateUrl: './individualphoto.component.html',
@@ -19,7 +16,6 @@ export class IndividualphotoComponent implements OnInit {
   public like;
   public nolike;
   public tipo;
-  //photos : Photo[];
 
   public fav;
   public nofav;
@@ -36,9 +32,6 @@ export class IndividualphotoComponent implements OnInit {
   public favoritePhotos : string[];
 
   confirmDelete : boolean;
-
-  //auth.getUserDetails()?.nickname
-
 
   constructor(private photoService: PhotoService, private router: Router,public auth : AuthenticationService, private route: ActivatedRoute) {
     this.like = "like";
@@ -68,16 +61,12 @@ export class IndividualphotoComponent implements OnInit {
       location.reload(true);
     }
 
-
   }
 
   //INIT
   ngOnInit(): void {
     let btn1 = document.getElementById("myTooltip")?.setAttribute("style", "visibility: hidden");
-    //this.nrLikes = this.photoService.getNrLikes(this.id);
-
-    //document.getElementById("partilhar")!.addEventListener("mouseenter", this.changeTooltip);
-    //this.getPhotoById();
+    
     let btn = document.getElementById("partilhar");
     document.getElementById("partilhar")?.addEventListener("mouseover", this.mouseOn, true);
     document.getElementById("partilhar")?.addEventListener("mouseout", this.mouseOut, true);
@@ -86,7 +75,6 @@ export class IndividualphotoComponent implements OnInit {
 
     this.route.params.subscribe(
       (params: Params) => {
-      console.log(params['id']);
       this.id = params['id'];
       }
     );
@@ -102,24 +90,14 @@ export class IndividualphotoComponent implements OnInit {
   }
 
   mouseOut(){
-    // console.log("not hovered");
     this.copied = false;
-    //this.textotooltip = "";
-    //let btn = document.getElementById("tooltiptext")?.setAttribute("style", "visibility: hidden");
-    //document.getElementById("tooltiptext")!.innerHTML = "Copiar link";
-
+    
     let btn1 = document.getElementById("myTooltip")?.setAttribute("style", "visibility: hidden");
-
   }
 
   mouseOn(){
-    // console.log("hovered");
     let btn1 = document.getElementById("myTooltip")?.setAttribute("style", "visibility: visible");
     document.getElementById("myTooltip")!.innerHTML = "Copiar link";
-
-    //this.textotooltip = "Copiar link";
-    //let btn = document.getElementById("tooltiptext")?.setAttribute("style", "visibility: visible, position: absolute, z-index: 1, top: -5px, right: -105%");
-    //document.getElementById("tooltiptext")!.innerHTML = "Copiar link";
   }
 
   //AO CLICAR PARA METER LIKE
@@ -127,10 +105,6 @@ export class IndividualphotoComponent implements OnInit {
     //SO POSSO FAZER LIKE SE AINDA NAO TIVER FEITO
     if(!this.likers.includes(this.nickname)){
       this.tipo = "like";
-      console.log(this.nrLikes);
-      //this.nrLikes +=1;
-      console.log(this.nrLikes);
-      console.log("fiz like");
       this.likeInvoke(this.id);
     }else{
       this.likeInvoke(this.id);
@@ -141,27 +115,19 @@ export class IndividualphotoComponent implements OnInit {
 
 
   likeInvoke(idFoto: string) : void {
-    console.log("LIKERS: " + this.likers);
+
     if(this.likers.includes(this.nickname)){
-      //const index = this.liked.indexOf(id, 0);
-      //if (index > -1) {
-      //  this.liked.splice(index, 1);
-      //}
+    
       this.photoService.removeLikeToPhoto(idFoto, this.nickname).subscribe(output =>
       {
-        console.log(output);
-        //this.photos[this.photosId.indexOf(id)] = output;
         this.tipo = "nolike";
         this.likers = output.likes;
         this.nrLikes = output.likes.length - 1;
       });
 
     } else {
-      //this.liked.push(id);
       this.photoService.addLikeToPhoto(idFoto, this.nickname).subscribe(output =>
       {
-        console.log(output);
-        //this.photos[this.photosId.indexOf(id)] = output;
         this.tipo = "like";
         this.likers = output.likes;
         this.nrLikes = output.likes.length - 1;
@@ -173,29 +139,16 @@ export class IndividualphotoComponent implements OnInit {
 
   //AO CLICAR PARA TIRA LIKE
   tirarLike(): void {
-    console.log("LIKERS: " + this.likers);
     //SO POSSO TIRAR LIKE SE JA TIVER FEITO
-    //if(this.likers.includes(this.nickname)){
-      this.tipo = "nolike";
-      console.log(this.nrLikes);
-      //this.nrLikes -=1;
-      console.log(this.nrLikes);
-      console.log("tirei like");
-      this.likeInvoke(this.id);
-    //}else{
-    //  this.tipo = "nolike";
-    //  return;
-    //}
+    this.tipo = "nolike";
+    this.likeInvoke(this.id);
 
   }
 
   checkLike() : boolean{
-    //console.log(this.likers);
     if(this.likers.includes(this.nickname)){
-      console.log("JA INCLUO");
       return false;
     }else{
-      console.log("NAO INCLUO");
       return true;
     }
 
@@ -233,7 +186,7 @@ export class IndividualphotoComponent implements OnInit {
       }
       // Atualizar BD
       this.photoService.removeFavoriteToPhoto(id, this.nickname).subscribe(output => {
-        console.log(output);
+        //console.log(output);
       });
 
     } else {
@@ -242,7 +195,7 @@ export class IndividualphotoComponent implements OnInit {
       this.favoritePhotos.push(id);
       // Atualizar BD
       this.photoService.addFavoriteToPhoto(id, this.nickname).subscribe(output => {
-        console.log(output);
+        //console.log(output);
       });
     }
 
@@ -251,7 +204,6 @@ export class IndividualphotoComponent implements OnInit {
 
   getPhotoById():void {
     this.photoService.getPhotoById(this.id)?.subscribe(output => {
-      //this.photos.push(output);
 
       if(output != undefined) {
         this.photo = output;
@@ -259,7 +211,6 @@ export class IndividualphotoComponent implements OnInit {
         this.dono = output.dono;
         this.nrLikes = (output.likes.length) - 1;
         this.likers = output.likes;
-        console.log(this.likers);
       }
 
     });
@@ -275,7 +226,6 @@ export class IndividualphotoComponent implements OnInit {
     document.execCommand('copy');
     document.body.removeChild(selBox);
 
-
     this.copied = true;
 
     window.document.getElementById("popup")!.style.animation = "slideUp 3s 1 linear";
@@ -289,20 +239,14 @@ export class IndividualphotoComponent implements OnInit {
       window.document.getElementById("deleteConfirmation")!.style.animation = "slideRemove 3s 1 linear";
       return;
     }
-
-    console.log(id);
     this.nickname = this.auth.getUserDetails()?.nickname;
-    console.log(this.nickname);
     //alert iwth input answer
     this.photoService.deletePhoto(id+';'+this.auth.getUserDetails()?.nickname).subscribe((out) => {
-        console.log("RES:" + out.msg);
       if(out.msg == "SUCESSO APAGAR FOTO"){
         this.router.navigateByUrl('/perfil/' + this.nickname);
-      } else {
-        console.log("ERRO APAGAR FOTO");
       }
     }, (err) => {
-      console.error(err);
+
     });
 
 
@@ -321,6 +265,5 @@ export class IndividualphotoComponent implements OnInit {
   goHome() {
     window.location.href ='/';
   }
-
 
 }

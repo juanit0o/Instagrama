@@ -38,20 +38,15 @@ export class AddphotoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onFileChanged(ev: any): void { // NAO ESTA A SER USADO
+  onFileChanged(ev: any): void {
 
     if(!this.isUpload){
-      //if((<HTMLInputElement> window.document.getElementById("submitButton")) != null){
-        //(<HTMLInputElement> window.document.getElementById("submitButton")).disabled = false;
-        this.isSubmit = false;
-      //}
+      this.isSubmit = false;
       let file = (ev.target as HTMLInputElement).files;
       for(var i = 0; i < file!.length; i++) {
         this.singleFile(file![i], i);
       }
-    } else {
-
-    }
+    } 
   }
 
   onFolderSelected(event: any){
@@ -66,20 +61,6 @@ export class AddphotoComponent implements OnInit {
     }
   }
 
-  
-/*
-  onFolderSelected(files: any){
-    if (!this.isUpload) {
-      this.isSubmit = false;
-      if (files.length > 0){
-        for(var i = 0; i < files!.length; i++) {
-          this.singleFile(files![i], i);
-        }
-      }
-    } else {
-      console.log("err onFolderSelected");
-    }
-  }*/
 
   singleFile(file: any, i: number) : void {
 
@@ -92,8 +73,7 @@ export class AddphotoComponent implements OnInit {
     if(file != null && file.size < 10000000 && isAllowedType == false){
       
       const reader = new FileReader();
-      //let fd = new FormData();
-      //fd.append('profileImage', file);
+
       let photo = {"id": this.photosToUpload.length.toString(),
                   "dono": this.auth.getUserDetails()?.nickname.toString(),
                   "nome": file.name.split(".")[0],           //NOME DO FILE
@@ -111,13 +91,11 @@ export class AddphotoComponent implements OnInit {
       this.photosToUpload.push(photo);
       
     } else {
-      //TODO --------------------------------- MOSTRA NO UTILIZADOR
       alert("Cant upload this file!");
     }
   }
 
   submit(): void{
-    console.log(this.photosToUpload);
 
     this.isSubmit = true;
     this.isUpload = true;
@@ -128,7 +106,6 @@ export class AddphotoComponent implements OnInit {
         check = true;
         //MOSTRAR QUE NAO TEM DESCRICAO
         (<HTMLInputElement> window.document.getElementsByClassName("comDescricao")[i]).style.display = "flex";
-        
         
       } else {
         (<HTMLInputElement> window.document.getElementsByClassName("loading")[i]).style.display = "flex";
@@ -145,19 +122,13 @@ export class AddphotoComponent implements OnInit {
 
     this.submitSingleFoto(this.photosToUpload);
 
-    
-     
   }
 
 
   confirmNoDescription(nomeFoto : string) {
-    console.log(nomeFoto);
     this.photosToUpload[parseInt(nomeFoto)].descricao = " ";
     (<HTMLInputElement> window.document.getElementsByClassName("comDescricao")[parseInt(nomeFoto)]).style.display = "none";
     this.submit();
-
-    
-
   }
 
   cancelNoDescription(nomeFoto : string) {
@@ -178,7 +149,6 @@ export class AddphotoComponent implements OnInit {
   }
 
   async submitSingleFoto(photos : PhotoToUpload[]) : Promise<void> {
-    console.log("entrei");
     if(photos.length == 0) {
 
       setTimeout( () => { window.location.reload(false); },  1000);
@@ -191,15 +161,10 @@ export class AddphotoComponent implements OnInit {
       }
       photos[0].descricao = (<HTMLInputElement> window.document.getElementById("descFoto"+photos[0].id)).value;
 
-      // if (photos[0].descricao == "") {
-      //   this.confirmNoDescription(photos[0].nome);
-      // }
-
       let fd = new FormData();
 
       //Get last photo id
       this.photoService.getLastId().subscribe(res => {
-        
         
         //In case getLastId() fails  
         //Buscar elemento "failed" da foto corrente    
@@ -210,8 +175,6 @@ export class AddphotoComponent implements OnInit {
             failed = (<HTMLInputElement> listFailed[i]);
           }
         }
-
-
         //Buscar elemento "loading" da foto corrente
         
         let listLoading  = window.document.getElementsByClassName("loading");
@@ -219,16 +182,11 @@ export class AddphotoComponent implements OnInit {
         for (var i = 0; i < listLoading.length; i++) {
           if(listLoading[i].id === photos[0].id) {
              loading = (<HTMLInputElement> listLoading[i]);
-
-             //Mostrar foto load
-             //loading.style.display = "grid";
           }
         }
 
-
         //Se erro a buscar id
         if(res == undefined || res.msg == "FAILED") {
-          console.log("FAILED ID");
          
             //Mostrar erro
             if(failed !== undefined) {
@@ -248,10 +206,7 @@ export class AddphotoComponent implements OnInit {
 
         this.photoService.postOnlyPhoto(fd).subscribe(res2 => {
           
-
-          console.log(res.msg);
           if(res.msg == "FAILED" || res2 == undefined) {
-            console.log("FAILED PHOTO");
 
             //Mostrar erro
             if(failed !== undefined) {
@@ -266,8 +221,6 @@ export class AddphotoComponent implements OnInit {
             return;
           }
 
-
-          
           let photoInfo = {"id": photos[0].id,
                       "dono": photos[0].dono,
                       "nome": photos[0].nome,
@@ -277,11 +230,9 @@ export class AddphotoComponent implements OnInit {
                       "favoritos": photos[0].favoritos} as Photo;
 
           this.photoService.postPhotoInfo(photoInfo).subscribe( res3 => {
-            console.log(res3);
 
             if(res3 == undefined || res3.msg == "FAILED") {
-              console.log("FAILED ID");
-             
+
                 //Mostrar erro
                 if(failed !== undefined) {
                   failed.style.display = "grid";
@@ -315,7 +266,6 @@ export class AddphotoComponent implements OnInit {
         
       });
     }
-    
     
   }
 
@@ -389,5 +339,4 @@ export class AddphotoComponent implements OnInit {
     return this.photosBase.length - 1 >= parseInt(id);
   }
 
-  
 }

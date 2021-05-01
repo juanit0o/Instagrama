@@ -39,13 +39,6 @@ module.exports.getUser = function(req, res) {
 
 module.exports.login = function(req, res) {
 
-  // if(!req.body.email || !req.body.password) {
-  //   sendJSONresponse(res, 400, {
-  //     "message": "All fields required"
-  //   });
-  //   return;
-  // }
-
   passport.authenticate('local', function(err, user, info){
     var token;
 

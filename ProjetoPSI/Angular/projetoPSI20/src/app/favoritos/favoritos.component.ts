@@ -56,16 +56,13 @@ export class FavoritosComponent implements OnInit {
 
   }
 
-
-
-
   //INIT
   ngOnInit(): void {
     this.auth.profile().subscribe(user => {
           this.details = user;
           this.getPhotos();
         }, (err) => {
-          //console.error(err);
+
         });
 
   }
@@ -104,7 +101,6 @@ export class FavoritosComponent implements OnInit {
       return;
     }
   }
-  // ---
 
   likeInvoke(id: string) : void {
     if(this.liked.includes(id)){
@@ -123,7 +119,6 @@ export class FavoritosComponent implements OnInit {
         this.photos[this.photosId.indexOf(id)] = output;
       });
     }
-    //window.location.reload(false);
   }
 
   tenhoLike(id: string) : boolean {
@@ -141,7 +136,7 @@ export class FavoritosComponent implements OnInit {
       // Atualizar página
       window.location.reload();
 
-      window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favourite.png");    //VERIFICAR SE HA ALGUMA FORMA DE DAR LOAD ANTES (NO INIT)
+      window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favourite.png");
       const index = this.photosId.indexOf(id, 0);
       if (index > -1) {
         this.photosId.splice(index, 1);
@@ -161,16 +156,11 @@ export class FavoritosComponent implements OnInit {
       });
     }
 
-
   }
 
   voltarTopo(): void {
     window.document.body.scrollTop = 0;
     window.document.documentElement.scrollTop = 0;
-    //window.document.querySelector("app-header")?.focus();
-  }
-
-  onTabPressInSelectBox() : void {
   }
 
 }

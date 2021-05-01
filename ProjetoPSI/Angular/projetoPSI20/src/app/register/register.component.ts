@@ -36,14 +36,11 @@ export class RegisterComponent {
 
   //INIT
   ngOnInit(): void {
-    //this.nicknameRegister();
-    //this.passwordRegister();
+
   }
  
   //ATUALIZA O NICK QUANDO O INPUT É ALTERADO
   nicknameRegister(): void {
-    //this.credentials.nickname = nick;
-
 
     //PELO MENOS 3 CHARS
     const msg = "Nickname deve ter pelo menos 3 caracteres\n";
