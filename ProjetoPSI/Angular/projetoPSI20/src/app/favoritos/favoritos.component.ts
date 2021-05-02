@@ -26,6 +26,8 @@ export class FavoritosComponent implements OnInit {
 
   temFotosPorLoad ?: boolean;
 
+  naoTemPhoto: boolean;
+
   constructor(
     private photoService: PhotoService,
     public auth: AuthenticationService
@@ -54,6 +56,8 @@ export class FavoritosComponent implements OnInit {
     this.ordena = "Mais Recentes V";
     this.temFotosPorLoad = true;
 
+    this.naoTemPhoto = false;
+
   }
 
   //INIT
@@ -72,9 +76,14 @@ export class FavoritosComponent implements OnInit {
 
     this.subscription = this.photoService.getPhotosFavourited(this.details.nickname).subscribe(response =>
       {
+        if(response == null || response.length <= 0) {
+          this.naoTemPhoto = true;
+        }
+
         for(var i = 0; i < response.length; ++i){
           this.photosId.push(response[i]);
         }
+
         this.getPhoto(this.photosId);
       });
   }

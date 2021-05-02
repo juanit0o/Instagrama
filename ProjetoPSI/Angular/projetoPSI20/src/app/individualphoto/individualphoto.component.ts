@@ -50,7 +50,7 @@ export class IndividualphotoComponent implements OnInit {
     this.dono="semdono";
     this.id = "";
 
-    this.favoritePhotos = [];
+    this.favoritePhotos = [ ];
 
     this.confirmDelete = false;
 
@@ -161,10 +161,12 @@ export class IndividualphotoComponent implements OnInit {
   */
   tenhoFavorite(id: string | undefined) : boolean {
     if(id !== undefined) {
-      if(this.favoritePhotos.includes(id))
-        return true;
-      else
-        return false;
+
+      for (let i = 0; i < this.favoritePhotos.length; ++i) {
+        if(this.favoritePhotos[i] == id) {
+          return true;
+        }
+      }
     }
     return false;
   }
@@ -173,13 +175,16 @@ export class IndividualphotoComponent implements OnInit {
     if(id === undefined) {
       return
     }
-    if(this.favoritePhotos.includes(id)){
-      // Remove Favorite
 
-      // Atualizar página
-      window.location.reload();
+    let check = false;
+    for (let i = 0; i < this.favoritePhotos.length; ++i) {
+      if(this.favoritePhotos[i] == id) {
+        check = true;
+      }
+    }
 
-      window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favourite.png");    //VERIFICAR SE HA ALGUMA FORMA DE DAR LOAD ANTES (NO INIT)
+    if(this.favoritePhotos != null && check) {
+ 
       const index = this.favoritePhotos.indexOf(id, 0);
       if (index > -1) {
         this.favoritePhotos.splice(index, 1);
@@ -190,12 +195,11 @@ export class IndividualphotoComponent implements OnInit {
       });
 
     } else {
-      // Add Favorite
-      window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favouriteChecked.png");
-      this.favoritePhotos.push(id);
+      
+      this.favoritePhotos[this.favoritePhotos.length] = id;
       // Atualizar BD
       this.photoService.addFavoriteToPhoto(id, this.nickname).subscribe(output => {
-        //console.log(output);
+        
       });
     }
 

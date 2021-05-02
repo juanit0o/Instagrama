@@ -20,11 +20,19 @@ export class PerfilComponent implements OnInit {
   answerReceived : boolean;
   photosId: string[];
 
+  naoTemPhoto: boolean;
+
   constructor(
     private photoService: PhotoService, public auth: AuthenticationService,
      private route: ActivatedRoute,
   ) {
-    // TODO: verificar se eh necessario o uso do auth
+
+    //REFRESH NA BACK
+    let perfEntries : any;
+    perfEntries = performance.getEntriesByType("navigation");
+    if (perfEntries[0].type === "back_forward") {
+      location.reload(true);
+    }
 
     this.photos = [];
     this.photosId = [];
@@ -35,14 +43,17 @@ export class PerfilComponent implements OnInit {
     this.answerReceived = false;
     this.userExists = false;
     this.auth.userExists(this.nickname!).subscribe(res => {this.userExists = res.msg == "EXISTS"
-    this.answerReceived = true;
+      this.answerReceived = true;
     });
+
+    this.naoTemPhoto = false;
 
    }
 
   //INIT
   ngOnInit(): void {
     this.getPhotosOfUser();
+    
     // Obter fotos favoritas do cliente corrente
     this.photoService.getPhotosFavourited(this.nickname as string).subscribe(response =>
       {
@@ -50,10 +61,14 @@ export class PerfilComponent implements OnInit {
           this.favorited.push(response[i]);
         }
       });
+    
   }
 
   getPhotosOfUser(): void {
     this.photoService.getPhotosByUserId(this.nickname as string).subscribe(response => {
+      if(response == null || response.length <= 0) {
+        this.naoTemPhoto = true;
+      }
       for(var i = 0; i < response.length; ++i){
         this.photosId.push(response[i].id);
       }

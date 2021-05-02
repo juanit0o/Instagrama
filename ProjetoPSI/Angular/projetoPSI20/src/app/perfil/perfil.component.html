@@ -54,7 +54,7 @@
             </ul>
         </div>
             <!-- Caso o cliente corrente ou o user dono do perfil ainda não tenham fotos -->
-        <div *ngIf="photosId.length == 0">
+        <div *ngIf="naoTemPhoto">
 
           <div class="semFotos">
             <div *ngIf="this.nickname == this.auth.getUserDetails()?.nickname ? true : false; then thenBlock else elseBlock"></div>

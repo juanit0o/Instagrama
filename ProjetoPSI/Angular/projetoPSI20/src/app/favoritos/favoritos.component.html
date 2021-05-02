@@ -9,15 +9,12 @@
       </div>
 
       <!-- Caso o cliente corrente ainda tenha fotos favoritas -->
-      <div *ngIf="photos.length > 0; else elseBlock">
+      <div *ngIf="photosId.length > 0; else elseBlo">
 
         <!-- FOTO FEED -->
         <div class="photosFeed" loading="lazy">
             <ul class="photosList">
                 <li *ngFor="let photo of photos" >
-
-                    <!-- TODO ALTERAR OS CLIQUES -->
-
 
                     <a class="photoDiv" href="/foto/{{photo.id}}">
                         <div *ngIf="photo.descricao; else elseBlock">
@@ -59,9 +56,9 @@
       </div>
 
       <!-- Caso o cliente corrente ainda não tenha "favoritado" nenhuma foto -->
-      <ng-template #elseBlock>
+      <ng-template #elseBlo>
 
-        <div class="semFotos">
+        <div class="semFotos" *ngIf="naoTemPhoto">
 
           <h4> Você ainda não tem fotos favoritas </h4>
           <h3>

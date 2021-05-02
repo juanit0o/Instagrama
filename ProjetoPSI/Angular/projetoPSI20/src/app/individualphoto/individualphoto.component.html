@@ -42,17 +42,20 @@
                 <img src="assets/heart.png" id="botaoLike"/>
             </div>
             <!-- nao tinha like, vai por-->
-            <div *ngIf="!checkLike()" class= "botoes" (click)="likeInvoke(this.id)" (keyup.enter)="likeInvoke(this.id)" tabindex="0">
+            <div *ngIf="!checkLike()" class="botoes" (click)="likeInvoke(this.id)" (keyup.enter)="likeInvoke(this.id)" tabindex="0">
                 <h4 class="likes"> {{nrLikes}} Likes</h4>
                 <img src="assets/likebutton.png" id="botaoLike"/>
             </div>
 
             <!-- BOTAO DE FAVORITO -->
-            <div class= "botoes" (click)="favoriteInvoke(photo?.id)" (keyup.enter)="favoriteInvoke(photo?.id)" tabindex="0">
+            <div *ngIf="!tenhoFavorite(photo?.id)" class="botoes" (click)="favoriteInvoke(photo?.id)" (keyup.enter)="favoriteInvoke(photo?.id)" tabindex="0">
                 <h4 class="favs" > Favorita </h4>
-                <img *ngIf="!tenhoFavorite(photo?.id)" id="favorite{{photo?.id}}" src="assets/favourite.png" />
-                <img *ngIf="tenhoFavorite(photo?.id)" id="favorite{{photo?.id}}" src="assets/favouriteChecked.png" />
+                <img id="favorite{{photo?.id}}" src="assets/favourite.png" />
+            </div>
 
+            <div *ngIf="tenhoFavorite(photo?.id)" class="botoes" (click)="favoriteInvoke(photo?.id)" (keyup.enter)="favoriteInvoke(photo?.id)" tabindex="0">
+                <h4 class="favs" > Favorita </h4>
+                <img id="favorite{{photo?.id}}" src="assets/favouriteChecked.png" />
             </div>
 
                     <!-- <img src="assets/favourite.png" /> <h4 class="favoritos">Botao Favorito</h4> -->
