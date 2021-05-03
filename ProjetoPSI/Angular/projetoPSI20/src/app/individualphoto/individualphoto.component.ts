@@ -33,6 +33,8 @@ export class IndividualphotoComponent implements OnInit {
 
   confirmDelete : boolean;
 
+  public tenhoFav : boolean;
+
   constructor(private photoService: PhotoService, private router: Router,public auth : AuthenticationService, private route: ActivatedRoute) {
     this.like = "like";
     this.nolike = "nolike";
@@ -53,6 +55,8 @@ export class IndividualphotoComponent implements OnInit {
     this.favoritePhotos = [ ];
 
     this.confirmDelete = false;
+
+    this.tenhoFav = false;
 
     //REFRESH NA BACK
     let perfEntries : any;
@@ -84,6 +88,7 @@ export class IndividualphotoComponent implements OnInit {
         .subscribe(output =>
               {
                 this.favoritePhotos = output;
+                this.tenhoFavorite();
               });
 
     this.getPhotoById();
@@ -159,21 +164,23 @@ export class IndividualphotoComponent implements OnInit {
   * @param id identificação da foto
   * @returns True caso seja foto favorita do cliente corrente
   */
-  tenhoFavorite(id: string | undefined) : boolean {
-    if(id !== undefined) {
+  tenhoFavorite() : void {
+    if(this.id !== undefined) {
 
       for (let i = 0; i < this.favoritePhotos.length; ++i) {
-        if(this.favoritePhotos[i] == id) {
-          return true;
+        if(this.favoritePhotos[i] == this.id) {
+          this.tenhoFav = true;
+          return;
         }
       }
     }
-    return false;
+    this.tenhoFav = false;
   }
 
   favoriteInvoke(id: string | undefined) {
     if(id === undefined) {
-      return
+      this.tenhoFavorite();
+      return;
     }
 
     let check = false;
@@ -190,6 +197,7 @@ export class IndividualphotoComponent implements OnInit {
         this.favoritePhotos.splice(index, 1);
       }
       // Atualizar BD
+      this.tenhoFav = false;
       this.photoService.removeFavoriteToPhoto(id, this.nickname).subscribe(output => {
         //console.log(output);
       });
@@ -198,11 +206,11 @@ export class IndividualphotoComponent implements OnInit {
       
       this.favoritePhotos[this.favoritePhotos.length] = id;
       // Atualizar BD
+      this.tenhoFav = true;
       this.photoService.addFavoriteToPhoto(id, this.nickname).subscribe(output => {
         
       });
     }
-
 
   }
 
@@ -215,6 +223,7 @@ export class IndividualphotoComponent implements OnInit {
         this.dono = output.dono;
         this.nrLikes = (output.likes.length) - 1;
         this.likers = output.likes;
+        this.tenhoFavorite();
       }
 
     });

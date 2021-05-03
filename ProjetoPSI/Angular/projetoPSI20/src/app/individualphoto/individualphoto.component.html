@@ -29,7 +29,7 @@
         <div class="opcoes" *ngIf="auth.getUserDetails()?.nickname">
 
             <div>
-                <a class="dono" href="/perfil/{{nickname}}" tabindex="0" >
+                <a class="dono" href="/perfil/{{dono}}" tabindex="0" >
                     <h4 class="donoText" tabindex="-1">{{photo?.dono}}</h4>
                     <button class="dropbtn" id="dropbtno" tabindex="-1"><img src="assets/user-profile.png" tabindex="-1"></button>
                 </a>
@@ -48,12 +48,12 @@
             </div>
 
             <!-- BOTAO DE FAVORITO -->
-            <div *ngIf="!tenhoFavorite(photo?.id)" class="botoes" (click)="favoriteInvoke(photo?.id)" (keyup.enter)="favoriteInvoke(photo?.id)" tabindex="0">
+            <div *ngIf="!tenhoFav" class="botoes" (click)="favoriteInvoke(photo?.id)" (keyup.enter)="favoriteInvoke(photo?.id)" tabindex="0">
                 <h4 class="favs" > Favorita </h4>
                 <img id="favorite{{photo?.id}}" src="assets/favourite.png" />
             </div>
 
-            <div *ngIf="tenhoFavorite(photo?.id)" class="botoes" (click)="favoriteInvoke(photo?.id)" (keyup.enter)="favoriteInvoke(photo?.id)" tabindex="0">
+            <div *ngIf="tenhoFav" class="botoes" (click)="favoriteInvoke(photo?.id)" (keyup.enter)="favoriteInvoke(photo?.id)" tabindex="0">
                 <h4 class="favs" > Favorita </h4>
                 <img id="favorite{{photo?.id}}" src="assets/favouriteChecked.png" />
             </div>

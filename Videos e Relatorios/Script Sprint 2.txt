@@ -11,10 +11,10 @@ Vou agora demonstrar as User stories que ficaram para ser feitas durante para o 
 de fotografias em vez de apenas uma singular. Para isso, vou selecionar uma pasta com algumas fotografias e fazer upload para o site. Como se pode ver, aparecem as
 thumbnails das imagens que a pasta continha e agora que já as temos no site podemos submeter. Por default, estas irão com o nome do ficheiro mas caso o utilizador
 pretenda pode escolher um novo nome.
+
 Indo para o feed, poderemos agora fazer like em uma das fotografias que publiquei. Como só temos 2 imagens, uma sem likes e uma com um like, caso eu organize o feed 
-por likes, conseguimos ver as fotografias mais populares e neste caso, aparece a que tem um like depois da sem nenhum. Vou agora trocar e aproveitar para demonstrar que
-conseguimos tirar um like já dado e colocá-lo noutra fotografia. Depois de ter isto feito, volto a organizar o feed pelas fotos mais populares e agora a outra foto
-encontra-se em primeiro lugar.
+por likes, conseguimos ver as fotografias mais populares e neste caso, aparece a que tem um like à frente da que não tem nenhum. Vou agora tirar o like que dei na fotografia
+e colocá-lo na outra. Depois de ter isto feito, volto a organizar o feed pelas fotos mais populares e agora a foto que tem o like encontra-se em primeiro lugar.
 Por ultimo, irei demonstrar a funcionalidade de colocar um favorito numa fotografia, para isso, posso fazê-lo pelo feed ou a partir da página individual de uma das fotografias.
 Agora que marquei esta fotografia como favorita, se for à pagina dos favoritos aparecem todas as fotografias que eu marquei como tal. Agora vou remover o favorito e como
 se pode ver a fotografia deixa de constar nesta página. Por último, case apague as fotografias, estas também desaparecem das respetivas páginas.

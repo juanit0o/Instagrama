@@ -3,13 +3,14 @@
 
 <!-- TITULO -->
 <div class="favorito-body">
-      <div class="topo">
-          <h4 class="titulo"> Os meus </h4>
-          <h1 class="favs"> Favoritos</h1>
-      </div>
+    <div class="topo">
+        <h4 class="titulo"> Os meus </h4>
+        <h1 class="favs"> Favoritos</h1>
+    </div>
 
-      <!-- Caso o cliente corrente ainda tenha fotos favoritas -->
-      <div *ngIf="photosId.length > 0; else elseBlo">
+    <!-- Caso o cliente corrente ainda tenha fotos favoritas -->
+    <div *ngIf="photos.length > 0">
+          
 
         <!-- FOTO FEED -->
         <div class="photosFeed" loading="lazy">
@@ -53,19 +54,17 @@
                 </li>
             </ul>
         </div>
-      </div>
+    </div>
 
-      <!-- Caso o cliente corrente ainda não tenha "favoritado" nenhuma foto -->
-      <ng-template #elseBlo>
+    <!-- Caso o cliente corrente ainda não tenha "favoritado" nenhuma foto -->
 
-        <div class="semFotos" *ngIf="naoTemPhoto">
+    <div class="semFotos" *ngIf="photos.length <= 0">
 
-          <h4> Você ainda não tem fotos favoritas </h4>
-          <h3>
-              <a tabindex="0" class="voltarFeed" href="/feed" > Voltar ao feed </a>
-          </h3>
+        <h4> Você ainda não tem fotos favoritas </h4>
+        <h3>
+            <a tabindex="0" class="voltarFeed" href="/feed" > Voltar ao feed </a>
+        </h3>
 
-        </div>
+    </div>
 
-      </ng-template>
 </div>

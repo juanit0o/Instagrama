@@ -69,6 +69,8 @@ export class FavoritosComponent implements OnInit {
 
         });
 
+    console.log("length: " + this.photos.length);
+
   }
 
   // Obtem as fotos favoritas do cliente corrente

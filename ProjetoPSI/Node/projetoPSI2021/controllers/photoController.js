@@ -1,4 +1,5 @@
 var Photo = require("../models/photo");
+var Favorites = require("../models/favorites");
 const fs = require('fs');
 const path = require('path');
 
@@ -108,6 +109,29 @@ exports.apagaFoto = function(req, res, next){
                                 if(err3) {
                                     console.log(err3);
                                 } else {
+                                    Favorites.find({ 'favoritePhotoIds': idfoto.toString() })
+                                        .exec( async function (err4, resposta){
+                                            
+                                            if (err4) { console.log(err4);
+                                                 next(err4);
+                                            } else {
+                                                console.log(resposta);
+                                                for(let i = 0; i < resposta.length; ++i) {
+                                                    lista = resposta[i].favoritePhotoIds
+                                                    lista.pop(idfoto.toString()) 
+                                                    
+                                                    Favorites.findOneAndUpdate({ 'nickname': resposta.nickname }, { 'favoritePhotoIds' : lista })
+                                                    .exec(async function (err4, resposta2){
+                                                        if (err4) { 
+                                                            console.log(err4);
+                                                            next(err4);
+                                                        }
+                                                    });
+                                                }
+                                                
+                                            }
+
+                                        });
                                     console.log("Apagou fotografia "+fotonome);
                                     res.send(JSON.parse('{"msg":"SUCESSO APAGAR FOTO"}'));
                                 }
