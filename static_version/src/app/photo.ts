@@ -4,6 +4,6 @@ export interface Photo {
     nome: string;
     descricao: string;
     photo: string;
-    likes: [string];
-    favoritos: [string];
+    likes: string[];
+    favoritos: string[];
 }

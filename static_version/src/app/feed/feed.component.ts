@@ -17,6 +17,7 @@ export class FeedComponent implements OnInit {
 
   subscription?: Subscription;
   photos : Photo[];
+  truePhotos : Photo[];
   photosId : string[];
   liked: string[];
   favorited: string[];
@@ -46,6 +47,7 @@ export class FeedComponent implements OnInit {
 
     this.photos = [];
     this.photosId = [];
+    this.truePhotos = [];
 
     this.liked = [];
     this.favorited = [];
@@ -63,7 +65,8 @@ export class FeedComponent implements OnInit {
   //INIT
   ngOnInit(): void {
 
-   this.auth.profile().subscribe(user => {
+    /*
+    this.auth.profile().subscribe(user => {
           this.details = user;
           this.getPhotos();
 
@@ -77,10 +80,57 @@ export class FeedComponent implements OnInit {
         }, (err) => {
 
         });
+        */
+
+    this.truePhotos.push({id: "0",
+      dono: "Francisco",
+      nome: "Demo image 1",
+      descricao: "string",
+      photo: "/assets/samples_photos/img1.jpg",
+      likes: ['Demo', 'Demo1', 'Demo2'],
+      favoritos: ['']});
+
+    this.truePhotos.push({id: "1",
+      dono: "João",
+      nome: "Demo image 2",
+      descricao: "string",
+      photo: "/assets/samples_photos/img2.jpg",
+      likes: ['Demo', 'Demo1', 'Demo2', 'Demo3', 'Demo4'],
+      favoritos: ['']});
+    
+    this.truePhotos.push({id: "2",
+      dono: "Diogo",
+      nome: "Demo image 3",
+      descricao: "string",
+      photo: "/assets/samples_photos/img3.jpg",
+      likes: ['Demo', 'Demo1', 'Demo2', 'Demo3', 'Demo4'],
+      favoritos: ['']});
+
+    this.truePhotos.push({id: "3",
+      dono: "Martim",
+      nome: "Demo image 4",
+      descricao: "string",
+      photo: "/assets/samples_photos/img4.jpg",
+      likes: ['Demo', 'Demo1', 'Demo2', 'Demo3', 'Demo4'],
+      favoritos: ['']});
+
+    this.truePhotos.push({id: "4",
+      dono: "João",
+      nome: "Demo image 5",
+      descricao: "string",
+      photo: "/assets/samples_photos/img5.jpg",
+      likes: ['Demo', 'Demo1', 'Demo2', 'Demo3', 'Demo4'],
+      favoritos: ['']});
+
+
+
+    this.fakeLoading(this.truePhotos);
   }
 
+  /*
   //OBTEM AS FOTOS QUE EXISTEM (POR ORDEM "MAIS RECENTES")
   getPhotos(): void {
+
       this.subscription = this.photoService.getPhotosIdsRecentes().subscribe(response =>
         {
           for(var i = 0; i < response.length; ++i){
@@ -89,7 +139,7 @@ export class FeedComponent implements OnInit {
           this.getPhoto(this.photosId);
         });
   }
-
+  */
 
 
   getPhoto(lista: string[]): void {
@@ -215,6 +265,25 @@ export class FeedComponent implements OnInit {
         break;
     }
   }
+
+  fakeLoading(photoList : Photo[]) : void {
+    
+    this.temFotosPorLoad = true;
+    /*
+    this.photos = [];
+
+    for(var i = 0; i < photoList.length; ++i) {
+      console.log(i)
+      setTimeout(() => {console.log(i)},  1000);
+    }
+    */
+   this.photos = photoList;
+
+
+   this.temFotosPorLoad = false;
+
+  }
+
 
   voltarTopo(): void {
     window.document.body.scrollTop = 0;

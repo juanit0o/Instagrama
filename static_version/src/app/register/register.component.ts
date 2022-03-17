@@ -188,7 +188,9 @@ export class RegisterComponent {
       return;
     }
     
-    
+    this.teste = "Este site é uma versão demo. Não é possivel testar esta funcionalidade.";
+
+    /*
     this.auth.userExists(this.credentials.nickname!).subscribe(res => {
       console.log(res);
       if(res.msg == "EXISTS"){
@@ -198,14 +200,17 @@ export class RegisterComponent {
       }
       this.register();
     });
+    */
   }
   
   register() {
+    /*
     this.auth.register(this.credentials).subscribe(() => {
       this.router.navigateByUrl('/feed');
     }, (err) => {
       console.error(err);
     });
+    */
   }
 
   

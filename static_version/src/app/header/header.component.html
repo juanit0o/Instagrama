@@ -24,13 +24,13 @@
   
     <div *ngIf="auth.getUserDetails()?.nickname">
         <div id ="utilizador">
-            <h2 id="nomeUser">{{ auth.getUserDetails()?.nickname }}</h2>
+            <h2 id="nomeUser">Demo</h2>
             <div class="dropdown">    
                 <button class="dropbtn" id="dropbtno" (keydown.enter)="openMenu()"><img src="assets/user-profile.png"></button>
                 <div #botaoAbrir class="dropdown-content" id = "dropbt"> 
 
                     <a href="/feed" (keydown.shift.tab)="closeOnTab()"><img src="assets/feed.png"> Feed </a>
-                    <a href="/perfil/{{auth.getUserDetails()?.nickname}}"><img src="assets/user-profile.png" class="iconProf" id="prof">  Meu perfil</a>
+                    <a href="/perfil/Demo"><img src="assets/user-profile.png" class="iconProf" id="prof">  Meu perfil</a>
                     <a href="/publicar"><img src="assets/addButton.png"> Adicionar Foto</a>
                     <a href="/favoritos"><img src="assets/favouriteChecked.png"> Meus Favoritos</a>
                     <a href="/definicoes"><img src="assets/settings.png"> Definições</a>

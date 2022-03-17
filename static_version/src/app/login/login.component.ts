@@ -44,6 +44,12 @@ export class LoginComponent {
   }
 
   login() {
+
+    if(this.credentials.nickname === "demo" && this.credentials.password === "demo") {
+      this.router.navigateByUrl('/feed');
+    }
+
+    /*
     this.auth.login(this.credentials).subscribe(() => {
       this.photoService.getDonosFotos(this.credentials.nickname!).subscribe(out => {
         if(out.length > 0){
@@ -56,6 +62,8 @@ export class LoginComponent {
       console.error(err);
       this.error = "Password ou nickname incorretos";
     }); 
-  }
+    */
 
+  }
+  
 }
