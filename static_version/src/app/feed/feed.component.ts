@@ -37,7 +37,7 @@ export class FeedComponent implements OnInit {
     let perfEntries : any;
     perfEntries = performance.getEntriesByType("navigation");
     if (perfEntries[0].type === "back_forward") {
-      location.reload(true);
+      location.reload();
     }
 
     this.details = {_id: "",
@@ -64,23 +64,6 @@ export class FeedComponent implements OnInit {
 
   //INIT
   ngOnInit(): void {
-
-    /*
-    this.auth.profile().subscribe(user => {
-          this.details = user;
-          this.getPhotos();
-
-          // Obter fotos favoritas do cliente corrente
-          this.subscription = this.photoService.getPhotosFavourited(this.details.nickname).subscribe(response =>
-            {
-              for(var i = 0; i < response.length; ++i){
-                this.favorited.push(response[i]);
-              }
-            });
-        }, (err) => {
-
-        });
-        */
 
     this.truePhotos.push({id: "0",
       dono: "Francisco",
@@ -112,7 +95,8 @@ export class FeedComponent implements OnInit {
       descricao: "string",
       photo: "/assets/samples_photos/img4.jpg",
       likes: ['Demo', 'Demo1', 'Demo2', 'Demo3', 'Demo4'],
-      favoritos: ['']});
+      favoritos: ['Demo']});
+   
 
     this.truePhotos.push({id: "4",
       dono: "João",
@@ -123,24 +107,10 @@ export class FeedComponent implements OnInit {
       favoritos: ['']});
 
 
-
     this.fakeLoading(this.truePhotos);
+
+    //this.favoriteInvoke("3");
   }
-
-  /*
-  //OBTEM AS FOTOS QUE EXISTEM (POR ORDEM "MAIS RECENTES")
-  getPhotos(): void {
-
-      this.subscription = this.photoService.getPhotosIdsRecentes().subscribe(response =>
-        {
-          for(var i = 0; i < response.length; ++i){
-            this.photosId.push(response[i].id);
-          }
-          this.getPhoto(this.photosId);
-        });
-  }
-  */
-
 
   getPhoto(lista: string[]): void {
     if(lista.length > 0){
@@ -200,10 +170,7 @@ export class FeedComponent implements OnInit {
    * @returns True caso seja foto favorita do cliente corrente
    */
   tenhoFavorite(id: string) : boolean {
-    if(this.favorited.includes(id))
-      return true;
-    else
-      return false;
+    return this.favorited.includes(id);
   }
 
 
@@ -214,15 +181,15 @@ export class FeedComponent implements OnInit {
       if (index > -1) {
         this.favorited.splice(index, 1);
       }
-      this.photoService.removeFavoriteToPhoto(id, this.details.nickname).subscribe(output => {
-        console.log(output);
-      });
+      //this.photoService.removeFavoriteToPhoto(id, this.details.nickname).subscribe(output => {
+      //  console.log(output);
+      //});
     } else {
       window.document.getElementById("favorite"+id)!.setAttribute('src',"assets/favouriteChecked.png");
       this.favorited.push(id);
-      this.photoService.addFavoriteToPhoto(id, this.details.nickname).subscribe(output => {
-        console.log(output);
-      });
+      //this.photoService.addFavoriteToPhoto(id, this.details.nickname).subscribe(output => {
+      //  console.log(output);
+      //});
     }
 
   }

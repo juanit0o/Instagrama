@@ -150,6 +150,10 @@ export class RegisterComponent {
 
   //REGISTAR O UTILIZADOR
   registar(): void {
+
+    this.nicknameRegister();
+    this.passwordRegister();
+
     this.teste = "";
     //NICK TEM DE TER PELO MENOS 3 CARACTERS
     if(!this.credentials.nickname || this.credentials.nickname.length < 3){
@@ -190,28 +194,6 @@ export class RegisterComponent {
     
     this.teste = "Este site é uma versão demo. Não é possivel testar esta funcionalidade.";
 
-    /*
-    this.auth.userExists(this.credentials.nickname!).subscribe(res => {
-      console.log(res);
-      if(res.msg == "EXISTS"){
-        this.erroRegistar="";
-        this.teste = "Nickname já existe!";
-        return;
-      }
-      this.register();
-    });
-    */
-  }
-  
-  register() {
-    /*
-    this.auth.register(this.credentials).subscribe(() => {
-      this.router.navigateByUrl('/feed');
-    }, (err) => {
-      console.error(err);
-    });
-    */
   }
 
-  
 }

@@ -8,6 +8,13 @@
     margin-right: auto;
 }
 
+.notAvailableText {
+    text-align: right;
+    color: red;
+    font-size: 0.8em;
+    font-weight: normal;
+}
+
 .photoList {
     display: grid;
     grid-template-columns: repeat(auto-fill, 250px);

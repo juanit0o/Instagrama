@@ -44,12 +44,17 @@
 
 
 
-h2{
+h2, h3{
     font-family: 'Century Gothic', Arial, Helvetica, sans-serif;
     font-size: 0.8rem;
     font-weight: lighter;
     text-align: center;
     margin-top: 1.5rem;
+}
+
+h3 {
+    color: red;
+    font-weight: normal;
 }
 
 #tituloPagina{

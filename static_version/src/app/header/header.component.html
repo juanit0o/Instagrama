@@ -22,7 +22,7 @@
  
     -->
   
-    <div *ngIf="auth.getUserDetails()?.nickname">
+    <div>
         <div id ="utilizador">
             <h2 id="nomeUser">Demo</h2>
             <div class="dropdown">    
@@ -34,15 +34,13 @@
                     <a href="/publicar"><img src="assets/addButton.png"> Adicionar Foto</a>
                     <a href="/favoritos"><img src="assets/favouriteChecked.png"> Meus Favoritos</a>
                     <a href="/definicoes"><img src="assets/settings.png"> Definições</a>
-                    <a href="#" (click)="auth.logout()" (keydown.tab)="closeOnTab()"><img src="assets/logout.png"> Terminar Sessão</a>
+                    <a href="#"><img src="assets/logout.png"> Terminar Sessão</a>
                 </div>
             </div>
         
         </div>
     </div>
-    <div *ngIf="!auth.getUserDetails()?.nickname" class="notlogged">
-        <h2 class="nologin"> <a href="/" id= "removeUnderline"> Iniciar sessão</a> </h2>
-    </div>
+
 
 
 </div>
